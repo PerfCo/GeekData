@@ -14,7 +14,7 @@ namespace Github.Crawler
 
         static void Main()
         {
-            _logger.Info("StackOverflow.Crawler is running...");
+            _logger.Info("Github.Crawler is running...");
 
             var searchValue = "";
             var language = "csharp";

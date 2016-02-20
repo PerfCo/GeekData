@@ -6,6 +6,7 @@ namespace DataGenerator.Entities
 {
     public sealed class CourseEntity
     {
+        public static string Empty => ",,,";
         public ObjectId Id { get; set; }
         public string Name { get; set; }
         public List<string> Tags { get; set; }
