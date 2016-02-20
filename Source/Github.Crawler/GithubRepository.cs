@@ -8,8 +8,6 @@ namespace Github.Crawler
 {
     public sealed class GithubRepository : Repository
     {
-        private const string CollectionName = "GithubRepositories";
-
         public GithubRepository(ConnectionFactory connectionFactory) : base(connectionFactory)
         {
         }
@@ -18,7 +16,7 @@ namespace Github.Crawler
         {
             var entity = TinyMapper.Map<RepositoryInfoEntity>(value);
             entity.Id = ObjectId.GenerateNewId();
-            GetCollection<RepositoryInfoEntity>(CollectionName).InsertOneAsync(entity).Wait();
+            GetCollection<RepositoryInfoEntity>(MongoCollection.GithubRepositories).InsertOneAsync(entity).Wait();
         }
     }
 }

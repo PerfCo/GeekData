@@ -8,7 +8,6 @@ namespace StackOverflow.Crawler
 {
     public sealed class UserRepository : Repository
     {
-        private const string CollectionName = "StackOverflowUsers";
 
         public UserRepository(ConnectionFactory connectionFactory) : base(connectionFactory)
         {
@@ -18,7 +17,7 @@ namespace StackOverflow.Crawler
         {
             var entity = TinyMapper.Map<UserEntity>(value);
             entity.Id = ObjectId.GenerateNewId();
-            GetCollection<UserEntity>(CollectionName).InsertOneAsync(entity).Wait();
+            GetCollection<UserEntity>(MongoCollection.StackOverflowUsers).InsertOneAsync(entity).Wait();
         }
     }
 }

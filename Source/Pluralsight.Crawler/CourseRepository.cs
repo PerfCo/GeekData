@@ -8,8 +8,6 @@ namespace Pluralsight.Crawler
 {
     public sealed class CourseRepository : Repository
     {
-        private const string CollectionName = "PluralsightCourses";
-
         public CourseRepository(ConnectionFactory connectionFactory) : base(connectionFactory)
         {
         }
@@ -18,7 +16,7 @@ namespace Pluralsight.Crawler
         {
             var entity = TinyMapper.Map<CourseEntity>(value);
             entity.Id = ObjectId.GenerateNewId();
-            GetCollection<CourseEntity>(CollectionName).InsertOneAsync(entity).Wait();
+            GetCollection<CourseEntity>(MongoCollection.PluralsightCourses).InsertOneAsync(entity).Wait();
         }
     }
 }
