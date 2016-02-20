@@ -216,6 +216,7 @@
       <DependentUpon>Types.tt</DependentUpon>
     </Compile>
     <Compile Include="Comments\Sort.cs" />
+    <Compile Include="EnumExtensions.cs" />
     <Compile Include="Events\EventType.cs" />
     <Compile Include="Exceptions\StackExchangeApiException.cs" />
     <Compile Include="Filters.BuiltIn.cs" />

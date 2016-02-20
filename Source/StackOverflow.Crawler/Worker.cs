@@ -13,7 +13,7 @@ namespace StackOverflow.Crawler
     public sealed class Worker
     {
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
-        private readonly StacManClient _client = new StacManClient("tXK73MbOGYDFm1cSHZHbYg((", "2.2");
+        private readonly StacManClient _client = new StacManClient("5V7w5ZvpvwW5mQpG6imR3w((", "2.2");
 
         public List<StackOverflowUser> GetTopUsers(string tag)
         {

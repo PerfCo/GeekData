@@ -217,7 +217,7 @@ namespace StackExchange.StacMan
             ValidateString(tag, "tag");
             ValidatePaging(page, pagesize);
 
-            var ub = new ApiUrlBuilder(Version, String.Format("/tags/{0}/top-answerers/{1}", tag, period), useHttps: false);
+            var ub = new ApiUrlBuilder(Version, String.Format("/tags/{0}/top-answerers/{1}", tag, period.ToDescription()), useHttps: false);
 
             ub.AddParameter("site", site);
             ub.AddParameter("filter", filter);
