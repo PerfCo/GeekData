@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeekData</title>
+
+    <link href="vendor/bootstrap/bootstrap-3.3.6.min.css" rel="stylesheet">
+    <link href="vendor/font-awesome/font-awesome-4.5.0.min.css" rel="stylesheet">
+
+    <link href="css/style.css#v=1" rel="stylesheet">
+</head>
+
+<body class="full">
+    <nav id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        
+        <div class="navbar-header">
+            <a id="site-name" class="navbar-brand" href="/">GeekData</a>
+        </div>
+        
+        <div class="collapse navbar-collapse" id="main-navbar">
+            <ul class="nav navbar-nav">
+                <li>
+                    <form id="highlight-node" class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input class="form-control typeahead" type="text" placeholder="Search">
+                            <i id="search-reset" class="fa fa-times-circle"></i>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="vis" class="sigma-parent">
+        <div id="loading">Loading the data may take a while, please be patient...</div>
+        <div id="sig" class="sigma-expand"></div>
+    </div>
+
+    <div id="nodeinfo" class="panel panel-info">
+        <div class="panel-heading">
+            <button type="button" class="close">&times;</button>
+            <h2></h2>
+        </div>
+        <div class="panel-body"></div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-default">Close</button>
+        </div>
+    </div>
+    
+    <script src="js/event-handler.js"></script>
+
+    <script type="text/javascript">
+        var gexf = 'data/data.json.js';
+    </script>
+
+    <script src="data/data.json.js"></script>
+
+    <script src="vendor/jquery/jquery-2.2.0.min.js"></script>
+    <script src="vendor/bootstrap/bootstrap-3.3.6.min.js"></script>
+
+    <script src="vendor/sigma/sigma.min.js"></script>
+    <script src="vendor/sigma/sigma.parseJson.js"></script>
+
+    <script src="vendor/twitter/typeahead.bundle.min.js"></script>
+
+    <script src="js/gexf-visualization.js"></script>
+
+    <script src="js/container-init.js#v=1"></script>
+      
+    <script src="js/nodes-visualisation.js#v=1"></script>
+</body>
+</html>
