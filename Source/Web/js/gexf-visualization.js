@@ -48,10 +48,17 @@ var visgexf = {
             if (callback) callback();
             $('#loading').hide();
         });
+
         visgexf.sig.bind('upnodes', function(event){
+            console.log(event)
             hnode = visgexf.sig.getNodes(event.content)[0];
+            if(document.location.hash.replace(/#/i, '') == hnode.attr.label) {
+                visgexf.resetSearch();
+                return;
+            }
             document.location.hash = hnode.attr.label;
         });
+
         return visgexf;
     },
 
@@ -286,16 +293,15 @@ var visgexf = {
     resetFilter: function() {
         visgexf.activeFilterId = null;
         visgexf.activeFilterVal = null;
-        $('.graphfilter li').removeClass('active');
+        //$('.graphfilter li').removeClass('active');
         visgexf.resetNodes();
     },
 
-    // FIXME avoid code duplication
     reset: function() {
         visgexf.activeFilterId = null;
         visgexf.activeFilterVal = null;
         visgexf.searchInput.val('');
-        $('.graphfilter li').removeClass('active');
+        //$('.graphfilter li').removeClass('active');
         visgexf.resetNodes();
         dialog.hide();
     }
