@@ -13,8 +13,8 @@ namespace Github.Crawler
     {
         private const int ItemsPerPage = 100; //100 - max page size
         private const int ItemsTotal = 100; //1000 - max search results from github
-        private const string Login = "firealkazar";
-        private const string Password = "git_vs_svn1";
+        private const string Login = "bloop-bot";
+        private const string Password = "hackhack12";
         private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
 
         public List<GithubRepositoryInfo> GetRepositories(string searchValue, string language)
