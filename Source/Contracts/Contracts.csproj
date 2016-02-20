@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Github\GithubRepositoryInfo.cs" />
     <Compile Include="Pluralsight\PluralsightCourse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StackOverflow\BadgeCounts.cs" />
