@@ -8,7 +8,7 @@ namespace DataGenerator.Entities
     {
         public string Description { get; set; }
 
-        public static string Empty => ",,,,";
+        public static string Empty => ";;;;";
         public string HtmlUrl { get; set; }
         public ObjectId Id { get; set; }
         public string StargazersCount { get; set; }
@@ -23,7 +23,7 @@ namespace DataGenerator.Entities
 
         public override string ToString()
         {
-            return $"{Description}, {HtmlUrl}, {Id}, {StargazersCount}, {Tags}";
+            return $"{Description}; {HtmlUrl}; {Id}; {StargazersCount}; {Tags}";
         }
     }
 }

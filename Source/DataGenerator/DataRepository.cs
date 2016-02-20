@@ -19,7 +19,7 @@ namespace DataGenerator
 
         public DataRepository(ConnectionFactory connectionFactory) : base(connectionFactory)
         {
-            File.WriteAllText(NodeFile, ResultRow.Caption);
+            File.WriteAllLines(NodeFile,  new[] { ResultRow.Caption, string.Empty });
         }
 
         public void Test(string tag)
@@ -110,7 +110,7 @@ namespace DataGenerator
                     columns.AddRange(RepositoryInfoEntity.Captions());
                     columns.AddRange(CourseEntity.Captions());
                     columns.AddRange(UserEntity.Captions());
-                    return string.Join(",", columns);
+                    return string.Join(";", columns);
                 }
             }
 
@@ -121,18 +121,18 @@ namespace DataGenerator
             public List<string> Nodes()
             {
                 var result = new List<string>();
-                while (GithubRepositories.IsNotEmpty() && PluralsightCourses.IsNotEmpty() && StackOverflowUsers.IsNotEmpty())
+                while (GithubRepositories.IsNotEmpty() || PluralsightCourses.IsNotEmpty() || StackOverflowUsers.IsNotEmpty())
                 {
                     RepositoryInfoEntity repository = GithubRepositories.TakeFirst();
                     string repositoryValue = repository.IsNull() ? RepositoryInfoEntity.Empty : repository.ToString();
 
                     CourseEntity course = PluralsightCourses.TakeFirst();
-                    string courseValue = repository.IsNull() ? CourseEntity.Empty : course.ToString();
+                    string courseValue = course.IsNull() ? CourseEntity.Empty : course.ToString();
 
                     UserEntity user = StackOverflowUsers.TakeFirst();
-                    string userValue = repository.IsNull() ? UserEntity.Empty : user.ToString();
+                    string userValue = user.IsNull() ? UserEntity.Empty : user.ToString();
 
-                    result.Add($"{repositoryValue}, {courseValue}, {userValue}");
+                    result.Add($"{repositoryValue}; {courseValue}; {userValue}");
                 }
 
                 return result;

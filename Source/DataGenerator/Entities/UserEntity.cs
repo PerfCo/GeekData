@@ -11,7 +11,7 @@ namespace DataGenerator.Entities
         public BadgeCounts BadgeCounts { get; set; }
         public string DisplayName { get; set; }
 
-        public static string Empty => ",,,,,,";
+        public static string Empty => ";;;;;;";
         public ObjectId Id { get; set; }
         public string ProfileImage { get; set; }
         public string ProfileUrl { get; set; }
@@ -26,7 +26,7 @@ namespace DataGenerator.Entities
 
         public override string ToString()
         {
-            return $"{AccountId}, {BadgeCounts}, {DisplayName}, {Id}, {ProfileImage}, {ProfileUrl}, {Tags}";
+            return $"{AccountId}; {BadgeCounts}; {DisplayName}; {Id}; {ProfileImage}; {ProfileUrl}; {Tags}";
         }
     }
 }

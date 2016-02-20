@@ -6,7 +6,7 @@ namespace DataGenerator.Entities
 {
     public sealed class CourseEntity
     {
-        public static string Empty => ",,,";
+        public static string Empty => ";;;";
         public ObjectId Id { get; set; }
         public string Name { get; set; }
         public List<string> Tags { get; set; }
@@ -21,7 +21,7 @@ namespace DataGenerator.Entities
 
         public override string ToString()
         {
-            return $"{Id}, {Name}, {Tags}, {Url}";
+            return $"{Id}; {Name}; {Tags}; {Url}";
         }
     }
 }
