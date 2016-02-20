@@ -92,7 +92,7 @@ var data = { "nodes" : [{
             "color" : "#be1fd1",
             "label" : "Libs",
             "attributes" : {
-                "Modularity Class" : "5"
+                "Modularity Class" : "5",
             },
             "y" : -428.4959,
             "x" : -2393.598,
@@ -143,7 +143,7 @@ var data = { "nodes" : [{
             "y" : -916.86316,
             "x" : -2172.3761,
             "id" : "/en/epigram_programming_language",
-            "size" : 5.571429
+            "size" : 5
         }, {
             "color" : "#441fd1",
             "label" : "Visual Basic",
@@ -336,24 +336,29 @@ var data = { "nodes" : [{
             "targetID" : "/en/gambas",
             "size" : 1
         }, {
-            "sourceID" : "/en/javascript",
+            "sourceID" : "/en/processing",
             "attributes" : {},
-            "targetID" : "/en/processing",
+            "targetID" : "/en/javascript",
+            "size" : 1
+        }, {
+            "sourceID" : "/en/php",
+            "attributes" : {},
+            "targetID" : "/en/javascript",
             "size" : 1
         }, {
             "sourceID" : "/en/javascript",
             "attributes" : {},
-            "targetID" : "/en/php",
+            "targetID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
+            "size" : 1
+        }, {
+            "sourceID" : "/wikipedia/bg_id/86164",
+            "attributes" : {},
+            "targetID" : "/en/javascript",
             "size" : 1
         }, {
             "sourceID" : "/en/vbscript",
             "attributes" : {},
             "targetID" : "/en/scala_programming_language",
-            "size" : 1
-        }, {
-            "sourceID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
-            "attributes" : {},
-            "targetID" : "/en/javascript",
             "size" : 1
         }, {
             "sourceID" : "/en/sed",
@@ -409,11 +414,6 @@ var data = { "nodes" : [{
             "sourceID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
             "attributes" : {},
             "targetID" : "/en/vbscript",
-            "size" : 1
-        }, {
-            "sourceID" : "/en/javascript",
-            "attributes" : {},
-            "targetID" : "/wikipedia/bg_id/86164",
             "size" : 1
         }, {
             "sourceID" : "/en/basic",
