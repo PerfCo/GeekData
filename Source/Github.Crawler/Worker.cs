@@ -12,7 +12,7 @@ namespace Github.Crawler
     public sealed class Worker
     {
         private const int ItemsPerPage = 100; //100 - max page size
-        private const int ItemsTotal = 1000; //1000 - max search results from github
+        private const int ItemsTotal = 100; //1000 - max search results from github
         private const string Login = "firealkazar";
         private const string Password = "git_vs_svn1";
         private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
@@ -41,10 +41,10 @@ namespace Github.Crawler
 
         private static void FillReadme(List<GithubRepositoryInfo> repositories)
         {
-            var restClient = new RestClient(@"https://api.github.com/repos");
-
-            //limit for authed user - 5000 request per hour, unauthed - 60 per hour
-            //restClient.Authenticator = new HttpBasicAuthenticator("firealkazar", "");
+            var restClient = new RestClient(@"https://api.github.com/repos")
+            {
+                Authenticator = new HttpBasicAuthenticator(Login, Password)
+            };
 
             foreach (GithubRepositoryInfo repository in repositories)
             {
