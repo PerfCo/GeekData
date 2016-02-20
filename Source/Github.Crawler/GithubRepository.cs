@@ -16,6 +16,10 @@ namespace Github.Crawler
         {
             var entity = TinyMapper.Map<RepositoryInfoEntity>(value);
             entity.Id = ObjectId.GenerateNewId();
+            if (!string.IsNullOrWhiteSpace(value.Language))
+            {
+                entity.Tags.Add(value.Language);
+            }
             GetCollection<RepositoryInfoEntity>(MongoCollection.GithubRepositories).InsertOneAsync(entity).Wait();
         }
     }

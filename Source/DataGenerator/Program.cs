@@ -10,7 +10,7 @@ namespace DataGenerator
         static void Main(string[] args)
         {
             var repository = new DataRepository(_connectionFactory);
-//            repository.
+            repository.Test("C#");
         }
     }
 }

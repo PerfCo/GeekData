@@ -63,7 +63,7 @@ namespace Github.Crawler
                 }
                 else if (response.StatusCode == HttpStatusCode.Forbidden)
                 {
-                    _logger.Warn($"API rate limit exceeded, continue in an hour or change credentials");
+                    _logger.Warn("API rate limit exceeded, continue in an hour or change credentials");
                     break;
                 }
                 else
