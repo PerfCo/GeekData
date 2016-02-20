@@ -4,10 +4,10 @@ var data = { "nodes" : [{
             "attributes" : {
                 "Modularity Class" : "0"
             },
-            "y" : 1088.009,
-            "x" : -1266.1632,
+            "y" : -1016.86316,
+            "x" : -2572.3761,
             "id" : "/en/b_a_l",
-            "size" : 2.0
+            "size" : 5
         }, {
             "color" : "#d11f3d",
             "label" : "Frink",
@@ -16,10 +16,10 @@ var data = { "nodes" : [{
                 "paradigms" : "Procedural programming|Functional programming|Object-oriented programming|Imperative programming",
                 "influencedby" : "BASIC|Perl|Ruby|Smalltalk|Java"
             },
-            "y" : -182.5533,
-            "x" : 34.357933,
+            "y" : 518.6559,
+            "x" : -742.0327,
             "id" : "/en/frink",
-            "size" : 2.0
+            "size" : 5
         }, {
             "color" : "#d1231f",
             "label" : "Java",
@@ -34,26 +34,16 @@ var data = { "nodes" : [{
             "id" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
             "size" : 68.07143
         }, {
-            "color" : "#d13a1f",
-            "label" : "Web Language",
-            "attributes" : {
-                "Modularity Class" : "2"
-            },
-            "y" : -1011.2814,
-            "x" : 1377.4043,
-            "id" : "/en/web_language",
-            "size" : 2.0
-        }, {
             "color" : "#d11f31",
             "label" : "Bigloo",
             "attributes" : {
                 "Modularity Class" : "3",
                 "paradigms" : "Functional programming|Object-oriented programming"
             },
-            "y" : 1523.2483,
+            "y" : 1323.2483,
             "x" : -1090.2911,
             "id" : "/en/bigloo",
-            "size" : 2.0
+            "size" : 5
         }, {
             "color" : "#d11fa5",
             "label" : "sed",
@@ -62,20 +52,30 @@ var data = { "nodes" : [{
                 "Modularity Class" : "270",
                 "paradigms" : "Procedural programming"
             },
-            "y" : -716.86316,
-            "x" : 1172.3761,
+            "y" : -1016.86316,
+            "x" : -1172.3761,
             "id" : "/en/sed",
-            "size" : 7.357143
+            "size" : 5
         }, {
             "color" : "#d17f1f",
             "label" : "IMTEK Mathematica Supplement",
             "attributes" : {
                 "Modularity Class" : "4"
             },
-            "y" : -1498.965,
+            "y" : -1098.965,
             "x" : -1415.2374,
             "id" : "/en/imtek_mathematica_supplement",
-            "size" : 2.0
+            "size" : 5
+        }, {
+            "color" : "#2fd11f",
+            "label" : "Dasl",
+            "attributes" : {
+                "Modularity Class" : "6"
+            },
+            "y" : 491.08804,
+            "x" : -2010.1836,
+            "id" : "/en/dasl_programming_language",
+            "size" : 68
         }, {
             "color" : "#2fd11f",
             "label" : "Escher",
@@ -87,32 +87,20 @@ var data = { "nodes" : [{
             "y" : 818.6559,
             "x" : -642.0327,
             "id" : "/en/escher",
-            "size" : 2.0
-        }, {
-            "color" : "#441fd1",
-            "label" : "Visual Basic .NET",
-            "attributes" : {
-                "Modularity Class" : "171",
-                "paradigms" : "Object-oriented programming|Structured programming|Imperative programming|Declarative programming",
-                "influencedby" : "BASIC|Visual Basic|Haskell|F#"
-            },
-            "y" : 1230.7151,
-            "x" : 111.30231,
-            "id" : "/en/visual_basic_net",
-            "size" : 2.0
+            "size" : 5.0
         }, {
             "color" : "#be1fd1",
-            "label" : "eZ Template language",
+            "label" : "Libs",
             "attributes" : {
                 "Modularity Class" : "5"
             },
-            "y" : -828.4959,
-            "x" : 832.3938,
+            "y" : -428.4959,
+            "x" : -2393.598,
             "id" : "/en/ez_template_language",
-            "size" : 2.0
+            "size" : 35
         }, {
             "color" : "#441fd1",
-            "label" : "VBScript",
+            "label" : "People",
             "attributes" : {
                 "influenced" : "Windows PowerShell",
                 "Modularity Class" : "171",
@@ -122,39 +110,7 @@ var data = { "nodes" : [{
             "y" : 495.03793,
             "x" : 288.73856,
             "id" : "/en/vbscript",
-            "size" : 3.7857144
-        }, {
-            "color" : "#d11f21",
-            "label" : "DASL",
-            "attributes" : {
-                "Modularity Class" : "6"
-            },
-            "y" : 491.08804,
-            "x" : -2010.1836,
-            "id" : "/en/dasl_programming_language",
-            "size" : 2.0
-        }, {
-            "color" : "#d11f3c",
-            "label" : "XyMTeX",
-            "attributes" : {
-                "Modularity Class" : "7"
-            },
-            "y" : -849.26086,
-            "x" : 1426.5327,
-            "id" : "/en/xymtex",
-            "size" : 2.0
-        }, {
-            "color" : "#d11f40",
-            "label" : "Karel++",
-            "attributes" : {
-                "Modularity Class" : "352",
-                "paradigms" : "Object-oriented programming",
-                "influencedby" : "Karel"
-            },
-            "y" : 870.57025,
-            "x" : 1142.0449,
-            "id" : "/en/karelplusplus",
-            "size" : 2.0
+            "size" : 35
         }, {
             "color" : "#b5d11f",
             "label" : "OBJ2",
@@ -164,38 +120,17 @@ var data = { "nodes" : [{
             "y" : -928.99695,
             "x" : -950.64777,
             "id" : "/en/obj2",
-            "size" : 2.0
-        }, {
-            "color" : "#8d1fd1",
-            "label" : "OBJ3",
-            "attributes" : {
-                "Modularity Class" : "9"
-            },
-            "y" : 906.62994,
-            "x" : 1125.3057,
-            "id" : "/en/obj3",
-            "size" : 2.0
+            "size" : 5
         }, {
             "color" : "#7ad11f",
             "label" : "ABCL/R",
             "attributes" : {
                 "Modularity Class" : "10"
             },
-            "y" : 834.286,
+            "y" : 1034.286,
             "x" : -466.06784,
             "id" : "/en/abcl_r",
-            "size" : 2.0
-        }, {
-            "color" : "#d11fbc",
-            "label" : "Extensible ML",
-            "attributes" : {
-                "Modularity Class" : "11",
-                "paradigms" : "Object-oriented programming"
-            },
-            "y" : 1513.1989,
-            "x" : 1268.6702,
-            "id" : "/en/extensible_ml",
-            "size" : 2.0
+            "size" : 5
         }, {
             "color" : "#2fd11f",
             "label" : "Epigram",
@@ -205,8 +140,8 @@ var data = { "nodes" : [{
                 "paradigms" : "Functional programming",
                 "influencedby" : "Haskell|Algebraic Logic Functional programming language"
             },
-            "y" : 1629.777,
-            "x" : -149.96234,
+            "y" : -916.86316,
+            "x" : -2172.3761,
             "id" : "/en/epigram_programming_language",
             "size" : 5.571429
         }, {
@@ -218,13 +153,13 @@ var data = { "nodes" : [{
                 "paradigms" : "Object-oriented programming",
                 "influencedby" : "BASIC|QuickBASIC"
             },
-            "y" : 1130.1993,
+            "y" : 130.1993,
             "x" : 747.00433,
             "id" : "/en/visual_basic",
-            "size" : 9.142858
+            "size" : 5
         }, {
             "color" : "#d11f3d",
-            "label" : "Perl",
+            "label" : "People",
             "attributes" : {
                 "influenced" : "Ruby|PHP|Python|JavaScript|ECMAScript|Windows PowerShell|Dao Language|Groovy|Frink|LPC|Perl 6|BeanShell|Sleep programming language|Judoscript|Aikido Programming Language|MIVA Script|Falcon|Haskell|CoffeeScript",
                 "Modularity Class" : "286",
@@ -232,20 +167,20 @@ var data = { "nodes" : [{
                 "influencedby" : "C|AWK|sed|Lisp|BASIC|Pascal|Unix shell|C++|Smalltalk|Python"
             },
             "y" : -539.80023,
-            "x" : 1153.1174,
+            "x" : -1342.26462,
             "id" : "/en/perl",
             "size" : 35.92857
         }, {
             "color" : "#441fd1",
-            "label" : "BASIC",
+            "label" : "Cources",
             "attributes" : {
                 "influenced" : "BBC BASIC|Syp Script|Perl|Rexx|GRASS|COMAL|Visual Basic .NET|Realbasic|Visual Basic|DIBOL|Frink|Aikido Programming Language|NetRexx|PureBasic|AutoIt|Object REXX|Hot Soup Processor|Game Maker Language|BAIL",
                 "Modularity Class" : "171",
                 "paradigms" : "Procedural programming|Structured programming",
                 "influencedby" : "ALGOL|Fortran|JOSS|Speedcoding"
             },
-            "y" : 1001.16266,
-            "x" : -142.26462,
+            "y" : 801.16266,
+            "x" : -1142.26462,
             "id" : "/en/basic",
             "size" : 35.92857
         }, {
@@ -260,7 +195,7 @@ var data = { "nodes" : [{
             "y" : -993.44226,
             "x" : 646.8928,
             "id" : "/wikipedia/bg_id/86164",
-            "size" : 32.357143
+            "size" : 5
         }, {
             "color" : "#d1231f",
             "label" : "QUILL",
@@ -272,7 +207,7 @@ var data = { "nodes" : [{
             "y" : 241.97334,
             "x" : 1223.0891,
             "id" : "/wikipedia/en_title/QUILL",
-            "size" : 2.0
+            "size" : 5
         }, {
             "color" : "#d1231f",
             "label" : "Generic Java",
@@ -283,12 +218,12 @@ var data = { "nodes" : [{
                 "influencedby" : "Haskell|Pizza|Java"
             },
             "y" : 270.62488,
-            "x" : 429.85342,
+            "x" : 229.85342,
             "id" : "/en/generic_java_programming_language",
-            "size" : 3.7857144
+            "size" : 5
         }, {
-            "color" : "#d1231f",
-            "label" : "MIVA Script",
+            "color" : "#2fd11f",
+            "label" : "Cources",
             "attributes" : {
                 "Modularity Class" : "1",
                 "paradigms" : "Imperative programming",
@@ -297,9 +232,9 @@ var data = { "nodes" : [{
             "y" : -216.42426,
             "x" : 782.17126,
             "id" : "/en/mivascript",
-            "size" : 2.0
+            "size" : 35
         }, {
-            "color" : "#d1231f",
+            "color" : "#441fd1",
             "label" : "D",
             "attributes" : {
                 "influenced" : "MiniD|Vala",
@@ -318,22 +253,22 @@ var data = { "nodes" : [{
                 "Modularity Class" : "171",
                 "influencedby" : "Visual Basic|Java"
             },
-            "y" : 966.4402,
+            "y" : 766.4402,
             "x" : 509.1045,
             "id" : "/en/gambas",
-            "size" : 2.0
+            "size" : 5
         }, {
-            "color" : "#d11f40",
+            "color" : "#2fd11f",
             "label" : "Processing",
             "attributes" : {
                 "Modularity Class" : "352",
                 "paradigms" : "Object-oriented programming",
                 "influencedby" : "Design By Numbers|PostScript|C|Logo|Java"
             },
-            "y" : -1115.0654,
-            "x" : -228.72691,
+            "y" : -915.0654,
+            "x" : -28.72691,
             "id" : "/en/processing",
-            "size" : 2.0
+            "size" : 5
         }, {
             "color" : "#d11f3d",
             "label" : "PHP",
@@ -346,7 +281,7 @@ var data = { "nodes" : [{
             "y" : -484.2295,
             "x" : 794.9593,
             "id" : "/en/php",
-            "size" : 5.571429
+            "size" : 5
         }, {
             "color" : "#d1231f",
             "label" : "Scala",
@@ -359,10 +294,10 @@ var data = { "nodes" : [{
             "y" : 624.539,
             "x" : 102.88991,
             "id" : "/en/scala_programming_language",
-            "size" : 5.571429
+            "size" : 5
         }, {
             "color" : "#d11f3d",
-            "label" : "JavaScript",
+            "label" : "Libs",
             "attributes" : {
                 "influenced" : "mjt|ActionScript|Aikido Programming Language|Objective-J|DECLAN Pro|Squirrel|Script.NET|Curl|JScript|JScript .NET|Perl 6|CoffeeScript",
                 "Modularity Class" : "286",
@@ -372,43 +307,18 @@ var data = { "nodes" : [{
             "y" : -580.98474,
             "x" : 451.1847,
             "id" : "/en/javascript",
-            "size" : 23.428572
+            "size" : 35
         }, 
     ],
     "edges" : [ {
-            "sourceID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
-            "attributes" : {},
-            "targetID" : "/en/frink",
-            "size" : 1
-        }, {
-            "sourceID" : "/en/perl",
-            "attributes" : {},
-            "targetID" : "/en/frink",
-            "size" : 1
-        }, {
             "sourceID" : "/en/basic",
             "attributes" : {},
             "targetID" : "/en/frink",
             "size" : 1
         }, {
-            "sourceID" : "/wikipedia/bg_id/86164",
-            "attributes" : {},
-            "targetID" : "/en/frink",
-            "size" : 1
-        }, {
-            "sourceID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
-            "attributes" : {},
-            "targetID" : "/en/frink",
-            "size" : 1
-        }, {
-            "sourceID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
+            "sourceID" : "/en/mivascript",
             "attributes" : {},
             "targetID" : "/wikipedia/en_title/QUILL",
-            "size" : 1
-        }, {
-            "sourceID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
-            "attributes" : {},
-            "targetID" : "/en/generic_java_programming_language",
             "size" : 1
         }, {
             "sourceID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
@@ -416,27 +326,27 @@ var data = { "nodes" : [{
             "targetID" : "/en/mivascript",
             "size" : 1
         }, {
-            "sourceID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
+            "sourceID" : "/en/mivascript",
             "attributes" : {},
             "targetID" : "/en/d",
             "size" : 1
         }, {
-            "sourceID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
+            "sourceID" : "/en/vbscript",
             "attributes" : {},
             "targetID" : "/en/gambas",
             "size" : 1
         }, {
-            "sourceID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
+            "sourceID" : "/en/javascript",
             "attributes" : {},
             "targetID" : "/en/processing",
             "size" : 1
         }, {
-            "sourceID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
+            "sourceID" : "/en/javascript",
             "attributes" : {},
             "targetID" : "/en/php",
             "size" : 1
         }, {
-            "sourceID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
+            "sourceID" : "/en/vbscript",
             "attributes" : {},
             "targetID" : "/en/scala_programming_language",
             "size" : 1
@@ -446,15 +356,80 @@ var data = { "nodes" : [{
             "targetID" : "/en/javascript",
             "size" : 1
         }, {
-            "sourceID" : "/en/generic_java_programming_language",
-            "attributes" : {},
-            "targetID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
-            "size" : 1
-        }, {
             "sourceID" : "/en/sed",
             "attributes" : {},
             "targetID" : "/en/perl",
             "size" : 1
-        }, 
+        }, {
+            "sourceID" : "/en/dasl_programming_language",
+            "attributes" : {},
+            "targetID" : "/en/perl",
+            "size" : 1
+        }, {
+            "sourceID" : "/en/dasl_programming_language",
+            "attributes" : {},
+            "targetID" : "/en/basic",
+            "size" : 1
+        }, {
+            "sourceID" : "/en/obj2",
+            "attributes" : {},
+            "targetID" : "/en/perl",
+            "size" : 1
+        }, {
+            "sourceID" : "/en/escher",
+            "attributes" : {},
+            "targetID" : "/en/basic",
+            "size" : 1
+        }, {
+            "sourceID" : "/en/abcl_r",
+            "attributes" : {},
+            "targetID" : "/en/basic",
+            "size" : 1
+        }, {
+            "sourceID" : "/en/dasl_programming_language",
+            "attributes" : {},
+            "targetID" : "/en/ez_template_language",
+            "size" : 1
+        }, {
+            "sourceID" : "/en/epigram_programming_language",
+            "attributes" : {},
+            "targetID" : "/en/ez_template_language",
+            "size" : 1
+        }, {
+            "sourceID" : "/en/b_a_l",
+            "attributes" : {},
+            "targetID" : "/en/ez_template_language",
+            "size" : 1
+        }, {
+            "sourceID" : "/en/perl",
+            "attributes" : {},
+            "targetID" : "/en/imtek_mathematica_supplement",
+            "size" : 1
+        }, {
+            "sourceID" : "/wikipedia/pt/Java_$0028linguagem_de_programa$00E7$00E3o$0029",
+            "attributes" : {},
+            "targetID" : "/en/vbscript",
+            "size" : 1
+        }, {
+            "sourceID" : "/en/javascript",
+            "attributes" : {},
+            "targetID" : "/wikipedia/bg_id/86164",
+            "size" : 1
+        }, {
+            "sourceID" : "/en/basic",
+            "attributes" : {},
+            "targetID" : "/en/bigloo",
+            "size" : 1
+        }, {
+            "sourceID" : "/en/vbscript",
+            "attributes" : {},
+            "targetID" : "/en/generic_java_programming_language",
+            "size" : 1
+        }, {
+            "sourceID" : "/en/visual_basic",
+            "attributes" : {},
+            "targetID" : "/en/mivascript",
+            "size" : 1
+        },
     ]
 };
