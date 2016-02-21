@@ -10,7 +10,6 @@ namespace DataGenerator.Entities
     public sealed class RepositoryInfoEntity : Node
     {
         public string Description { get; set; }
-        public static string Empty => ";;;;";
         public string HtmlUrl { get; set; }
         public ObjectId Id { get; set; }
         public string StargazersCount { get; set; }
@@ -25,7 +24,14 @@ namespace DataGenerator.Entities
 
         public override string ToString()
         {
-            return $"{Description}; {HtmlUrl}; {Id}; {StargazersCount}; {string.Join(",", Tags)}";
+            var items1 = new string(';', CourseEntity.Captions().Count - 1);
+            var items2 = new string(';', UserEntity.Captions().Count - 1);
+            var items3 = new string(';', LibNode.Captions().Count - 1);
+            var items4 = new string(';', CourseNode.Captions().Count - 1);
+            var items5 = new string(';', GeekNode.Captions().Count - 1);
+            var items6 = new string(';', TagNode.Captions().Count - 1);
+
+            return $"{Description}; {HtmlUrl}; {Id}; {StargazersCount}; {string.Join(",", Tags)}; {items1}; {items2};{items3};{items4};{items5};{items6}; {Level}";
         }
 
         public override int Level { get; } = 0;

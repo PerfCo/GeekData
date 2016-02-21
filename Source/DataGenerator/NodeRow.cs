@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.Extensions;
+using System.Linq;
 using DataGenerator.Entities;
 using DataGenerator.Nodes;
 using Nelibur.Sword.Extensions;
@@ -62,21 +62,12 @@ namespace DataGenerator
             }
             result.Add(TagNode.ToString());
 
-            while (GithubRepositories.IsNotEmpty() || PluralsightCourses.IsNotEmpty() || StackOverflowUsers.IsNotEmpty())
-            {
-                RepositoryInfoEntity repository = GithubRepositories.TakeFirst();
-                string repositoryValue = repository.IsNull() ? RepositoryInfoEntity.Empty : repository.ToString();
-
-                CourseEntity course = PluralsightCourses.TakeFirst();
-                string courseValue = course.IsNull() ? CourseEntity.Empty : course.ToString();
-
-                UserEntity user = StackOverflowUsers.TakeFirst();
-                string userValue = user.IsNull() ? UserEntity.Empty : user.ToString();
-
-                result.Add($"{repositoryValue}; {courseValue}; {userValue}");
-            }
+            result.AddRange(GithubRepositories.Select(x => x.ToString()));
+            result.AddRange(PluralsightCourses.Select(x => x.ToString()));
+            result.AddRange(StackOverflowUsers.Select(x => x.ToString()));
 
             return result;
         }
+
     }
 }

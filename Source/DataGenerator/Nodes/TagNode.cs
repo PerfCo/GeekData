@@ -42,7 +42,7 @@ namespace DataGenerator.Nodes
             var items5 = new string(';', CourseNode.Captions().Count - 1);
             var items6 = new string(';', GeekNode.Captions().Count - 1);
 
-            return $"{items1}; {items2}; {items3}; {items4}; {items5}; {items6}; {Id}; {_node.Tag}";
+            return $"{items1}; {items2}; {items3}; {items4}; {items5}; {items6}; {Id}; {_node.Tag}; {Level}";
         }
     }
 }

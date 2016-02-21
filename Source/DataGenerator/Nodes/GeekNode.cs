@@ -43,7 +43,7 @@ namespace DataGenerator.Nodes
 
             var items6 = new string(';', TagNode.Captions().Count - 1);
 
-            return $"{items1}; {items2}; {items3}; {items4}; {items5}; {Id}; {_node.Tag} Geeks; {items6}";
+            return $"{items1}; {items2}; {items3}; {items4}; {items5}; {Id}; {_node.Tag} Geeks; {items6}; {Level}";
         }
     }
 }
