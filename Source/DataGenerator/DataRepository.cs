@@ -10,9 +10,9 @@ namespace DataGenerator
 {
     public sealed class DataRepository : Repository
     {
-        private const int TopUsers = 5;
-        private const int TopRepositories = 4;
-        private const int TopCources = 3;
+        private const int TopUsers = 20;
+        private const int TopRepositories = 200;
+//        private const int TopCources = 3;
         private const string NodeFile = "Nodes.csv";
         private const string EdgeFile = "Edges.csv";
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
@@ -68,7 +68,7 @@ namespace DataGenerator
                 List<CourseEntity> result = OpenConnection()
                     .GetCollection<CourseEntity>(MongoCollection.PluralsightCourses)
                     .Find(x => x.Tags.Contains(tag))
-                    .Limit(TopCources)
+//                    .Limit(TopCources)
                     .ToListAsync()
                     .Result;
                 return result;
