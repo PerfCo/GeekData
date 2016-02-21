@@ -1,7 +1,7 @@
 body {
     position: relative;
-    background:#222;
-    padding-top:41px;
+    background: #222;
+    padding-top: 41px;
 }
 
 h1 {
@@ -9,23 +9,23 @@ h1 {
 }
 
 cite {
-    font-style:italic;
+    font-style: italic;
 }
 
 .spacer5 {
-    clear:both;height:5px;
+    clear:both;height: 5px;
 }
 
 .centered {
-    text-align:center;
+    text-align: center;
 }
 
 .clearfix {
-    clear:both;
+    clear: both;
 }
 
 .voffset {
-    margin:.5em 0;
+    margin: .5em 0;
 }
 
 .roffset {
@@ -37,48 +37,36 @@ cite {
 }
 
 .caret {
-    opacity:.8;
+    opacity: .8;
 }
 
 .small {
-    font-size:.85em;
+    font-size: .85em;
 }
 
 .tags span {
-    padding:.4em;
-    margin-bottom:.5em;
-    font-size:1.1em;7
+    padding: .4em;
+    margin-bottom: .5em;
+    font-size: 1.1em;7
 }
 
 .tags a {
-    color:#fff;
+    color: #fff;
 }
 
-#site-name {
-    padding-left:0;
-    font-size:1.6em;
-    color:#8ce;
-    margin-left:0;
+.navbar-brand.site-name {
+    font-size: 1.6em;
+    color: #8ce;
+    margin-left: 0;
 }
 
 .share a {
     font-size: 20px;
 }
 
-#comments {
-    padding-top:10px;
-}
-
-body.full #footer {
-    display:none;}
-
 .modal-large {
-    width:76%;
-    margin-left:-38%;
-}
-
-#mce-EMAIL {
-    width:90%;
+    width: 76%;
+    margin-left: -38%;
 }
 
 .col-md-4 h5 {
@@ -88,7 +76,7 @@ body.full #footer {
 
 .gallery h5 {
     height: 30px;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .gallery img {
@@ -100,7 +88,7 @@ body.full #footer {
 }
 
 .vis-preview {
-    margin-bottom:1em;
+    margin-bottom: 1em;
 }
 
 .typeahead:focus {
@@ -141,31 +129,23 @@ body.full #footer {
     margin: 0;
 }
 
-#vis {
-    height:600px;
-}
-
 .sigma-parent {
-    position:relative;
-    background:#222;
+    height: 600px;
+    position: relative;
+    background: #222;
 }
 
 .sigma-expand {
-    position:absolute;
-    width:100%;
-    height:100%;
-    top:0;
-    left:0;
-}
-
-#showlang {
-    left:37%;
-    width:70%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
 
 .ad h3 {
-    font-size:1.2em;
-    margin:-.5em 0 0 0;
+    font-size: 1.2em;
+    margin: -.5em 0 0 0;
 }
 
 #search-reset{
@@ -173,18 +153,18 @@ body.full #footer {
     position: absolute;
     top: 1.3em;
     right: 1.5em;
-    cursor:pointer;
-    opacity:.8;
+    cursor: pointer;
+    opacity: .8;
 }
 
 #loading {
-    position:absolute;
-    left:30%;
-    top:25%;
-    width:40%;
-    color:#fff;
-    font-size:2em;
-    display:none;
+    position: absolute;
+    left: 30%;
+    top: 25%;
+    width: 40%;
+    color: #fff;
+    font-size: 2em;
+    display: none;
 }
 
 #nodeinfo {
