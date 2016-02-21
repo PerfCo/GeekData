@@ -28,7 +28,18 @@ namespace DataGenerator.Entities
             var items1 = new string(';', RepositoryInfoEntity.Captions().Count - 1);
             var items2 = new string(';', UserEntity.Captions().Count - 1);
 
-            return $"{Id};{Name};{Level};{items1};{Name}; {string.Join(",", Tags)}; {Url}; {items2}";
+            var result = new List<object>
+            {
+                Id,
+                Name,
+                Level,
+                items1,
+                Name,
+                string.Join(",", Tags),
+                Url,
+                items2
+            };
+            return string.Join(";", result);
         }
     }
 }

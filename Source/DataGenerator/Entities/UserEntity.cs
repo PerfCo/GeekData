@@ -33,7 +33,21 @@ namespace DataGenerator.Entities
             var items1 = new string(';', RepositoryInfoEntity.Captions().Count - 1);
             var items2 = new string(';', CourseEntity.Captions().Count - 1);
 
-            return $"{Id};{DisplayName};{Level}; {items1}; {items2}; {AccountId}; {BadgeCounts}; {DisplayName}; {ProfileImage}; {ProfileUrl}; {string.Join(",", Tags)}";
+            var result = new List<object>
+            {
+                Id,
+                DisplayName,
+                Level,
+                items1,
+                items2,
+                AccountId,
+                BadgeCounts.ToString(),
+                DisplayName,
+                ProfileImage,
+                ProfileUrl,
+                string.Join(",", Tags)
+            };
+            return string.Join(";", result);
         }
     }
 }

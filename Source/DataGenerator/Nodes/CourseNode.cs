@@ -23,7 +23,7 @@ namespace DataGenerator.Nodes
             var items2 = new string(';', CourseEntity.Captions().Count - 1);
             var items3 = new string(';', UserEntity.Captions().Count - 1);
 
-            return $"{IdNode};{Label}; {Level}; {items1}; {items2}; {items3}";
+            return $"{IdNode};{Label};{Level};{items1};{items2};{items3}";
         }
     }
 }
