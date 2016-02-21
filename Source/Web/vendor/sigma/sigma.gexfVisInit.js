@@ -5,7 +5,7 @@ $(function(){
             defaultLabelSize: 12,
             defaultLabelBGColor: '#fff',
             defaultLabelHoverColor: '#000',
-            labelThreshold: 3,
+            labelThreshold: 10,
             defaultEdgeType: 'curve'
         },
         graph: {
