@@ -83,6 +83,7 @@ var visgexf = {
 
         forEach.call($$('.sigma-parent'), function(v) {
             v.addEventListener('mousewheel', MouseWheelHandler, false);
+            v.addEventListener('DOMMouseScroll', MouseWheelHandler, false);
         });
 
         var depth = 0;
@@ -93,14 +94,15 @@ var visgexf = {
             }
 
             var e = window.event || e;
+            var delta = e.wheelDelta ? e.wheelDelta : -e.detail;
             
-            if(e.wheelDelta > 0 && depth < 8) {
+            if(delta > 0 && depth < 8) {
                 depth++;
-            } else if(e.wheelDelta < 0 && depth >= 0) {
+            } else if(delta < 0 && depth >= 0) {
                 depth--;
             }
 
-            if(e.wheelDelta < 0 && depth < 0) {
+            if(delta < 0 && depth < 0) {
                 visgexf.resetSearch();
             }
             
@@ -360,7 +362,7 @@ var visgexf = {
         $(window).bind('hashchange', function(event) {
             visgexf.redirectHash();
         });
-        
+
         /*$('#search-reset').on('click', function(event) {
             visgexf.resetSearch();
         });*/

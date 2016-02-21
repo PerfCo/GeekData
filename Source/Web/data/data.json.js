@@ -7,7 +7,7 @@ var data = { "nodes" : [{
             "y" : -1016.86316,
             "x" : -2572.3761,
             "id" : "/en/b_a_l",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "lib",
                 content: {
@@ -25,7 +25,7 @@ var data = { "nodes" : [{
             "y" : 518.6559,
             "x" : -742.0327,
             "id" : "/en/frink",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "lib",
                 content: {
@@ -55,7 +55,7 @@ var data = { "nodes" : [{
             "y" : 1323.2483,
             "x" : -1090.2911,
             "id" : "/en/bigloo",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "lib",
                 content: {
@@ -73,7 +73,7 @@ var data = { "nodes" : [{
             "y" : -1016.86316,
             "x" : -1172.3761,
             "id" : "/en/sed",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "person",
                 content: {
@@ -89,7 +89,7 @@ var data = { "nodes" : [{
             "y" : -1098.965,
             "x" : -1415.2374,
             "id" : "/en/imtek_mathematica_supplement",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "person",
                 content: {
@@ -117,7 +117,7 @@ var data = { "nodes" : [{
             "y" : 818.6559,
             "x" : -642.0327,
             "id" : "/en/escher",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "lib",
                 content: {
@@ -156,7 +156,7 @@ var data = { "nodes" : [{
             "y" : -928.99695,
             "x" : -950.64777,
             "id" : "/en/obj2",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "person",
                 content: {
@@ -172,7 +172,7 @@ var data = { "nodes" : [{
             "y" : 1034.286,
             "x" : -466.06784,
             "id" : "/en/abcl_r",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "lib",
                 content: {
@@ -191,7 +191,7 @@ var data = { "nodes" : [{
             "y" : -916.86316,
             "x" : -2172.3761,
             "id" : "/en/epigram_programming_language",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "lib",
                 content: {
@@ -210,7 +210,7 @@ var data = { "nodes" : [{
             "y" : 130.1993,
             "x" : 747.00433,
             "id" : "/en/visual_basic",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "lib",
                 content: {
@@ -255,7 +255,7 @@ var data = { "nodes" : [{
             "y" : -993.44226,
             "x" : 646.8928,
             "id" : "/wikipedia/bg_id/86164",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "lib",
                 content: {
@@ -273,7 +273,7 @@ var data = { "nodes" : [{
             "y" : 241.97334,
             "x" : 1223.0891,
             "id" : "/wikipedia/en_title/QUILL",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "lib",
                 content: {
@@ -292,7 +292,7 @@ var data = { "nodes" : [{
             "y" : 270.62488,
             "x" : 229.85342,
             "id" : "/en/generic_java_programming_language",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "person",
                 content: {
@@ -323,7 +323,7 @@ var data = { "nodes" : [{
             "y" : -410.42166,
             "x" : 919.0323,
             "id" : "/en/d",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "lib",
                 content: {
@@ -340,7 +340,7 @@ var data = { "nodes" : [{
             "y" : 766.4402,
             "x" : 509.1045,
             "id" : "/en/gambas",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "person",
                 content: {
@@ -358,7 +358,7 @@ var data = { "nodes" : [{
             "y" : -915.0654,
             "x" : -28.72691,
             "id" : "/en/processing",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "lib",
                 content: {
@@ -377,7 +377,7 @@ var data = { "nodes" : [{
             "y" : -484.2295,
             "x" : 794.9593,
             "id" : "/en/php",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "lib",
                 content: {
@@ -396,7 +396,7 @@ var data = { "nodes" : [{
             "y" : 624.539,
             "x" : 102.88991,
             "id" : "/en/scala_programming_language",
-            "size" : 5,
+            "size" : 6.9,
             "tooltip" : {
                 type: "person",
                 content: {
