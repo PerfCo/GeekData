@@ -20,7 +20,7 @@ namespace Github.Crawler
         public List<GithubRepositoryInfo> GetRepositories(string searchValue, string language)
         {
             List<GithubRepositoryInfo> repositories = GetRepositoriesBasicInfo(searchValue, language);
-            FillReadme(repositories);
+            //FillReadme(repositories);
             return repositories;
         }
 
