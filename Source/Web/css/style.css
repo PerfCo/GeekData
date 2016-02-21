@@ -60,6 +60,29 @@ cite {
     margin-left: 0;
 }
 
+.navbar-brand.site-name:hover {
+    color: #8ce;
+}
+
+.navbar-profiles {
+    margin-right: 80px;
+    padding-top: 10px;
+}
+
+.navbar-profiles a {
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.navbar-profiles a:hover {
+    text-decoration: none;
+}
+
+.navbar-profiles img {
+    width: 30px; 
+    height: 30px;
+}
+
 .share a {
     font-size: 20px;
 }
@@ -146,15 +169,6 @@ cite {
 .ad h3 {
     font-size: 1.2em;
     margin: -.5em 0 0 0;
-}
-
-#search-reset{
-    margin-left: -1.3em;
-    position: absolute;
-    top: 1.3em;
-    right: 1.5em;
-    cursor: pointer;
-    opacity: .8;
 }
 
 #loading {
@@ -320,3 +334,5 @@ cite {
     cursor: pointer;
     text-decoration: none;
 }
+
+.github-corner:hover .octo-arm {animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}

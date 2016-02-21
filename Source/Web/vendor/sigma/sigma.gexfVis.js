@@ -360,9 +360,10 @@ var visgexf = {
         $(window).bind('hashchange', function(event) {
             visgexf.redirectHash();
         });
-        $('#search-reset').on('click', function(event) {
+        
+        /*$('#search-reset').on('click', function(event) {
             visgexf.resetSearch();
-        });
+        });*/
     },
 
     redirectHash: function(q) {
