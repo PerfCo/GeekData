@@ -66,6 +66,15 @@ cite {
     font-weight: bold;
 }
 
+.slogan span {
+    display: inline-block; 
+    margin: 8px;
+    background-color: #569FEC;
+    border-radius: 8px 20px 0 0;
+    padding: 0 5px 0 2px;
+    color: #fff;
+}
+
 .navbar-profiles {
     margin-right: 80px;
     padding-top: 10px;
