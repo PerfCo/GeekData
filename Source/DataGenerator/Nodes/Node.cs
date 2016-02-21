@@ -5,12 +5,14 @@ namespace DataGenerator.Nodes
 {
     public abstract class Node
     {
+        public abstract string IdNode { get; }
+        public abstract string Label { get; }
+        public abstract int Level { get; }
+
         public static List<string> Captions()
         {
-            var items = new[] { "Level" };
+            var items = new[] { "id", "Label", "Level" };
             return items.ToList();
         }
-
-        public abstract int Level { get; }
     }
 }

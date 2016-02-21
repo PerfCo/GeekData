@@ -22,14 +22,10 @@ namespace DataGenerator
             get
             {
                 var columns = new List<string>();
+                columns.AddRange(Node.Captions());
                 columns.AddRange(RepositoryInfoEntity.Captions());
                 columns.AddRange(CourseEntity.Captions());
                 columns.AddRange(UserEntity.Captions());
-                columns.AddRange(LibNode.Captions());
-                columns.AddRange(CourseNode.Captions());
-                columns.AddRange(GeekNode.Captions());
-                columns.AddRange(TagNode.Captions());
-                columns.AddRange(Node.Captions());
                 return string.Join(";", columns);
             }
         }

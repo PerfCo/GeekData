@@ -12,6 +12,7 @@ namespace DataGenerator
         private readonly LibNode _libNode;
         private readonly NodeRow _node;
         private readonly TagNode _tagNode;
+        private const string EdgeType = "Directed";
 
         public EdgeRow(NodeRow node)
         {
@@ -26,7 +27,7 @@ namespace DataGenerator
         {
             get
             {
-                var items = new[] { "Source", "Target" };
+                var items = new[] { "Source", "Target", "Type" };
                 return string.Join(";", items);
             }
         }
@@ -36,15 +37,15 @@ namespace DataGenerator
             var result = new List<string>();
             if (_node.GithubRepositories.IsNotEmpty())
             {
-                result.Add($"{_tagNode.Id}; {_libNode.Id}");
+                result.Add($"{_tagNode.IdNode};{_libNode.IdNode};{EdgeType}");
             }
             if (_node.PluralsightCourses.IsNotEmpty())
             {
-                result.Add($"{_tagNode.Id}; {_courseNode.Id}");
+                result.Add($"{_tagNode.IdNode};{_courseNode.IdNode};{EdgeType}");
             }
             if (_node.StackOverflowUsers.IsNotEmpty())
             {
-                result.Add($"{_tagNode.Id}; {_geekNode.Id}");
+                result.Add($"{_tagNode.IdNode};{_geekNode.IdNode};{EdgeType}");
             }
             result.AddRange(LibLinks());
             result.AddRange(CourcesLinks());
@@ -57,7 +58,7 @@ namespace DataGenerator
         {
             foreach (CourseEntity item in _node.PluralsightCourses)
             {
-                yield return $"{_courseNode.Id}; {item.Id}";
+                yield return $"{_courseNode.IdNode};{item.Id};{EdgeType}";
             }
         }
 
@@ -65,7 +66,7 @@ namespace DataGenerator
         {
             foreach (UserEntity item in _node.StackOverflowUsers)
             {
-                yield return $"{_geekNode.Id}; {item.Id}";
+                yield return $"{_geekNode.IdNode};{item.Id};{EdgeType}";
             }
         }
 
@@ -73,7 +74,7 @@ namespace DataGenerator
         {
             foreach (RepositoryInfoEntity item in _node.GithubRepositories)
             {
-                yield return $"{_libNode.Id}; {item.Id}";
+                yield return $"{_libNode.IdNode};{item.Id};{EdgeType}";
             }
         }
     }
