@@ -7,12 +7,13 @@ namespace DataGenerator
 {
     public sealed class EdgeRow
     {
+        private const string EdgeType = "Directed";
+
         private readonly CourseNode _courseNode;
         private readonly GeekNode _geekNode;
         private readonly LibNode _libNode;
         private readonly NodeRow _node;
         private readonly TagNode _tagNode;
-        private const string EdgeType = "Directed";
 
         public EdgeRow(NodeRow node)
         {
@@ -27,7 +28,7 @@ namespace DataGenerator
         {
             get
             {
-                var items = new[] { "Source", "Target", "Type" };
+                var items = new[] { "Source", "Target", "Type", "Tag" };
                 return string.Join(";", items);
             }
         }
@@ -37,15 +38,15 @@ namespace DataGenerator
             var result = new List<string>();
             if (_node.GithubRepositories.IsNotEmpty())
             {
-                result.Add($"{_tagNode.IdNode};{_libNode.IdNode};{EdgeType}");
+                result.Add($"{_tagNode.IdNode};{_libNode.IdNode};{EdgeType};{_tagNode.IdNode}");
             }
             if (_node.PluralsightCourses.IsNotEmpty())
             {
-                result.Add($"{_tagNode.IdNode};{_courseNode.IdNode};{EdgeType}");
+                result.Add($"{_tagNode.IdNode};{_courseNode.IdNode};{EdgeType};{_tagNode.IdNode}");
             }
             if (_node.StackOverflowUsers.IsNotEmpty())
             {
-                result.Add($"{_tagNode.IdNode};{_geekNode.IdNode};{EdgeType}");
+                result.Add($"{_tagNode.IdNode};{_geekNode.IdNode};{EdgeType};{_tagNode.IdNode}");
             }
             result.AddRange(LibLinks());
             result.AddRange(CourcesLinks());
@@ -58,7 +59,7 @@ namespace DataGenerator
         {
             foreach (CourseEntity item in _node.PluralsightCourses)
             {
-                yield return $"{_courseNode.IdNode};{item.Id};{EdgeType}";
+                yield return $"{_courseNode.IdNode};{item.Id};{EdgeType};{_tagNode.IdNode}";
             }
         }
 
@@ -66,7 +67,7 @@ namespace DataGenerator
         {
             foreach (UserEntity item in _node.StackOverflowUsers)
             {
-                yield return $"{_geekNode.IdNode};{item.Id};{EdgeType}";
+                yield return $"{_geekNode.IdNode};{item.Id};{EdgeType};{_tagNode.IdNode}";
             }
         }
 
@@ -74,7 +75,7 @@ namespace DataGenerator
         {
             foreach (RepositoryInfoEntity item in _node.GithubRepositories)
             {
-                yield return $"{_libNode.IdNode};{item.Id};{EdgeType}";
+                yield return $"{_libNode.IdNode};{item.Id};{EdgeType};{_tagNode.IdNode}";
             }
         }
     }
