@@ -71,7 +71,7 @@ var visgexf = {
                 return;
             }
 
-            visgexf.showTooltip(nodeData, tooltipData);
+            //visgexf.showTooltip(nodeData, tooltipData);
         });
 
         visgexf.sig.bind('outnodes', function(event){
@@ -119,12 +119,15 @@ var visgexf = {
         $tooltip.hover(function() {
             $("#tooltip").stop().fadeIn("fast");
         }).mouseleave(function() {
-            $tooltip.fadeOut(1000);
+            $tooltip.stop().fadeOut(1000);
         });
     },
 
     showTooltip: function(nodeData, tooltipData) {
         var $tooltip = visgexf.tooltipElement;
+
+        $tooltip.stop().delay(1000);
+
         var typeMondatoryField = {
             lib: "HtmlUrlGithubRepository",
             geek: "DisplayNameStackOverflowUser",
