@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System;
+using Core;
 using DataGenerator.Properties;
 
 namespace DataGenerator
@@ -11,6 +12,9 @@ namespace DataGenerator
         {
             var repository = new DataRepository(_connectionFactory);
             repository.Test("C#");
+
+            Console.WriteLine("Done");
+            Console.ReadKey();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Core;
 using Core.Extensions;
 using DataGenerator.Entities;
@@ -15,11 +16,13 @@ namespace DataGenerator
         private const int TopUsers = 20;
         private const int TopRepositories = 100;
         private const string NodeFile = "Nodes.csv";
+        private const string EdgeFile = "Edges.csv";
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public DataRepository(ConnectionFactory connectionFactory) : base(connectionFactory)
         {
-            File.WriteAllLines(NodeFile,  new[] { ResultRow.Caption, string.Empty });
+            File.WriteAllLines(NodeFile, new[] { NodeRow.Caption, string.Empty });
+            File.WriteAllLines(EdgeFile, new[] { EdgeRow.Caption, string.Empty });
         }
 
         public void Test(string tag)
@@ -28,14 +31,17 @@ namespace DataGenerator
             List<CourseEntity> courses = GetPluralsightCourses(tag);
             List<RepositoryInfoEntity> repositories = GetGithubRepositories(tag);
 
-            var row = new ResultRow
+            var node = new NodeRow(tag)
             {
                 GithubRepositories = repositories,
                 PluralsightCourses = courses,
                 StackOverflowUsers = users
             };
 
-            WriteNodes(row);
+            var edge = new EdgeRow(node);
+
+            WriteEdge(edge);
+            WriteNode(node);
         }
 
         private List<RepositoryInfoEntity> GetGithubRepositories(string tag)
@@ -94,14 +100,25 @@ namespace DataGenerator
             }
         }
 
-        private static void WriteNodes(ResultRow row)
+        private static void WriteEdge(EdgeRow row)
         {
-            File.AppendAllLines(NodeFile, row.Nodes());
+            File.AppendAllLines(EdgeFile, row.Value());
+        }
+
+        private static void WriteNode(NodeRow row)
+        {
+            File.AppendAllLines(NodeFile, row.Value());
         }
 
 
-        private sealed class ResultRow
+        private sealed class NodeRow
         {
+            public NodeRow(string tag)
+            {
+                Tag = tag;
+                LibNode = new LibNode(this);
+            }
+
             public static string Caption
             {
                 get
@@ -110,15 +127,18 @@ namespace DataGenerator
                     columns.AddRange(RepositoryInfoEntity.Captions());
                     columns.AddRange(CourseEntity.Captions());
                     columns.AddRange(UserEntity.Captions());
+                    columns.AddRange(LibNode.Captions());
                     return string.Join(";", columns);
                 }
             }
 
             public List<RepositoryInfoEntity> GithubRepositories { get; set; } = new List<RepositoryInfoEntity>();
+            public LibNode LibNode { get; }
             public List<CourseEntity> PluralsightCourses { get; set; } = new List<CourseEntity>();
             public List<UserEntity> StackOverflowUsers { get; set; } = new List<UserEntity>();
+            public string Tag { get; }
 
-            public List<string> Nodes()
+            public List<string> Value()
             {
                 var result = new List<string>();
                 while (GithubRepositories.IsNotEmpty() || PluralsightCourses.IsNotEmpty() || StackOverflowUsers.IsNotEmpty())
@@ -135,7 +155,70 @@ namespace DataGenerator
                     result.Add($"{repositoryValue}; {courseValue}; {userValue}");
                 }
 
+                result.Add(LibNode.ToString());
                 return result;
+            }
+        }
+
+
+        private sealed class EdgeRow
+        {
+            private readonly LibNode _libNode;
+            private readonly NodeRow _node;
+
+            public EdgeRow(NodeRow node)
+            {
+                _node = node;
+                _libNode = node.LibNode;
+            }
+
+            public static string Caption
+            {
+                get
+                {
+                    var items = new[] { "Source", "Target" };
+                    return string.Join(";", items);
+                }
+            }
+
+            public List<string> Value()
+            {
+                var result = new List<string>();
+                foreach (RepositoryInfoEntity item in _node.GithubRepositories)
+                {
+                    result.Add($"{_libNode.Id}; {item.Id}");
+                }
+                return result;
+            }
+        }
+
+
+        private sealed class LibNode
+        {
+            private const string Suffix = "LibNode";
+            private readonly NodeRow _node;
+
+            public LibNode(NodeRow node)
+            {
+                _node = node;
+                Id = $"{_node.Tag}{Suffix}";
+            }
+
+            public string Id { get; }
+
+            public static List<string> Captions()
+            {
+                var items = new[] { "Id", "Label" };
+                List<string> result = items.Select(x => $"{x}{Suffix}").ToList();
+                return result;
+            }
+
+            public override string ToString()
+            {
+                var items1 = new string(';', RepositoryInfoEntity.Captions().Count - 1);
+                var items2 = new string(';', CourseEntity.Captions().Count - 1);
+                var items3 = new string(';', UserEntity.Captions().Count - 1);
+                return $"{items1};{items2};{items3};{Id}; {_node.Tag}";
             }
         }
     }
