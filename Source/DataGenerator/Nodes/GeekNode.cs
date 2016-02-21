@@ -15,7 +15,7 @@ namespace DataGenerator.Nodes
         public override string IdNode { get; }
         public override string Label { get; }
 
-        public override int Level { get; } = 0;
+        public override int Level { get; } = 2;
 
         public override string ToString()
         {

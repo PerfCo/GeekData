@@ -11,7 +11,7 @@ namespace DataGenerator.Entities
         public override string IdNode { get; }
         public override string Label { get; }
 
-        public override int Level { get; } = 0;
+        public override int Level { get; } = 3;
         public string Name { get; set; }
         public List<string> Tags { get; set; }
         public string Url { get; set; }
