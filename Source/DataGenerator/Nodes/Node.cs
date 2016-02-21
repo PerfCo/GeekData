@@ -11,7 +11,7 @@ namespace DataGenerator.Nodes
 
         public static List<string> Captions()
         {
-            var items = new[] { "id", "Label", "Level" };
+            var items = new[] { "id", "Label", "Level, Tag" };
             return items.ToList();
         }
     }

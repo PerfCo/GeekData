@@ -19,10 +19,10 @@ namespace Github.Crawler
 
         public List<GithubRepositoryInfo> GetRepositories(string searchValue, string language)
         {
-            _logger.Debug($"GetRepositories -> language: {language}");
-            List<GithubRepositoryInfo> repositories = GetRepositoriesBasicInfo(searchValue, language);
+            _logger.Debug($"GetRepositories -> language: {language}, searchValue:{searchValue}");
+            List <GithubRepositoryInfo> repositories = GetRepositoriesBasicInfo(searchValue, language);
             //FillReadme(repositories);
-            _logger.Debug($"GetRepositories <- language: {language}, RepositoriesCount: {repositories.Count}");
+            _logger.Debug($"GetRepositories <- language: {language}, searchValue:{searchValue}, RepositoriesCount: {repositories.Count}");
             return repositories;
         }
 

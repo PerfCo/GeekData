@@ -33,6 +33,7 @@ namespace DataGenerator.Entities
                 Id,
                 Name,
                 Level,
+                Tags.FirstOrDefault(),
                 items1,
                 Name,
                 string.Join(",", Tags),

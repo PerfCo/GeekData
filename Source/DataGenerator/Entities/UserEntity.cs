@@ -38,6 +38,7 @@ namespace DataGenerator.Entities
                 Id,
                 DisplayName,
                 Level,
+                Tags.FirstOrDefault(),
                 items1,
                 items2,
                 AccountId,

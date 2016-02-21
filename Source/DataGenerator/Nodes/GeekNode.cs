@@ -5,9 +5,11 @@ namespace DataGenerator.Nodes
     public sealed class GeekNode : Node
     {
         private const string Suffix = "GeekNode";
+        private readonly NodeRow _node;
 
         public GeekNode(NodeRow node)
         {
+            _node = node;
             IdNode = $"{node.Tag}{Suffix}";
             Label = $"{node.Tag} Geeks";
         }
@@ -23,7 +25,7 @@ namespace DataGenerator.Nodes
             var items2 = new string(';', CourseEntity.Captions().Count - 1);
             var items3 = new string(';', UserEntity.Captions().Count - 1);
 
-            return $"{IdNode};{Label};{Level};{items1};{items2};{items3}";
+            return $"{IdNode};{Label};{Level};{_node.Tag};{items1};{items2};{items3}";
         }
     }
 }

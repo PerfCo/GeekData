@@ -4,10 +4,12 @@ namespace DataGenerator.Nodes
 {
     public sealed class TagNode : Node
     {
+        private readonly NodeRow _node;
         private const string Suffix = "TagNode";
 
         public TagNode(NodeRow node)
         {
+            _node = node;
             IdNode = $"{node.Tag}{Suffix}";
             Label = $"{node.Tag}";
         }
@@ -22,7 +24,7 @@ namespace DataGenerator.Nodes
             var items2 = new string(';', CourseEntity.Captions().Count - 1);
             var items3 = new string(';', UserEntity.Captions().Count - 1);
 
-            return $"{IdNode};{Label};{Level};{items1};{items2};{items3}";
+            return $"{IdNode};{Label};{Level};{_node.Tag};{items1};{items2};{items3}";
         }
     }
 }

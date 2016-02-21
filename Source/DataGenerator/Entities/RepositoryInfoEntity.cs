@@ -37,6 +37,7 @@ namespace DataGenerator.Entities
                 Id,
                 Name,
                 Level,
+                Tags.FirstOrDefault(),
                 Description,
                 HtmlUrl,
                 StargazersCount,
