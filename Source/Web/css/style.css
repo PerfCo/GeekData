@@ -213,10 +213,10 @@ cite {
     z-index: 1002;
 }
 
-.tooltip.user {
+/*.tooltip.user {
     width: 250px;
 }
-
+*/
 .tooltip .content {
     /*pointer-events: none;  required for d3 */
     position: relative;
@@ -251,6 +251,16 @@ cite {
     border-bottom: 0;
     padding-bottom: 0;
     margin-bottom: 0;
+}
+
+.tooltip .header-main-content {
+    width: 175px; 
+    float: left;
+}
+
+.tooltip .cource .header-main-content {
+    width: 145px; 
+    float: left;
 }
 
 .tooltip .gravatar {

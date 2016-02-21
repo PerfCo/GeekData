@@ -76,7 +76,7 @@ var visgexf = {
 
         visgexf.sig.bind('outnodes', function(event){
             var $tooltip = visgexf.tooltipElement;
-            $tooltip.fadeOut(1000);
+            $tooltip.delay(500).fadeOut(1000);
         });
 
         var forEach = Array.prototype.forEach;
@@ -177,8 +177,6 @@ var visgexf = {
         function initPersonTooltip() {
             var $tooltip = visgexf.tooltipElement;
 
-            $tooltip.addClass("user");
-
             visgexf.tooltipLibContent.hide();
             visgexf.tooltipCourceContent.hide();
             visgexf.tooltipGuruContent.show();
@@ -228,8 +226,6 @@ var visgexf = {
 
         function initLibTooltip() {
             var $tooltip = visgexf.tooltipElement;
-
-            $tooltip.removeClass("user");
 
             visgexf.tooltipGuruContent.hide();
             visgexf.tooltipCourceContent.hide();
