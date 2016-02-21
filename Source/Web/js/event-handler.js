@@ -5,7 +5,7 @@
         var ancors = [];
         for (var i = 0, length = links.length; i < length; ++i) {
             var href = links[i];
-            if (href.host != win.location.host) {
+            if (href.host != win.location.host && href.className != "github-corner") {
                 ancors.push(href);
             }
         }
