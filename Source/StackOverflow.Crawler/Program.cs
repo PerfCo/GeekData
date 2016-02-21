@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Contracts.StackOverflow;
+using Core;
 using Ninject;
 using NLog;
 using StackOverflow.Crawler.Dependencies;
@@ -14,11 +15,23 @@ namespace StackOverflow.Crawler
 
         private static void Main()
         {
-            _logger.Info("StackOverflow.Crawler is running. Press ANY key to exit.");
+            _logger.Info("StackOverflow.Crawler is running...");
             var worker = new Worker();
-            List<StackOverflowUser> result = worker.GetTopUsers("C#");
+            List<TagItem> rootTags = new Tags().Root;
+            foreach (TagItem tag in rootTags)
+            {
+                try
+                {
+                    List<StackOverflowUser> result = worker.GetTopUsers(tag.StackOverflow);
+                    SaveUsers(result);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex);
+                }
+            }
 
-            SaveUsers(result);
+            _logger.Info("Press ANY key to exit.");
             Console.ReadKey();
         }
 

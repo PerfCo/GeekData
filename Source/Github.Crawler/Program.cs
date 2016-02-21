@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Contracts.Github;
+using Core;
 using Github.Crawler.Dependencies;
 using Ninject;
 using NLog;
@@ -17,10 +18,20 @@ namespace Github.Crawler
             _logger.Info("Github.Crawler is running...");
 
             var searchValue = "";
-            var language = "csharp";
-            List<GithubRepositoryInfo> result = new Worker().GetRepositories(searchValue, language);
-            SaveRepositories(result);
-
+//            var language = "csharp";
+            List<TagItem> rootTags = new Tags().Root;
+            foreach (TagItem tag in rootTags)
+            {
+                try
+                {
+                    List<GithubRepositoryInfo> result = new Worker().GetRepositories(searchValue, tag.Github);
+                    SaveRepositories(result);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex);
+                }
+            }
             _logger.Info("Press ANY key to exit.");
             Console.ReadKey();
         }

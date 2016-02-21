@@ -8,7 +8,7 @@ using NLog;
 
 namespace DataGenerator
 {
-    public sealed class DataRepository : Repository
+    public sealed class Worker : Repository
     {
         private const int TopUsers = 20;
         private const int TopRepositories = 200;
@@ -17,13 +17,13 @@ namespace DataGenerator
         private const string EdgeFile = "Edges.csv";
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public DataRepository(ConnectionFactory connectionFactory) : base(connectionFactory)
+        public Worker(ConnectionFactory connectionFactory) : base(connectionFactory)
         {
             File.WriteAllLines(NodeFile, new[] { NodeRow.Caption, string.Empty });
             File.WriteAllLines(EdgeFile, new[] { EdgeRow.Caption, string.Empty });
         }
 
-        public void Test(string tag)
+        public void Generate(string tag)
         {
             List<UserEntity> users = GetStackOverflowUsers(tag);
             List<CourseEntity> courses = GetPluralsightCourses(tag);
