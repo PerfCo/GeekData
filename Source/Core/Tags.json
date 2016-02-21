@@ -1,72 +1,77 @@
 ﻿[
   {
     "StackOverflow": "C",
-    "Github": "C"
+    "GithubLanguage": "C"
   },
   {
     "StackOverflow": "C++",
-    "Github": "cpp"
+    "GithubLanguage": "cpp"
   },
   {
     "StackOverflow": "C#",
-    "Github": "csharp"
+    "GithubLanguage": "csharp"
   },
   {
     "StackOverflow": "F#",
-    "Github": "fsharp"
+    "GithubLanguage": "fsharp"
   },
   {
     "StackOverflow": "Go",
-    "Github": "Go"
+    "GithubLanguage": "Go"
   },
   {
     "StackOverflow": "CSS",
-    "Github": "CSS"
+    "GithubLanguage": "CSS"
   },
   {
     "StackOverflow": "JavaScript",
-    "Github": "JavaScript"
+    "GithubLanguage": "JavaScript"
   },
   {
     "StackOverflow": "Java",
-    "Github": "Java"
+    "GithubLanguage": "Java"
   },
   {
     "StackOverflow": "Ruby",
-    "Github": "Ruby"
+    "GithubLanguage": "Ruby"
   },
   {
     "StackOverflow": "Scala",
-    "Github": "Scala"
+    "GithubLanguage": "Scala"
   },
   {
     "StackOverflow": "Objective-C",
-    "Github": "Objective-C"
+    "GithubLanguage": "Objective-C"
   },
   {
     "StackOverflow": "ASP.NET",
-    "Github": "ASP.NET"
+    "GithubSearchValue": "ASP.NET",
+    "GithubLanguage": "csharp"
   },
   {
     "StackOverflow": "R",
-    "Github": "R"
+    "GithubLanguage": "R"
   },
   {
     "StackOverflow": "Python",
-    "Github": "Python"
+    "GithubLanguage": "Python"
   },
   {
     "StackOverflow": "Perl",
-    "Github": "Perl"
+    "GithubLanguage": "Perl"
   },
   {
     "StackOverflow": "Lua",
-    "Github": "Lua"
+    "GithubLanguage": "Lua"
   },
   {
-    "StackOverflow": "WCF"
+    "StackOverflow": "WCF",
+    "GithubSearchValue": "WCF",
+    "GithubLanguage": "csharp"
   },
   {
-    "StackOverflow": "WPF"
+    "StackOverflow": "WPF",
+    "GithubSearchValue": "WPF",
+    "GithubLanguage": "csharp"
   }
 ]

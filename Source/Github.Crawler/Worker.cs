@@ -80,7 +80,6 @@ namespace Github.Crawler
             var pageCount = (int)Math.Ceiling((double)ItemsTotal / ItemsPerPage);
 
             var result = new List<GithubRepositoryInfo>();
-
             for (var pageNumber = 1; pageNumber <= pageCount; pageNumber++)
             {
                 List<GithubRepositoryInfo> repositoriesByPage = GetRepositoriesByPageNumber(searchValue, language, pageNumber);
@@ -88,6 +87,7 @@ namespace Github.Crawler
                 {
                     break;
                 }
+                repositoriesByPage.ForEach(x => x.Tag = GetTag(searchValue, x.Language));
                 result.AddRange(repositoriesByPage);
             }
 
@@ -111,6 +111,16 @@ namespace Github.Crawler
             return response.Data.Items;
         }
 
+        private static string GetTag(string searchValue, string language)
+        {
+            if (string.IsNullOrWhiteSpace(searchValue) == false)
+            {
+                return searchValue;
+            }
+
+            return language;
+        }
+
 
         private sealed class GithubContentResponse
         {
@@ -120,8 +130,8 @@ namespace Github.Crawler
 
         private sealed class GithubRepositoryResponse
         {
-            public int TotalCount { get; set; }
             public List<GithubRepositoryInfo> Items { get; set; }
+            public int TotalCount { get; set; }
         }
     }
 }

@@ -17,14 +17,12 @@ namespace Github.Crawler
         {
             _logger.Info("Github.Crawler is running...");
 
-            var searchValue = "";
-//            var language = "csharp";
             List<TagItem> rootTags = new Tags().Root;
             foreach (TagItem tag in rootTags)
             {
                 try
                 {
-                    List<GithubRepositoryInfo> result = new Worker().GetRepositories(searchValue, tag.Github);
+                    List<GithubRepositoryInfo> result = new Worker().GetRepositories(tag.GithubSearchValue, tag.GithubLanguage);
                     SaveRepositories(result);
                 }
                 catch (Exception ex)
