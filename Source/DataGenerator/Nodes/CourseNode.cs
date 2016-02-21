@@ -26,6 +26,8 @@ namespace DataGenerator.Nodes
 
         public override string ToString()
         {
+            var items1 = new string(';', RepositoryInfoEntity.Captions().Count - 1);
+
             int totalSeparators = RepositoryInfoEntity.Captions().Count
                 + CourseEntity.Captions().Count
                 + UserEntity.Captions().Count

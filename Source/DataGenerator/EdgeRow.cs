@@ -38,13 +38,13 @@ namespace DataGenerator
             {
                 result.Add($"{_tagNode.Id}; {_libNode.Id}");
             }
-            if (_node.GithubRepositories.IsNotEmpty())
+            if (_node.PluralsightCourses.IsNotEmpty())
             {
                 result.Add($"{_tagNode.Id}; {_courseNode.Id}");
             }
-            if (_node.GithubRepositories.IsNotEmpty())
+            if (_node.StackOverflowUsers.IsNotEmpty())
             {
-                result.Add($"{_tagNode.Id}; {_libNode.Id}");
+                result.Add($"{_tagNode.Id}; {_geekNode.Id}");
             }
             result.AddRange(LibLinks());
             result.AddRange(CourcesLinks());
