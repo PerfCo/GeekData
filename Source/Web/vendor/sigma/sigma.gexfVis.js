@@ -17,6 +17,7 @@ var visgexf = {
     tooltipLibContent: $("#lib_content"),
     tooltipGuruContent: $("#guru_content"),
     tooltipCourceContent: $("#cource_content"),
+    tooltipLastTimeShown: new Date(),
 
     init: function(visid, filename, props, callback) {
         $('#loading').show();
@@ -54,7 +55,8 @@ var visgexf = {
 
         visgexf.initTooltip();
 
-        visgexf.sig.bind('upnodes', function(event){
+        visgexf.sig.bind('upnodes', function(event) {
+            // on node click
             hnode = visgexf.sig.getNodes(event.content)[0];
             if(document.location.hash.replace(/#/i, '') == hnode.attr.label) {
                 visgexf.resetSearch();
@@ -63,23 +65,8 @@ var visgexf = {
             document.location.hash = hnode.attr.label;
         });
 
-        visgexf.sig.bind('overnodes', function(event){
-            /*var nodeData = visgexf.sig.getNodes(event.content)[0];
-            var tooltipData = nodeData.attr.attributes;
-
-            if(tooltipData.Level != 3) {
-                return;
-            }
-
-            visgexf.showTooltip(nodeData, tooltipData);*/
-        });
-
-        visgexf.sig.bind('outnodes', function(event){
-            /*var $tooltip = visgexf.tooltipElement;
-            $tooltip.delay(500).fadeOut(1000);*/
-        });
-
-        visgexf.sig.bind('upnodes', function(event){
+        visgexf.sig.bind('overnodes', function(event) {
+            // on node hover by mouse
             var nodeData = visgexf.sig.getNodes(event.content)[0];
             var tooltipData = nodeData.attr.attributes;
 
@@ -88,6 +75,13 @@ var visgexf = {
             }
 
             visgexf.showTooltip(nodeData, tooltipData);
+        });
+
+        visgexf.sig.bind('outnodes', function(event) {
+            // on mouse out of node
+
+            /*var $tooltip = visgexf.tooltipElement;
+            $tooltip.delay(500).fadeOut(1000);*/
         });
 
         var forEach = Array.prototype.forEach;
@@ -161,7 +155,22 @@ var visgexf = {
             opacity: 1
         });
 
-        $tooltip.fadeIn(500).delay(5000).fadeOut(1000);
+        $tooltip.delay(1000).show();
+        visgexf.tooltipLastTimeShown = new Date();
+
+        setTimeout(onTooltipTimeout, 5000);
+
+        function onTooltipTimeout() {
+            var nowDate = new Date();
+            var diffSeconds = (nowDate.getTime() - visgexf.tooltipLastTimeShown.getTime()) / 1000;
+            
+            if(diffSeconds >= 5) {
+                $tooltip.hide();
+                return;
+            }
+
+            setTimeout(onTooltipTimeout, 5000);
+        }
 
         function getTooltipPosition(nodeData) {
             var $window = $(window);

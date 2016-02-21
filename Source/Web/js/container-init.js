@@ -10,4 +10,6 @@ function containerDim(selector, dim) {
 $(function() {
     $('a[href*="http"]').attr('target', '_blank');
     $('.nav a[href="'+document.location.pathname+'"]').parent('li').attr('class', 'active');    
+
+    $("[name='view-switch-checkbox']").bootstrapSwitch();
 });
