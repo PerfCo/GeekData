@@ -1,5 +1,3 @@
-var dialog = $('#nodeinfo');
-
 var visgexf = {
     visid: null,
     filename: null,
@@ -14,6 +12,10 @@ var visgexf = {
     activeFilterVal: null,
     sourceColor: '#67A9CF',
     targetColor: '#EF8A62',
+
+    tooltipElement: $("#tooltip"),
+    tooltipLibContent: $("#lib_content"),
+    tooltipGuruContent: $("#guru_content"),
 
     init: function(visid, filename, props, callback) {
         $('#loading').show();
@@ -49,14 +51,31 @@ var visgexf = {
             $('#loading').hide();
         });
 
+        visgexf.initTooltip();
+
         visgexf.sig.bind('upnodes', function(event){
-            console.log(event)
             hnode = visgexf.sig.getNodes(event.content)[0];
             if(document.location.hash.replace(/#/i, '') == hnode.attr.label) {
                 visgexf.resetSearch();
                 return;
             }
             document.location.hash = hnode.attr.label;
+        });
+
+        visgexf.sig.bind('overnodes', function(event){
+            var nodeData = visgexf.sig.getNodes(event.content)[0];
+            var tooltipData = nodeData.attr.tooltip || null;
+            
+            if(!tooltipData) {
+                return;
+            }
+
+            visgexf.showTooltip(nodeData, tooltipData);
+        });
+
+        visgexf.sig.bind('outnodes', function(event){
+            var $tooltip = visgexf.tooltipElement;
+            $tooltip.fadeOut(1000);
         });
 
         var forEach = Array.prototype.forEach;
@@ -89,6 +108,53 @@ var visgexf = {
         }
 
         return visgexf;
+    },
+
+    initTooltip: function() {
+        var $tooltip = visgexf.tooltipElement;
+
+        $tooltip.hover(function() {
+            $("#tooltip").stop().fadeIn("fast");
+        }).mouseleave(function() {
+            $tooltip.fadeOut(1000);
+        });
+    },
+
+    showTooltip: function(nodeData, tooltipData) {
+        var $tooltip = visgexf.tooltipElement;
+        var tooltipType = {
+            lib: "lib",
+            person: "person",
+            cource: "cource"
+        };
+            
+        $tooltip.css({
+            top: nodeData.displayY + 50, 
+            left: nodeData.displayX,
+            opacity: 1
+        });
+
+        if(tooltipData.type === tooltipType.person) {
+            initPersonTooltip();
+        } else {
+            initLibTooltip();
+        }
+        
+        $tooltip.fadeIn(500);
+
+        function initPersonTooltip() {
+            visgexf.tooltipLibContent.hide();
+            visgexf.tooltipGuruContent.show();
+
+            $("#user_name").text(tooltipData.content.name);
+        }
+
+        function initLibTooltip() {
+            visgexf.tooltipGuruContent.hide();
+            visgexf.tooltipLibContent.show();
+
+            $("#lib_name").text(tooltipData.content.name);
+        }
     },
 
     // set the color of node or edge
@@ -335,15 +401,3 @@ var visgexf = {
         dialog.hide();
     }
 };
-
-// Node info dialog
-
-function nodeinfo(heading, body) {
-    //dialog.find('.panel-heading h2').html(heading);
-    //dialog.find('.panel-body').html(body);
-    //dialog.show();
-}
-
-dialog.find('button').click(function() {
-    dialog.hide();
-});

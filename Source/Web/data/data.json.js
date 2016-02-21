@@ -7,7 +7,13 @@ var data = { "nodes" : [{
             "y" : -1016.86316,
             "x" : -2572.3761,
             "id" : "/en/b_a_l",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "lib",
+                content: {
+                    name: "Business application"
+                }
+            }
         }, {
             "color" : "#d11f3d",
             "label" : "Frink",
@@ -19,7 +25,13 @@ var data = { "nodes" : [{
             "y" : 518.6559,
             "x" : -742.0327,
             "id" : "/en/frink",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "lib",
+                content: {
+                    name: "Frink"
+                }
+            }
         }, {
             "color" : "#d1231f",
             "label" : "Java",
@@ -43,7 +55,13 @@ var data = { "nodes" : [{
             "y" : 1323.2483,
             "x" : -1090.2911,
             "id" : "/en/bigloo",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "lib",
+                content: {
+                    name: "bigloo"
+                }
+            }
         }, {
             "color" : "#d11fa5",
             "label" : "sed",
@@ -55,7 +73,13 @@ var data = { "nodes" : [{
             "y" : -1016.86316,
             "x" : -1172.3761,
             "id" : "/en/sed",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "person",
+                content: {
+                    name: "sed"
+                }
+            }
         }, {
             "color" : "#d17f1f",
             "label" : "IMTEK Mathematica Supplement",
@@ -65,7 +89,13 @@ var data = { "nodes" : [{
             "y" : -1098.965,
             "x" : -1415.2374,
             "id" : "/en/imtek_mathematica_supplement",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "person",
+                content: {
+                    name: "IMTEK"
+                }
+            }
         }, {
             "color" : "#2fd11f",
             "label" : "Dasl",
@@ -87,7 +117,13 @@ var data = { "nodes" : [{
             "y" : 818.6559,
             "x" : -642.0327,
             "id" : "/en/escher",
-            "size" : 5.0
+            "size" : 5,
+            "tooltip" : {
+                type: "lib",
+                content: {
+                    name: "Escher"
+                }
+            }
         }, {
             "color" : "#be1fd1",
             "label" : "Libs",
@@ -120,7 +156,13 @@ var data = { "nodes" : [{
             "y" : -928.99695,
             "x" : -950.64777,
             "id" : "/en/obj2",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "person",
+                content: {
+                    name: "OBJ2"
+                }
+            }
         }, {
             "color" : "#7ad11f",
             "label" : "ABCL/R",
@@ -130,7 +172,13 @@ var data = { "nodes" : [{
             "y" : 1034.286,
             "x" : -466.06784,
             "id" : "/en/abcl_r",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "lib",
+                content: {
+                    name: "ABCL"
+                }
+            }
         }, {
             "color" : "#2fd11f",
             "label" : "Epigram",
@@ -143,7 +191,13 @@ var data = { "nodes" : [{
             "y" : -916.86316,
             "x" : -2172.3761,
             "id" : "/en/epigram_programming_language",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "lib",
+                content: {
+                    name: "Epigram"
+                }
+            }
         }, {
             "color" : "#441fd1",
             "label" : "Visual Basic",
@@ -156,7 +210,13 @@ var data = { "nodes" : [{
             "y" : 130.1993,
             "x" : 747.00433,
             "id" : "/en/visual_basic",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "lib",
+                content: {
+                    name: "Visual Basic"
+                }
+            }
         }, {
             "color" : "#d11f3d",
             "label" : "People",
@@ -195,7 +255,13 @@ var data = { "nodes" : [{
             "y" : -993.44226,
             "x" : 646.8928,
             "id" : "/wikipedia/bg_id/86164",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "lib",
+                content: {
+                    name: "Ruby"
+                }
+            }
         }, {
             "color" : "#d1231f",
             "label" : "QUILL",
@@ -207,7 +273,13 @@ var data = { "nodes" : [{
             "y" : 241.97334,
             "x" : 1223.0891,
             "id" : "/wikipedia/en_title/QUILL",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "lib",
+                content: {
+                    name: "QUILL"
+                }
+            }
         }, {
             "color" : "#d1231f",
             "label" : "Generic Java",
@@ -220,7 +292,13 @@ var data = { "nodes" : [{
             "y" : 270.62488,
             "x" : 229.85342,
             "id" : "/en/generic_java_programming_language",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "person",
+                content: {
+                    name: "Generic Java"
+                }
+            }
         }, {
             "color" : "#2fd11f",
             "label" : "Cources",
@@ -245,7 +323,13 @@ var data = { "nodes" : [{
             "y" : -410.42166,
             "x" : 919.0323,
             "id" : "/en/d",
-            "size" : 5.571429
+            "size" : 5,
+            "tooltip" : {
+                type: "lib",
+                content: {
+                    name: "D"
+                }
+            }
         }, {
             "color" : "#441fd1",
             "label" : "Gambas",
@@ -256,7 +340,13 @@ var data = { "nodes" : [{
             "y" : 766.4402,
             "x" : 509.1045,
             "id" : "/en/gambas",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "person",
+                content: {
+                    name: "Gambas"
+                }
+            }
         }, {
             "color" : "#2fd11f",
             "label" : "Processing",
@@ -268,7 +358,13 @@ var data = { "nodes" : [{
             "y" : -915.0654,
             "x" : -28.72691,
             "id" : "/en/processing",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "lib",
+                content: {
+                    name: "Processing"
+                }
+            }
         }, {
             "color" : "#d11f3d",
             "label" : "PHP",
@@ -281,7 +377,13 @@ var data = { "nodes" : [{
             "y" : -484.2295,
             "x" : 794.9593,
             "id" : "/en/php",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "lib",
+                content: {
+                    name: "PHP"
+                }
+            }
         }, {
             "color" : "#d1231f",
             "label" : "Scala",
@@ -294,7 +396,13 @@ var data = { "nodes" : [{
             "y" : 624.539,
             "x" : 102.88991,
             "id" : "/en/scala_programming_language",
-            "size" : 5
+            "size" : 5,
+            "tooltip" : {
+                type: "person",
+                content: {
+                    name: "Scala"
+                }
+            }
         }, {
             "color" : "#d11f3d",
             "label" : "Libs",

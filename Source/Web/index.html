@@ -39,7 +39,7 @@
         <div id="sig" class="sigma-expand"></div>
     </div>
 
-    <div id="nodeinfo" class="panel panel-info">
+    <!-- <div id="nodeinfo" class="panel panel-info">
         <div class="panel-heading">
             <button type="button" class="close">&times;</button>
             <h2></h2>
@@ -47,6 +47,66 @@
         <div class="panel-body"></div>
         <div class="panel-footer">
             <button type="button" class="btn btn-default">Close</button>
+        </div>
+    </div> -->
+
+    <div id="tooltip" class="tooltip">
+        <div class="content" id="lib_content">
+            <div>
+                <div class="header">
+                     <span> 
+                        <a title="toggle this tag between favorite, ignored, and normal" class="favorite">★</a> 
+                        <span id="lib_name">jQuery</span> 
+                        <span class="sub-links"> 
+                            <a href="https://github.com/" target="blank" title="subscribe for email notifications on this tag">subscribe</a> 
+                            <span>|</span> 
+                            <a href="https://github.com/" target="blank" title="add this tag to your rss reader">rss</a>
+                        </span>
+                    </span>
+                </div>
+                <div class="description">
+                    JavaScript (not to be confused with Java) is a dynamic, weakly-typed language used for client-side as well as server-side scripting. 
+                </div>
+            </div> 
+            <span class="footer"> 
+                <a href="https://github.com/" target="blank">frequent</a> 
+                <a href="https://github.com/" target="blank">info</a> 
+                <a href="https://github.com/" target="blank">top users</a> 
+                <a href="https://github.com/" target="blank">jobs</a>
+            </span>
+        </div>
+        <div class="content" id="guru_content">
+            <div>
+                <div class="header user">
+                    <div class="gravatar">
+                        <a href="http://stackoverflow.com/users/23354/marc-gravell" target="blank">
+                            <div class="gravatar-wrapper">
+                                <img src="https://i.stack.imgur.com/NJcqr.png?s=64&amp;g=1" alt="user avatar">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="user-info">
+                        <a id="user_name" href="http://stackoverflow.com/users/23354/marc-gravell" target="blank" class="user-link">Marc Gravell</a>
+                        <div class="user-badges">
+                            <span class="reputation-score">586k</span>
+                            <span>
+                                <span class="gold-badges">&bull;</span>
+                                <span class="badgecount">133</span>
+                            </span>
+                            <span>
+                                <span class="silver-badges">&bull;</span>
+                                <span class="badgecount">1621</span>
+                            </span>
+                            <span>
+                                <span class="bronze-badges">&bull;</span>
+                                <span class="badgecount">2114</span>
+                            </span>
+                        </div>
+                        Forest of Dean, United Kingdom<br>
+                        <a href="http://blog.marcgravell.com" target="blank" rel="nofollow">blog.marcgravell.com</a><br>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -67,6 +127,6 @@
     <script src="vendor/twitter/typeahead.bundle.min.js"></script>
 
     <script src="vendor/sigma/sigma.gexfVis.js"></script>
-    <script src="vendor/sigma/sigma.gexfNodeVis.js"></script>
+    <script src="vendor/sigma/sigma.gexfVisInit.js"></script>
 </body>
 </html>

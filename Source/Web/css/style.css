@@ -175,3 +175,148 @@ cite {
     max-width: 350px;
     opacity: .8;
 }
+
+.tooltip {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    width: 330px;
+    font: 13px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: rgb(34, 36, 38);
+    overflow: hidden;
+    z-index: 1002;
+}
+
+.tooltip .content {
+    /*pointer-events: none;  required for d3 */
+    position: relative;
+    font-size: 12px;
+    padding: 10px;
+    background: rgb(80, 80, 80);
+    border: 1px solid rgb(28, 28, 28);
+    border-radius: 2px 2px 2px 2px;
+    box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 3px 0px;
+    color: rgb(227, 227, 227);
+    z-index: 320;
+}
+
+.tooltip .header {
+    margin: 0px 0px 8px;
+    padding: 0px 0px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-align: left;
+    border-bottom: 1px solid rgb(114, 114, 114);
+}
+
+.tooltip .header.user {
+    border-bottom: 0;
+    height: 60px;
+    padding: 0;
+}
+
+.tooltip .gravatar {
+    float: left;
+    margin-right: .8em;
+}
+
+.tooltip .gravatar-wrapper {
+    padding: 0;
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+}
+
+.tooltip .gravatar-wrapper img {
+    width: 64px;
+    height: 64px;
+}
+
+.tooltip .user-info {
+    font-size: 12px;
+    color: #e3e3e3;
+    text-align: left;
+    height: 64px;
+}
+
+.tooltip .user-link {
+    font-size: 18px;
+    color: #e2e2e2!important;
+    text-decoration: none;
+    
+    font-weight: bold;
+}
+
+.tooltip .user-badges {
+    font-weight: normal;
+}
+
+.tooltip .gold-badges {
+    color: #FFCC00;
+}
+
+.tooltip .silver-badges {
+    color: #C5C5C5;
+}
+
+.tooltip .bronze-badges {
+    color: #CC9966;
+}
+
+.tooltip .user-info a {
+    color: #b4d4ec;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.tooltip .user-info a:hover {
+    color: #dcecf7;
+    text-decoration: none;
+}
+
+.tooltip .favorite {
+    font-size: 13px;
+    color: rgb(253, 202, 92);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.tooltip .sub-links {
+    display: block;
+    float: right;
+    width: 82px;
+    height: 16px;
+    font-size: 12px;
+    font-weight: normal;
+    color: rgb(114, 114, 114);
+    text-align: left;
+}
+
+.tooltip .sub-links a,
+.tooltip .sub-links a:visited {
+    color: rgb(255, 153, 51);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.tooltip .description {
+    margin: 0px 0px 8px;
+    font-size: 11px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.tooltip .footer {
+    font-size: 11px;
+    color: rgb(180, 212, 236);
+}
+
+.tooltip .footer a,
+.tooltip .footer a:visited {
+    margin: 0px 8px 0px 0px;
+    color: rgb(180, 212, 236);
+    cursor: pointer;
+    text-decoration: none;
+}
