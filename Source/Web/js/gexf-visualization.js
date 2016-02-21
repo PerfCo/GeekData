@@ -67,8 +67,12 @@ var visgexf = {
         });
 
         var depth = 0;
-
+        
         function MouseWheelHandler(e) {
+            if(!document.location.hash) {
+                return;
+            }
+
             var e = window.event || e;
             
             if(e.wheelDelta > 0 && depth < 8) {
