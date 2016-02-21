@@ -20,6 +20,7 @@ namespace Github.Crawler
             {
                 entity.Tags.Add(value.Language);
             }
+            entity.Description = RemoveSeparator(entity.Description);
             GetCollection<RepositoryInfoEntity>(MongoCollection.GithubRepositories).InsertOneAsync(entity).Wait();
         }
     }

@@ -17,6 +17,7 @@ namespace StackOverflow.Crawler
         {
             var entity = TinyMapper.Map<UserEntity>(value);
             entity.Id = ObjectId.GenerateNewId();
+            entity.DisplayName = RemoveSeparator(entity.DisplayName);
             GetCollection<UserEntity>(MongoCollection.StackOverflowUsers).InsertOneAsync(entity).Wait();
         }
     }

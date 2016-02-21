@@ -117,6 +117,7 @@ namespace DataGenerator
             {
                 Tag = tag;
                 LibNode = new LibNode(this);
+                CourseNode = new CourseNode(this);
             }
 
             public static string Caption
@@ -128,12 +129,14 @@ namespace DataGenerator
                     columns.AddRange(CourseEntity.Captions());
                     columns.AddRange(UserEntity.Captions());
                     columns.AddRange(LibNode.Captions());
+                    columns.AddRange(CourseNode.Captions());
                     return string.Join(";", columns);
                 }
             }
 
             public List<RepositoryInfoEntity> GithubRepositories { get; set; } = new List<RepositoryInfoEntity>();
             public LibNode LibNode { get; }
+            public CourseNode CourseNode { get; }
             public List<CourseEntity> PluralsightCourses { get; set; } = new List<CourseEntity>();
             public List<UserEntity> StackOverflowUsers { get; set; } = new List<UserEntity>();
             public string Tag { get; }
@@ -156,6 +159,7 @@ namespace DataGenerator
                 }
 
                 result.Add(LibNode.ToString());
+                result.Add(CourseNode.ToString());
                 return result;
             }
         }

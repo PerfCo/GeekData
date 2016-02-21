@@ -10,6 +10,5 @@ namespace Github.Crawler.Entities
         public string HtmlUrl { get; set; }
         public List<string> Tags { get; set; } = new List<string>();
         public string StargazersCount { get; set; }
-        public string Readme { get; set; }
     }
 }

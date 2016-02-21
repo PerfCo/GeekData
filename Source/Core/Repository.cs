@@ -20,5 +20,14 @@ namespace Core
         {
             return _connectionFactory.OpenConnection();
         }
+
+        protected string RemoveSeparator(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return value;
+            }
+            return value.Replace(";", string.Empty);
+        }
     }
 }
