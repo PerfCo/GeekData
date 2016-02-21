@@ -144,6 +144,16 @@ namespace DataGenerator
             public List<string> Value()
             {
                 var result = new List<string>();
+
+                if (GithubRepositories.IsNotEmpty())
+                {
+                    result.Add(LibNode.ToString());
+                }
+                if (PluralsightCourses.IsNotEmpty())
+                {
+                    result.Add(CourseNode.ToString());
+                }
+
                 while (GithubRepositories.IsNotEmpty() || PluralsightCourses.IsNotEmpty() || StackOverflowUsers.IsNotEmpty())
                 {
                     RepositoryInfoEntity repository = GithubRepositories.TakeFirst();
@@ -158,8 +168,6 @@ namespace DataGenerator
                     result.Add($"{repositoryValue}; {courseValue}; {userValue}");
                 }
 
-                result.Add(LibNode.ToString());
-                result.Add(CourseNode.ToString());
                 return result;
             }
         }
@@ -168,12 +176,14 @@ namespace DataGenerator
         private sealed class EdgeRow
         {
             private readonly LibNode _libNode;
+            private readonly CourseNode _courseNode;
             private readonly NodeRow _node;
 
             public EdgeRow(NodeRow node)
             {
                 _node = node;
                 _libNode = node.LibNode;
+                _courseNode = node.CourseNode;
             }
 
             public static string Caption
@@ -192,9 +202,9 @@ namespace DataGenerator
                 {
                     result.Add($"{_libNode.Id}; {item.Id}");
                 }
-                foreach (var item in _node.PluralsightCourses)
+                foreach (CourseEntity item in _node.PluralsightCourses)
                 {
-                    result.Add($"{_libNode.Id}; {item.Id}");
+                    result.Add($"{_courseNode.Id}; {item.Id}");
                 }
                 return result;
             }
