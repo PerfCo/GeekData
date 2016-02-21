@@ -127,10 +127,12 @@ var visgexf = {
             person: "person",
             cource: "cource"
         };
+
+        var tooltipPosition = getTooltipPosition(nodeData);
             
         $tooltip.css({
-            top: nodeData.displayY + 50, 
-            left: nodeData.displayX,
+            top: tooltipPosition.y, 
+            left: tooltipPosition.x,
             opacity: 1
         });
 
@@ -141,6 +143,31 @@ var visgexf = {
         }
         
         $tooltip.fadeIn(500);
+
+        function getTooltipPosition(nodeData) {
+            var $window = $(window);
+            var $tooltip = visgexf.tooltipElement;
+
+            var winWidth = $window.width();
+            var winHeight = $window.height();
+
+            var tooltipWidth = $tooltip.width();
+            var tooltipHeight = $tooltip.height();
+
+            var marginX = 10;
+            var marginY = 50;
+
+            var x = nodeData.displayX + tooltipWidth >= winWidth ? 
+                (winWidth - tooltipWidth - marginX) : nodeData.displayX;
+
+            var y = nodeData.displayY + marginY + tooltipHeight >= winHeight ? 
+                (nodeData.displayY - 2 * marginY) : nodeData.displayY + marginY;
+            
+            return {
+                x: x,
+                y: y
+            };
+        }
 
         function initPersonTooltip() {
             visgexf.tooltipLibContent.hide();
