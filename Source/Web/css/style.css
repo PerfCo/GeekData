@@ -196,12 +196,16 @@ cite {
     display: none;
     opacity: 0;
     position: absolute;
-    width: 330px;
+    width: 250px;
     font: 13px;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: rgb(34, 36, 38);
     overflow: hidden;
     z-index: 1002;
+}
+
+.tooltip.user {
+    width: 250px;
 }
 
 .tooltip .content {
@@ -229,8 +233,15 @@ cite {
 
 .tooltip .header.user {
     border-bottom: 0;
-    height: 60px;
-    padding: 0;
+    height: 64px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.tooltip .header.cource {
+    border-bottom: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 .tooltip .gravatar {
@@ -260,8 +271,7 @@ cite {
 .tooltip .user-link {
     font-size: 18px;
     color: #e2e2e2!important;
-    text-decoration: none;
-    
+    text-decoration: none;    
     font-weight: bold;
 }
 
@@ -301,13 +311,17 @@ cite {
 
 .tooltip .sub-links {
     display: block;
-    float: right;
-    width: 82px;
+    float: right;    
+    width: 50px;
     height: 16px;
     font-size: 12px;
     font-weight: normal;
     color: rgb(114, 114, 114);
-    text-align: left;
+    text-align: right;
+}
+
+.tooltip .sub-links.cource {
+    width: 80px;
 }
 
 .tooltip .sub-links a,
@@ -331,7 +345,6 @@ cite {
 
 .tooltip .footer a,
 .tooltip .footer a:visited {
-    margin: 0px 8px 0px 0px;
     color: rgb(180, 212, 236);
     cursor: pointer;
     text-decoration: none;

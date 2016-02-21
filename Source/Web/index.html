@@ -44,59 +44,70 @@
         <div class="content" id="lib_content">
             <div>
                 <div class="header">
-                     <span> 
-                        <a title="toggle this tag between favorite, ignored, and normal" class="favorite">★</a> 
-                        <span id="lib_name">jQuery</span> 
-                        <span class="sub-links"> 
-                            <a href="https://github.com/" target="blank" title="subscribe for email notifications on this tag">subscribe</a> 
-                            <span>|</span> 
-                            <a href="https://github.com/" target="blank" title="add this tag to your rss reader">rss</a>
-                        </span>
+                    <span>
+                        <div style="width: 175px; float:left">
+                            <span id="lib_name">jQuery</span>&nbsp;&nbsp;&nbsp;
+                            <a title="stars on Github" class="favorite">★</a><span id="lib_stars_count"></span>
+                        </div>
+                        <div class="sub-links"> 
+                            <a id="lib_url" href="https://github.com/" target="blank" title="link to Github">Github</a>
+                            <!-- <a id="lib_stars" href="https://github.com/" target="blank" title="link to Github">
+                                
+                            </a> -->
+                        </div>
+                        <div class="clearfix"></div>
                     </span>
                 </div>
-                <div class="description">
+                <div id="lib_description" class="description">
                     JavaScript (not to be confused with Java) is a dynamic, weakly-typed language used for client-side as well as server-side scripting. 
                 </div>
             </div> 
-            <span class="footer"> 
-                <a href="https://github.com/" target="blank">frequent</a> 
-                <a href="https://github.com/" target="blank">info</a> 
-                <a href="https://github.com/" target="blank">top users</a> 
-                <a href="https://github.com/" target="blank">jobs</a>
-            </span>
         </div>
         <div class="content" id="guru_content">
             <div>
                 <div class="header user">
                     <div class="gravatar">
-                        <a href="http://stackoverflow.com/users/23354/marc-gravell" target="blank">
+                        <a id="guru_profile_url" href="http://stackoverflow.com/users/23354/marc-gravell" target="blank">
                             <div class="gravatar-wrapper">
-                                <img src="https://i.stack.imgur.com/NJcqr.png?s=64&amp;g=1" alt="user avatar">
+                                <img id="guru_avatar" src="https://i.stack.imgur.com/NJcqr.png?s=64&amp;g=1" alt="user avatar">
                             </div>
                         </a>
                     </div>
                     <div class="user-info">
-                        <a id="user_name" href="http://stackoverflow.com/users/23354/marc-gravell" target="blank" class="user-link">Marc Gravell</a>
+                        <a id="guru_name" href="http://stackoverflow.com/users/23354/marc-gravell" target="blank" class="user-link">Marc Gravell</a>
                         <div class="user-badges">
-                            <span class="reputation-score">586k</span>
-                            <span>
+                            <span id="guru_badges_gold">
                                 <span class="gold-badges">&bull;</span>
                                 <span class="badgecount">133</span>
                             </span>
-                            <span>
+                            <span id="guru_badges_silver">
                                 <span class="silver-badges">&bull;</span>
                                 <span class="badgecount">1621</span>
                             </span>
-                            <span>
+                            <span id="guru_badges_bronze">
                                 <span class="bronze-badges">&bull;</span>
                                 <span class="badgecount">2114</span>
                             </span>
                         </div>
-                        Forest of Dean, United Kingdom<br>
-                        <a href="http://blog.marcgravell.com" target="blank" rel="nofollow">blog.marcgravell.com</a><br>
+                        <a id="guru_site" href="http://blog.marcgravell.com" target="blank" rel="nofollow">StackOverflow Profile</a><br>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="content" id="cource_content">
+            <div>
+                <div class="header cource">
+                    <span>
+                        <div style="width: 145px; float:left">
+                            <span id="cource_name">jQuery</span>
+                        </div>
+                        <div class="sub-links cource"> 
+                            <a id="cource_url" href="http://pluralsight.com/" target="blank" title="link to PluralSight">PluralSight</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </span>
+                </div>
+            </div> 
         </div>
     </div>
 

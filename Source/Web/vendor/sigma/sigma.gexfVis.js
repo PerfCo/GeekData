@@ -16,6 +16,7 @@ var visgexf = {
     tooltipElement: $("#tooltip"),
     tooltipLibContent: $("#lib_content"),
     tooltipGuruContent: $("#guru_content"),
+    tooltipCourceContent: $("#cource_content"),
 
     init: function(visid, filename, props, callback) {
         $('#loading').show();
@@ -64,9 +65,9 @@ var visgexf = {
 
         visgexf.sig.bind('overnodes', function(event){
             var nodeData = visgexf.sig.getNodes(event.content)[0];
-            var tooltipData = nodeData.attr.tooltip || null;
-            
-            if(!tooltipData) {
+            var tooltipData = nodeData.attr.attributes;
+
+            if(tooltipData.Level != 3) {
                 return;
             }
 
@@ -124,26 +125,28 @@ var visgexf = {
 
     showTooltip: function(nodeData, tooltipData) {
         var $tooltip = visgexf.tooltipElement;
-        var tooltipType = {
-            lib: "lib",
-            person: "person",
-            cource: "cource"
+        var typeMondatoryField = {
+            lib: "HtmlUrlGithubRepository",
+            geek: "DisplayNameStackOverflowUser",
+            cource: "NamePluralsightCourse"
         };
 
         var tooltipPosition = getTooltipPosition(nodeData);
-            
+      
+        if(tooltipData[typeMondatoryField.geek]) {
+            initPersonTooltip();
+        } else if(tooltipData[typeMondatoryField.lib]) {
+            initLibTooltip();
+        } else if(tooltipData[typeMondatoryField.cource]) {
+            initCourseTooltip();
+        }
+
         $tooltip.css({
             top: tooltipPosition.y, 
             left: tooltipPosition.x,
             opacity: 1
         });
 
-        if(tooltipData.type === tooltipType.person) {
-            initPersonTooltip();
-        } else {
-            initLibTooltip();
-        }
-        
         $tooltip.fadeIn(500);
 
         function getTooltipPosition(nodeData) {
@@ -164,7 +167,7 @@ var visgexf = {
 
             var y = nodeData.displayY + marginY + tooltipHeight >= winHeight ? 
                 (nodeData.displayY - 2 * marginY) : nodeData.displayY + marginY;
-            
+
             return {
                 x: x,
                 y: y
@@ -172,17 +175,98 @@ var visgexf = {
         }
 
         function initPersonTooltip() {
+            var $tooltip = visgexf.tooltipElement;
+
+            $tooltip.addClass("user");
+
             visgexf.tooltipLibContent.hide();
+            visgexf.tooltipCourceContent.hide();
             visgexf.tooltipGuruContent.show();
 
-            $("#user_name").text(tooltipData.content.name);
+            $("#guru_name")
+                .text(tooltipData["DisplayNameStackOverflowUser"])
+                .attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
+
+            $("#guru_profile_url").attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
+            $("#guru_avatar").attr("src", tooltipData["ProfileImageStackOverflowUser"]);
+
+            $("#guru_site").attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
+
+            var badges = tooltipData["BadgeCountsStackOverflowUser"];
+
+            var $goldBadge = $("#guru_badges_gold");
+            var $silverBadge = $("#guru_badges_silver");
+            var $bronzeBadge = $("#guru_badges_bronze");
+            
+            if(badges["Gold"]){
+                $goldBadge.show().find(".badgecount").text(badges["Gold"]);
+            } else {
+                $goldBadge.hide().find(".badgecount").text("");
+            }
+
+            if(badges["Silver"]){
+                $silverBadge.show().find(".badgecount").text(badges["Gold"]);
+            } else {
+                $silverBadge.hide().find(".badgecount").text("");
+            }
+
+            if(badges["Bronze"]){
+                $bronzeBadge.show().find(".badgecount").text(badges["Bronze"]);
+            } else {
+                $bronzeBadge.hide().find(".badgecount").text("");
+            }
+
+            /*"attributes" : {
+                "ProfileImageStackOverflowUser" : " https://www.gravatar.com/avatar/7deca8ec973c3c0875e9a36e1e3e2c44?s\u003d128\u0026d\u003didenticon\u0026r\u003dPG",
+                "ProfileUrlStackOverflowUser" : " http://stackoverflow.com/users/34397/slaks",                
+                "TagsStackOverflowUser" : " C#",                
+                "AccountIdStackOverflowUser" : " 15988",                
+                "DisplayNameStackOverflowUser" : " SLaks",
+                "BadgeCountsStackOverflowUser" : " Bronze: 1422, Gold: 81, Silver: 1216"
+            },*/
         }
 
         function initLibTooltip() {
+            var $tooltip = visgexf.tooltipElement;
+
+            $tooltip.removeClass("user");
+
             visgexf.tooltipGuruContent.hide();
+            visgexf.tooltipCourceContent.hide();
             visgexf.tooltipLibContent.show();
 
-            $("#lib_name").text(tooltipData.content.name);
+            var libUrl = tooltipData["HtmlUrlGithubRepository"];
+            var libUrlParts = libUrl.split("/");
+            var libName = libUrlParts[libUrlParts.length - 1];
+            
+            $("#lib_name").text(libName);
+            $("#lib_url").attr("href", libUrl);
+            $("#lib_description").text(tooltipData["DescriptionGithubRepository"]);
+            $("#lib_stars_count").text(tooltipData["StargazersCountGithubRepository"]);
+            
+            /*"attributes" : {                
+                "TagsGithubRepository" : " C#",                
+                "DescriptionGithubRepository" : " Polly is a .NET 3.5 / 4.0 / 4.5 / PCL library that allows developers to express transient exception handling policies such as Retry, Retry Forever, Wait and Retry or Circuit Breaker in a fluent manner.",
+                "StargazersCountGithubRepository" : " 1279",                
+                "HtmlUrlGithubRepository" : " https://github.com/App-vNext/Polly",                
+            },*/
+        }
+
+        function initCourseTooltip() {
+            visgexf.tooltipGuruContent.hide();
+            visgexf.tooltipLibContent.hide();
+            visgexf.tooltipCourceContent.show();
+
+            $("#cource_name").text(tooltipData["NamePluralsightCourse"]);
+            $("#cource_url").attr("href", tooltipData["UrlPluralsightCourse"]);
+
+            /*
+            "attributes" : {                
+                "UrlPluralsightCourse" : " http://pluralsight.com/training/Courses/TableOfContents/skeet-async",
+                "NamePluralsightCourse" : "Asynchronous C# 5.0",
+                "TagsPluralsightCourse" : " C#",
+            },
+            */
         }
     },
 
