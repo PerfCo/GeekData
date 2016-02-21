@@ -8,7 +8,7 @@
 
         public override string ToString()
         {
-            return $"Bronze: {Bronze}, Gold: {Gold}, Silver: {Silver}";
+            return $"{{Bronze: {Bronze}, Gold: {Gold}, Silver: {Silver}}}";
         }
     }
 }
