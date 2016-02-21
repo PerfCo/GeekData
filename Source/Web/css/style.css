@@ -56,12 +56,14 @@ cite {
 
 .navbar-brand.site-name {
     font-size: 1.6em;
-    color: #8ce;
+    color: #444444;
+    font-weight: bold;
     margin-left: 0;
 }
 
 .navbar-brand.site-name:hover {
-    color: #8ce;
+    color: #444444;
+    font-weight: bold;
 }
 
 .navbar-profiles {
