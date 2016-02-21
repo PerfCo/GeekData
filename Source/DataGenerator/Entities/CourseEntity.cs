@@ -21,7 +21,7 @@ namespace DataGenerator.Entities
 
         public override string ToString()
         {
-            return $"{Id}; {Name}; {Tags}; {Url}";
+            return $"{Id}; {Name}; {string.Join(",", Tags)}; {Url}";
         }
     }
 }

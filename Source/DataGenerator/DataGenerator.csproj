@@ -63,9 +63,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Nodes\CourseNode.cs" />
+    <Compile Include="Nodes\EdgeRow.cs" />
     <Compile Include="Entities\CourseEntity.cs" />
     <Compile Include="Entities\RepositoryInfoEntity.cs" />
     <Compile Include="Entities\UserEntity.cs" />
+    <Compile Include="Nodes\GeekNode.cs" />
+    <Compile Include="Nodes\LibNode.cs" />
+    <Compile Include="Nodes\NodeRow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataRepository.cs" />

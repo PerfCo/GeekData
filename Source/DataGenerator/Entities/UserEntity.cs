@@ -26,7 +26,7 @@ namespace DataGenerator.Entities
 
         public override string ToString()
         {
-            return $"{AccountId}; {BadgeCounts}; {DisplayName}; {Id}; {ProfileImage}; {ProfileUrl}; {Tags}";
+            return $"{AccountId}; {BadgeCounts}; {DisplayName}; {Id}; {ProfileImage}; {ProfileUrl}; {string.Join(",", Tags)}";
         }
     }
 }

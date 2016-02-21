@@ -9,7 +9,6 @@ namespace DataGenerator.Entities
     public sealed class RepositoryInfoEntity
     {
         public string Description { get; set; }
-
         public static string Empty => ";;;;";
         public string HtmlUrl { get; set; }
         public ObjectId Id { get; set; }
@@ -25,7 +24,7 @@ namespace DataGenerator.Entities
 
         public override string ToString()
         {
-            return $"{Description}; {HtmlUrl}; {Id}; {StargazersCount}; {Tags}";
+            return $"{Description}; {HtmlUrl}; {Id}; {StargazersCount}; {string.Join(",", Tags)}";
         }
     }
 }
