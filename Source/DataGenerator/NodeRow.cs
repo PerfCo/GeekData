@@ -13,6 +13,7 @@ namespace DataGenerator.Nodes
             LibNode = new LibNode(this);
             CourseNode = new CourseNode(this);
             GeekNode = new GeekNode(this);
+            TagNode = new TagNode(this);
         }
 
         public static string Caption
@@ -26,21 +27,24 @@ namespace DataGenerator.Nodes
                 columns.AddRange(LibNode.Captions());
                 columns.AddRange(CourseNode.Captions());
                 columns.AddRange(GeekNode.Captions());
+                columns.AddRange(TagNode.Captions());
                 return string.Join(";", columns);
             }
         }
 
-        public List<RepositoryInfoEntity> GithubRepositories { get; set; } = new List<RepositoryInfoEntity>();
-        public LibNode LibNode { get; }
         public CourseNode CourseNode { get; }
         public GeekNode GeekNode { get; }
+
+        public List<RepositoryInfoEntity> GithubRepositories { get; set; } = new List<RepositoryInfoEntity>();
+        public LibNode LibNode { get; }
         public List<CourseEntity> PluralsightCourses { get; set; } = new List<CourseEntity>();
         public List<UserEntity> StackOverflowUsers { get; set; } = new List<UserEntity>();
         public string Tag { get; }
+        public TagNode TagNode { get; }
 
         public List<string> Value()
         {
-            var result = new List<string>();
+            var result = new List<string> { TagNode.ToString() };
 
             if (GithubRepositories.IsNotEmpty())
             {

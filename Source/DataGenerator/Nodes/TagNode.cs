@@ -4,12 +4,12 @@ using DataGenerator.Entities;
 
 namespace DataGenerator.Nodes
 {
-    public sealed class GeekNode
+    public sealed class TagNode
     {
-        private const string Suffix = "GeekNode";
+        private const string Suffix = "TagNode";
         private readonly NodeRow _node;
 
-        public GeekNode(NodeRow node)
+        public TagNode(NodeRow node)
         {
             _node = node;
             Id = $"{_node.Tag}{Suffix}";
@@ -30,13 +30,12 @@ namespace DataGenerator.Nodes
                 + CourseEntity.Captions().Count
                 + UserEntity.Captions().Count
                 + CourseNode.Captions().Count
+                + GeekNode.Captions().Count
                 + LibNode.Captions().Count
-                + TagNode.Captions().Count
                 - 6;
 
             var items = new string(';', totalSeparators);
-
-            return $"{items}; {Id}; {_node.Tag} Geeks";
+            return $"{items}; {Id}; {_node.Tag}";
         }
     }
 }

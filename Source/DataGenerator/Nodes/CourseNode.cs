@@ -26,10 +26,17 @@ namespace DataGenerator.Nodes
 
         public override string ToString()
         {
-            var items1 = new string(';', RepositoryInfoEntity.Captions().Count - 1);
-            var items2 = new string(';', CourseEntity.Captions().Count - 1);
-            var items3 = new string(';', UserEntity.Captions().Count - 1);
-            return $"{items1};{items2};{items3};{Id}; {_node.Tag} Courses";
+            int totalSeparators = RepositoryInfoEntity.Captions().Count
+                + CourseEntity.Captions().Count
+                + UserEntity.Captions().Count
+                + GeekNode.Captions().Count
+                + LibNode.Captions().Count
+                + TagNode.Captions().Count
+                - 6;
+
+            var items = new string(';', totalSeparators);
+
+            return $"{items}; {Id}; {_node.Tag} Courses";
         }
     }
 }
