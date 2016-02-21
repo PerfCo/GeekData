@@ -17,6 +17,7 @@ var visgexf = {
     tooltipLibContent: $("#lib_content"),
     tooltipGuruContent: $("#guru_content"),
     tooltipCourceContent: $("#cource_content"),
+    tooltipGroupContent: $("#group_content"),
     tooltipLastTimeShown: new Date(),
 
     init: function(visid, filename, props, callback) {
@@ -71,7 +72,7 @@ var visgexf = {
             var nodeData = visgexf.sig.getNodes(event.content)[0];
             var tooltipData = nodeData.attr.attributes;
 
-            if(tooltipData.Level != 3) {
+            if(tooltipData.Level == 1) {
                 return;
             }
 
@@ -141,8 +142,10 @@ var visgexf = {
         };
 
         var tooltipPosition = getTooltipPosition(nodeData);
-      
-        if(tooltipData[typeMondatoryField.geek]) {
+        
+        if(tooltipData.Level == 2) {
+            initGroupTooltip();
+        } else if(tooltipData[typeMondatoryField.geek]) {
             initPersonTooltip();
         } else if(tooltipData[typeMondatoryField.lib]) {
             initLibTooltip();
@@ -203,6 +206,7 @@ var visgexf = {
 
             visgexf.tooltipLibContent.hide();
             visgexf.tooltipCourceContent.hide();
+            visgexf.tooltipGroupContent.hide();
             visgexf.tooltipGuruContent.show();
 
             $("#guru_name")
@@ -258,6 +262,7 @@ var visgexf = {
 
             visgexf.tooltipGuruContent.hide();
             visgexf.tooltipCourceContent.hide();
+            visgexf.tooltipGroupContent.hide();
             visgexf.tooltipLibContent.show();
 
             var libUrl = tooltipData["HtmlUrlGithubRepository"];
@@ -280,6 +285,7 @@ var visgexf = {
         function initCourseTooltip() {
             visgexf.tooltipGuruContent.hide();
             visgexf.tooltipLibContent.hide();
+            visgexf.tooltipGroupContent.hide();
             visgexf.tooltipCourceContent.show();
 
             $("#cource_name").text(tooltipData["NamePluralsightCourse"]);
@@ -292,6 +298,15 @@ var visgexf = {
                 "TagsPluralsightCourse" : " C#",
             },
             */
+        } // group_name
+
+        function initGroupTooltip() {
+            visgexf.tooltipGuruContent.hide();
+            visgexf.tooltipLibContent.hide();
+            visgexf.tooltipCourceContent.hide();
+            visgexf.tooltipGroupContent.show();
+
+            $("#group_name").text(nodeData.label);
         }
     },
 
