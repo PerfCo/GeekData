@@ -66,7 +66,7 @@ namespace Pluralsight.Crawler
             {
                 string category = categories[i];
                 List<PluralsightCourse> cources = GetCourses(rawCources[i]);
-                cources.ForEach(x => x.Tags.Add(category));
+                cources.ForEach(x => x.Tags.Add(category.Trim()));
                 result.AddRange(cources);
             }
             return result;

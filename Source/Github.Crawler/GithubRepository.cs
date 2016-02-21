@@ -18,7 +18,7 @@ namespace Github.Crawler
             entity.Id = ObjectId.GenerateNewId();
             if (!string.IsNullOrWhiteSpace(value.Language))
             {
-                entity.Tags.Add(value.Language);
+                entity.Tags.Add(value.Language.Trim());
             }
             entity.Description = RemoveSeparator(entity.Description);
             GetCollection<RepositoryInfoEntity>(MongoCollection.GithubRepositories).InsertOneAsync(entity).Wait();

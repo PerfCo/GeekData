@@ -22,7 +22,7 @@ namespace StackOverflow.Crawler
             List<StackOverflowUser> result = GetTopAnswerers(tag)
                 .Map(GetUsers)
                 .Map(x => x.ConvertAll(Convert))
-                .Do(x => x.Iter(y => y.Tags.Add(tag)))
+                .Do(x => x.Iter(y => y.Tags.Add(tag.Trim())))
                 .MapOnEmpty(() => new List<StackOverflowUser>())
                 .Value;
 
