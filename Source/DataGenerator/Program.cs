@@ -15,11 +15,11 @@ namespace DataGenerator
         {
             _logger.Info("DataGenerator is running...");
             List<TagItem> rootTags = new Tags().Root;
+            var worker = new Worker(_connectionFactory);
             foreach (TagItem tag in rootTags)
             {
                 try
                 {
-                    var worker = new Worker(_connectionFactory);
                     worker.Generate(tag.StackOverflow);
                 }
                 catch (Exception ex)
