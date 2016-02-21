@@ -117,6 +117,7 @@ namespace DataGenerator
             {
                 Tag = tag;
                 LibNode = new LibNode(this);
+                CourseNode = new CourseNode(this);
             }
 
             public static string Caption
@@ -128,12 +129,14 @@ namespace DataGenerator
                     columns.AddRange(CourseEntity.Captions());
                     columns.AddRange(UserEntity.Captions());
                     columns.AddRange(LibNode.Captions());
+                    columns.AddRange(CourseNode.Captions());
                     return string.Join(";", columns);
                 }
             }
 
             public List<RepositoryInfoEntity> GithubRepositories { get; set; } = new List<RepositoryInfoEntity>();
             public LibNode LibNode { get; }
+            public CourseNode CourseNode { get; }
             public List<CourseEntity> PluralsightCourses { get; set; } = new List<CourseEntity>();
             public List<UserEntity> StackOverflowUsers { get; set; } = new List<UserEntity>();
             public string Tag { get; }
@@ -141,6 +144,16 @@ namespace DataGenerator
             public List<string> Value()
             {
                 var result = new List<string>();
+
+                if (GithubRepositories.IsNotEmpty())
+                {
+                    result.Add(LibNode.ToString());
+                }
+                if (PluralsightCourses.IsNotEmpty())
+                {
+                    result.Add(CourseNode.ToString());
+                }
+
                 while (GithubRepositories.IsNotEmpty() || PluralsightCourses.IsNotEmpty() || StackOverflowUsers.IsNotEmpty())
                 {
                     RepositoryInfoEntity repository = GithubRepositories.TakeFirst();
@@ -155,7 +168,6 @@ namespace DataGenerator
                     result.Add($"{repositoryValue}; {courseValue}; {userValue}");
                 }
 
-                result.Add(LibNode.ToString());
                 return result;
             }
         }
@@ -164,12 +176,14 @@ namespace DataGenerator
         private sealed class EdgeRow
         {
             private readonly LibNode _libNode;
+            private readonly CourseNode _courseNode;
             private readonly NodeRow _node;
 
             public EdgeRow(NodeRow node)
             {
                 _node = node;
                 _libNode = node.LibNode;
+                _courseNode = node.CourseNode;
             }
 
             public static string Caption
@@ -187,6 +201,10 @@ namespace DataGenerator
                 foreach (RepositoryInfoEntity item in _node.GithubRepositories)
                 {
                     result.Add($"{_libNode.Id}; {item.Id}");
+                }
+                foreach (CourseEntity item in _node.PluralsightCourses)
+                {
+                    result.Add($"{_courseNode.Id}; {item.Id}");
                 }
                 return result;
             }
@@ -218,7 +236,36 @@ namespace DataGenerator
                 var items1 = new string(';', RepositoryInfoEntity.Captions().Count - 1);
                 var items2 = new string(';', CourseEntity.Captions().Count - 1);
                 var items3 = new string(';', UserEntity.Captions().Count - 1);
-                return $"{items1};{items2};{items3};{Id}; {_node.Tag}";
+                return $"{items1};{items2};{items3};{Id}; {_node.Tag} Libs";
+            }
+        }
+
+        private sealed class CourseNode
+        {
+            private const string Suffix = "CourseNode";
+            private readonly NodeRow _node;
+
+            public CourseNode(NodeRow node)
+            {
+                _node = node;
+                Id = $"{_node.Tag}{Suffix}";
+            }
+
+            public string Id { get; }
+
+            public static List<string> Captions()
+            {
+                var items = new[] { "Id", "Label" };
+                List<string> result = items.Select(x => $"{x}{Suffix}").ToList();
+                return result;
+            }
+
+            public override string ToString()
+            {
+                var items1 = new string(';', RepositoryInfoEntity.Captions().Count - 1);
+                var items2 = new string(';', CourseEntity.Captions().Count - 1);
+                var items3 = new string(';', UserEntity.Captions().Count - 1);
+                return $"{items1};{items2};{items3};{Id}; {_node.Tag} Courses";
             }
         }
     }

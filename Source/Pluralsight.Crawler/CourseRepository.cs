@@ -16,6 +16,7 @@ namespace Pluralsight.Crawler
         {
             var entity = TinyMapper.Map<CourseEntity>(value);
             entity.Id = ObjectId.GenerateNewId();
+            entity.Name = RemoveSeparator(entity.Name);
             GetCollection<CourseEntity>(MongoCollection.PluralsightCourses).InsertOneAsync(entity).Wait();
         }
     }
