@@ -34,7 +34,7 @@ var visgexf = {
         visgexf.sig.parseJson(filename, function(){
             visgexf.sig.draw();
             // create array of node labels used for auto complete once
-            if (0==visgexf.nodelabels.length) {
+            if (0 == visgexf.nodelabels.length) {
                 visgexf.sig.iterNodes(function(n){
                     visgexf.nodelabels.push(n.label);
                     visgexf.nodemap[n.label] = n.id;
@@ -58,6 +58,31 @@ var visgexf = {
             }
             document.location.hash = hnode.attr.label;
         });
+
+        var forEach = Array.prototype.forEach;
+        var $$ = document.querySelectorAll.bind(document);
+
+        forEach.call($$('.sigma-parent'), function(v) {
+            v.addEventListener('mousewheel', MouseWheelHandler, false);
+        });
+
+        var depth = 0;
+
+        function MouseWheelHandler(e) {
+            var e = window.event || e;
+            
+            if(e.wheelDelta > 0 && depth < 8) {
+                depth++;
+            } else if(e.wheelDelta < 0 && depth >= 0) {
+                depth--;
+            }
+
+            if(e.wheelDelta < 0 && depth < 0) {
+                visgexf.resetSearch();
+            }
+            
+            return false;
+        }
 
         return visgexf;
     },
