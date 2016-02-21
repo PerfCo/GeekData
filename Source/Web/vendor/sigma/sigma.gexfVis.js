@@ -213,12 +213,17 @@ var visgexf = {
 
             $("#guru_site").attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
 
-            var badges = tooltipData["BadgeCountsStackOverflowUser"];
+            var badges = {};
+            var badgesRawData = tooltipData["BadgeCountsStackOverflowUser"];
+            if(badgesRawData) {
+                badgesRawData = badgesRawData.replace(/([a-zA-Z][^:]*)(?=\s*:)/g, '"$1"'); // add quotes to make valid json
+                badges = JSON.parse(badgesRawData);
+            }
 
             var $goldBadge = $("#guru_badges_gold");
             var $silverBadge = $("#guru_badges_silver");
             var $bronzeBadge = $("#guru_badges_bronze");
-            
+
             if(badges["Gold"]){
                 $goldBadge.show().find(".badgecount").text(badges["Gold"]);
             } else {
