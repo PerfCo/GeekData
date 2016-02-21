@@ -64,6 +64,22 @@ var visgexf = {
         });
 
         visgexf.sig.bind('overnodes', function(event){
+            /*var nodeData = visgexf.sig.getNodes(event.content)[0];
+            var tooltipData = nodeData.attr.attributes;
+
+            if(tooltipData.Level != 3) {
+                return;
+            }
+
+            visgexf.showTooltip(nodeData, tooltipData);*/
+        });
+
+        visgexf.sig.bind('outnodes', function(event){
+            /*var $tooltip = visgexf.tooltipElement;
+            $tooltip.delay(500).fadeOut(1000);*/
+        });
+
+        visgexf.sig.bind('upnodes', function(event){
             var nodeData = visgexf.sig.getNodes(event.content)[0];
             var tooltipData = nodeData.attr.attributes;
 
@@ -71,12 +87,7 @@ var visgexf = {
                 return;
             }
 
-            //visgexf.showTooltip(nodeData, tooltipData);
-        });
-
-        visgexf.sig.bind('outnodes', function(event){
-            var $tooltip = visgexf.tooltipElement;
-            $tooltip.delay(500).fadeOut(1000);
+            visgexf.showTooltip(nodeData, tooltipData);
         });
 
         var forEach = Array.prototype.forEach;
@@ -114,19 +125,19 @@ var visgexf = {
     },
 
     initTooltip: function() {
-        var $tooltip = visgexf.tooltipElement;
+        /*var $tooltip = visgexf.tooltipElement;
 
         $tooltip.hover(function() {
-            $("#tooltip").stop().fadeIn("fast");
+            $("#tooltip").fadeIn("fast");
         }).mouseleave(function() {
-            $tooltip.stop().fadeOut(1000);
-        });
+            $tooltip.fadeOut(1000);
+        });*/
     },
 
     showTooltip: function(nodeData, tooltipData) {
         var $tooltip = visgexf.tooltipElement;
 
-        $tooltip.stop().delay(1000);
+        $tooltip;
 
         var typeMondatoryField = {
             lib: "HtmlUrlGithubRepository",
@@ -150,7 +161,7 @@ var visgexf = {
             opacity: 1
         });
 
-        $tooltip.fadeIn(500);
+        $tooltip.fadeIn(500).delay(5000).fadeOut(1000);
 
         function getTooltipPosition(nodeData) {
             var $window = $(window);
