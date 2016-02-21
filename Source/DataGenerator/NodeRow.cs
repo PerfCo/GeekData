@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Core.Extensions;
 using DataGenerator.Entities;
+using DataGenerator.Nodes;
 using Nelibur.Sword.Extensions;
 
-namespace DataGenerator.Nodes
+namespace DataGenerator
 {
     public sealed class NodeRow
     {

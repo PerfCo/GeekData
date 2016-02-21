@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using DataGenerator.Entities;
+using DataGenerator.Nodes;
 using Nelibur.Sword.Extensions;
 
-namespace DataGenerator.Nodes
+namespace DataGenerator
 {
     public sealed class EdgeRow
     {
