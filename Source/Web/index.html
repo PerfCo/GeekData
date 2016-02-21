@@ -11,9 +11,9 @@
 
     <link href="vendor/font-awesome/font-awesome-4.5.0.min.css" rel="stylesheet">
     <link href="vendor/bootstrap/bootstrap-3.3.6.min.css" rel="stylesheet">
-    <!-- <link href="vendor/bootstrap/bootstrap-toggle.min.css" rel="stylesheet"> -->
+    <link href="vendor/bootstrap/bootstrap-toggle.min.css" rel="stylesheet">
 
-    <link href="css/style.css#v=1" rel="stylesheet">
+    <link href="css/style.css#v=2" rel="stylesheet">
 </head>
 
 <body class="full">
@@ -25,7 +25,10 @@
         </div>
         
         <div class="collapse navbar-collapse" id="main-navbar" style="text-align: center; font-size: 25px;">
-            <span class="slogan"><!-- <input type="checkbox" data-toggle="toggle" data-on="Find" data-off="Lose"> -->Find your way in the <span>universe</span> of technology</span>
+            <div class="slogan">
+                <input id="toggle_view" type="checkbox" checked data-toggle="toggle" data-on="Find" data-off="Lose">
+                your way in the <span class="highlight-part">universe</span> of technology
+            </div>
             <div class="pull-right navbar-profiles">
                 <a href="https://github.com/GSerjo" target="blank">
                     <img src="https://avatars0.githubusercontent.com/u/1163475?v=3&amp;s=60" title="GSerjo" alt="GSerjo user avatar"/ >
@@ -80,15 +83,15 @@
                         <a id="guru_name" href="http://stackoverflow.com/users/23354/marc-gravell" target="blank" class="user-link">Marc Gravell</a>
                         <div class="user-badges">
                             <span id="guru_badges_gold">
-                                <span class="gold-badges">&bull;</span>
+                                <span class="gold-badges">&#9679;</span>
                                 <span class="badgecount">133</span>
                             </span>
                             <span id="guru_badges_silver">
-                                <span class="silver-badges">&bull;</span>
+                                <span class="silver-badges">&#9679;</span>
                                 <span class="badgecount">1621</span>
                             </span>
                             <span id="guru_badges_bronze">
-                                <span class="bronze-badges">&bull;</span>
+                                <span class="bronze-badges">&#9679;</span>
                                 <span class="badgecount">2114</span>
                             </span>
                         </div>
@@ -122,25 +125,26 @@
             </path>
         </svg>
     </a>
-        
-    <script src="js/event-handler.js"></script>
 
     <script type="text/javascript">
         var gexf = 'data/data.json.js';
     </script>
 
     <script src="data/data.json.js"></script>
-
+   
     <script src="vendor/jquery/jquery-2.2.0.min.js"></script>
     <script src="vendor/bootstrap/bootstrap-3.3.6.min.js"></script>
-    
+    <script src="vendor/bootstrap/bootstrap-toggle.min.js"></script>
+
     <script src="vendor/sigma/sigma.min.js"></script>
-    <script src="vendor/sigma/sigma.parseJson.js"></script>
+    <script src="vendor/sigma/sigma.parseJson.js#v=2"></script>
 
     <script src="vendor/twitter/typeahead.bundle.min.js"></script>
 
-    <script src="vendor/sigma/sigma.gexfVis.js"></script>
-    <script src="vendor/sigma/sigma.gexfVisInit.js"></script>
+    <script src="vendor/sigma/sigma.gexfVis.js#v=2"></script>
+    <script src="vendor/sigma/sigma.gexfVisInit.js#v=2"></script>
+
+    <script src="js/event-handler.js#v=2"></script>
 
     <script type="text/javascript">
         /*(function(){

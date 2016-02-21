@@ -24,7 +24,7 @@ var visgexf = {
         visgexf.visid = visid;
         visgexf.filename = filename;
         visgexf.props = props;
-        viscontainer = document.getElementById(visid);
+        var viscontainer = document.getElementById(visid);
         // adjust height of graph to screen
         var h_win = $(window).height() - $('#navbar').height();
         var h_vis = $(viscontainer).height();
@@ -35,6 +35,7 @@ var visgexf = {
             .drawingProperties(props['drawing'])
             .graphProperties(props['graph'])
             .mouseProperties({maxRatio: 128});
+
         visgexf.sig.parseJson(filename, function(){
             visgexf.sig.draw();
             // create array of node labels used for auto complete once
@@ -470,10 +471,6 @@ var visgexf = {
         $(window).bind('hashchange', function(event) {
             visgexf.redirectHash();
         });
-
-        /*$('#search-reset').on('click', function(event) {
-            visgexf.resetSearch();
-        });*/
     },
 
     redirectHash: function(q) {
@@ -521,6 +518,17 @@ var visgexf = {
 
     resetSearch: function() {
         document.location.href = document.location.pathname;
+
+        /*document.location.hash = "";
+        visgexf.sig = null;
+
+        $('#sig').remove(); 
+        $('#vis').html('<div id="sig"></div>'); 
+
+        visgexf.init('sig', gexf, visgexf.props, function() {
+            var filterid = 'paradigms';
+            var filters = visgexf.getFilters([filterid]);
+        });*/
     },
 
     resetFilter: function() {

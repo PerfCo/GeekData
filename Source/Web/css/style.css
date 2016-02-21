@@ -66,13 +66,54 @@ cite {
     font-weight: bold;
 }
 
-.slogan span {
+.slogan {
+    display: inline-block;
+}
+
+.slogan .highlight-part {
     display: inline-block; 
     margin-top: 8px;
     background-color: #569FEC;
     border-radius: 8px 20px 0 0;
     padding: 0 5px 0 2px;
     color: #fff;
+}
+
+.slogan .toggle.btn.btn-primary,
+.slogan .toggle.btn.btn-default.off {
+    width: 75px!important;
+    margin-top: -7px!important;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.slogan .btn.btn-primary.toggle-on,
+.slogan .btn.btn-default.active.toggle-off {
+    font-size: 25px;
+    padding-top: 0;
+    padding-bottom: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.slogan .btn.btn-primary.toggle-on {
+    background-color: #569FEC;
+    padding-left: 2px;
+}
+
+.slogan .toggle.btn.btn-default.off {
+    border-color: #BEBEBE;
+}
+
+.slogan .btn.btn-default.active.toggle-off {
+    padding-right: 2px;
+    padding-left: 15px;
+    background-color: #E1E1E1;
+}
+
+.slogan .btn.btn-primary {
+    background-color: #167EEC;
+    border-color: #167EEC;
 }
 
 .navbar-profiles {
