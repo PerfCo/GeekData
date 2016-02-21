@@ -4,7 +4,7 @@ using DataGenerator.Entities;
 
 namespace DataGenerator.Nodes
 {
-    public sealed class TagNode
+    public sealed class TagNode : Node
     {
         private const string Suffix = "TagNode";
         private readonly NodeRow _node;
@@ -17,25 +17,32 @@ namespace DataGenerator.Nodes
 
         public string Id { get; }
 
-        public static List<string> Captions()
+        public override int Level { get; } = 1;
+
+        public new static List<string> Captions()
         {
             var items = new[] { "Id", "Label" };
             List<string> result = items.Select(x => $"{x}{Suffix}").ToList();
             return result;
         }
 
+        //                columns.AddRange(RepositoryInfoEntity.Captions());
+        //                columns.AddRange(CourseEntity.Captions());
+        //                columns.AddRange(UserEntity.Captions());
+        //                columns.AddRange(LibNode.Captions());
+        //                columns.AddRange(CourseNode.Captions());
+        //                columns.AddRange(GeekNode.Captions());
+        //                columns.AddRange(TagNode.Captions());
         public override string ToString()
         {
-            int totalSeparators = RepositoryInfoEntity.Captions().Count
-                + CourseEntity.Captions().Count
-                + UserEntity.Captions().Count
-                + CourseNode.Captions().Count
-                + GeekNode.Captions().Count
-                + LibNode.Captions().Count
-                - 6;
+            var items1 = new string(';', RepositoryInfoEntity.Captions().Count - 1);
+            var items2 = new string(';', CourseEntity.Captions().Count - 1);
+            var items3 = new string(';', UserEntity.Captions().Count - 1);
+            var items4 = new string(';', LibNode.Captions().Count - 1);
+            var items5 = new string(';', CourseNode.Captions().Count - 1);
+            var items6 = new string(';', GeekNode.Captions().Count - 1);
 
-            var items = new string(';', totalSeparators);
-            return $"{items}; {Id}; {_node.Tag}";
+            return $"{items1}; {items2}; {items3}; {items4}; {items5}; {items6}; {Id}; {_node.Tag}";
         }
     }
 }

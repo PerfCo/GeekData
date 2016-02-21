@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DataGenerator.Nodes;
 using MongoDB.Bson;
 
 namespace DataGenerator.Entities
 {
-    public sealed class CourseEntity
+    public sealed class CourseEntity : Node
     {
         public static string Empty => ";;;";
         public ObjectId Id { get; set; }
@@ -12,7 +13,7 @@ namespace DataGenerator.Entities
         public List<string> Tags { get; set; }
         public string Url { get; set; }
 
-        public static List<string> Captions()
+        public new static List<string> Captions()
         {
             var suffix = "PluralsightCourse";
             var items = new[] { "Id", "Name", "Tags", "Url" };
@@ -23,5 +24,7 @@ namespace DataGenerator.Entities
         {
             return $"{Id}; {Name}; {string.Join(",", Tags)}; {Url}";
         }
+
+        public override int Level { get; } = 0;
     }
 }

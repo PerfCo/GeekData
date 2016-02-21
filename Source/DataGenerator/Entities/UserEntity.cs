@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Contracts.StackOverflow;
+using DataGenerator.Nodes;
 using MongoDB.Bson;
 
 namespace DataGenerator.Entities
 {
-    public sealed class UserEntity
+    public sealed class UserEntity : Node
     {
         public int AccountId { get; set; }
         public BadgeCounts BadgeCounts { get; set; }
@@ -28,5 +29,7 @@ namespace DataGenerator.Entities
         {
             return $"{AccountId}; {BadgeCounts}; {DisplayName}; {Id}; {ProfileImage}; {ProfileUrl}; {string.Join(",", Tags)}";
         }
+
+        public override int Level { get; } = 0;
     }
 }

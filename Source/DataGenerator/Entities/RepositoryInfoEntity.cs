@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DataGenerator.Nodes;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace DataGenerator.Entities
 {
     [BsonIgnoreExtraElements]
-    public sealed class RepositoryInfoEntity
+    public sealed class RepositoryInfoEntity : Node
     {
         public string Description { get; set; }
         public static string Empty => ";;;;";
@@ -15,7 +16,7 @@ namespace DataGenerator.Entities
         public string StargazersCount { get; set; }
         public List<string> Tags { get; set; }
 
-        public static List<string> Captions()
+        public new static List<string> Captions()
         {
             var suffix = "GithubRepository";
             var items = new[] { "Description", "HtmlUrl", "Id", "StargazersCount", "Tags" };
@@ -26,5 +27,7 @@ namespace DataGenerator.Entities
         {
             return $"{Description}; {HtmlUrl}; {Id}; {StargazersCount}; {string.Join(",", Tags)}";
         }
+
+        public override int Level { get; } = 0;
     }
 }

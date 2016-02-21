@@ -29,6 +29,7 @@ namespace DataGenerator
                 columns.AddRange(CourseNode.Captions());
                 columns.AddRange(GeekNode.Captions());
                 columns.AddRange(TagNode.Captions());
+                columns.AddRange(Node.Captions());
                 return string.Join(";", columns);
             }
         }
@@ -45,7 +46,7 @@ namespace DataGenerator
 
         public List<string> Value()
         {
-            var result = new List<string> { TagNode.ToString() };
+            var result = new List<string>();
 
             if (GithubRepositories.IsNotEmpty())
             {
@@ -59,6 +60,7 @@ namespace DataGenerator
             {
                 result.Add(GeekNode.ToString());
             }
+            result.Add(TagNode.ToString());
 
             while (GithubRepositories.IsNotEmpty() || PluralsightCourses.IsNotEmpty() || StackOverflowUsers.IsNotEmpty())
             {

@@ -4,7 +4,7 @@ using DataGenerator.Entities;
 
 namespace DataGenerator.Nodes
 {
-    public sealed class CourseNode
+    public sealed class CourseNode : Node
     {
         private const string Suffix = "CourseNode";
         private readonly NodeRow _node;
@@ -17,28 +17,33 @@ namespace DataGenerator.Nodes
 
         public string Id { get; }
 
-        public static List<string> Captions()
+        public override int Level { get; } = 0;
+
+        public new static List<string> Captions()
         {
             var items = new[] { "Id", "Label" };
             List<string> result = items.Select(x => $"{x}{Suffix}").ToList();
             return result;
         }
 
+//                columns.AddRange(RepositoryInfoEntity.Captions());
+//                columns.AddRange(CourseEntity.Captions());
+//                columns.AddRange(UserEntity.Captions());
+//                columns.AddRange(LibNode.Captions());
+//                columns.AddRange(CourseNode.Captions());
+//                columns.AddRange(GeekNode.Captions());
+//                columns.AddRange(TagNode.Captions());
         public override string ToString()
         {
             var items1 = new string(';', RepositoryInfoEntity.Captions().Count - 1);
+            var items2 = new string(';', CourseEntity.Captions().Count - 1);
+            var items3 = new string(';', UserEntity.Captions().Count - 1);
+            var items4 = new string(';', LibNode.Captions().Count - 1);
 
-            int totalSeparators = RepositoryInfoEntity.Captions().Count
-                + CourseEntity.Captions().Count
-                + UserEntity.Captions().Count
-                + GeekNode.Captions().Count
-                + LibNode.Captions().Count
-                + TagNode.Captions().Count
-                - 6;
+            var items5 = new string(';', GeekNode.Captions().Count - 1);
+            var items6 = new string(';', TagNode.Captions().Count - 1);
 
-            var items = new string(';', totalSeparators);
-
-            return $"{items}; {Id}; {_node.Tag} Courses";
+            return $"{items1}; {items2}; {items3}; {items4}; {Id}; {_node.Tag} Courses; {items5}; {items6}";
         }
     }
 }
