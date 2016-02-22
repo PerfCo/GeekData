@@ -247,15 +247,6 @@ var visgexf = {
             } else {
                 $bronzeBadge.hide().find(".badgecount").text("");
             }
-
-            /*"attributes" : {
-                "ProfileImageStackOverflowUser" : " https://www.gravatar.com/avatar/7deca8ec973c3c0875e9a36e1e3e2c44?s\u003d128\u0026d\u003didenticon\u0026r\u003dPG",
-                "ProfileUrlStackOverflowUser" : " http://stackoverflow.com/users/34397/slaks",                
-                "TagsStackOverflowUser" : " C#",                
-                "AccountIdStackOverflowUser" : " 15988",                
-                "DisplayNameStackOverflowUser" : " SLaks",
-                "BadgeCountsStackOverflowUser" : " Bronze: 1422, Gold: 81, Silver: 1216"
-            },*/
         }
 
         function initLibTooltip() {
@@ -266,21 +257,14 @@ var visgexf = {
             visgexf.tooltipGroupContent.hide();
             visgexf.tooltipLibContent.show();
 
-            var libUrl = tooltipData["HtmlUrlGithubRepository"];
+            /*var libUrl = tooltipData["HtmlUrlGithubRepository"];
             var libUrlParts = libUrl.split("/");
-            var libName = libUrlParts[libUrlParts.length - 1];
+            var libName = libUrlParts[libUrlParts.length - 1];*/
             
-            $("#lib_name").text(libName);
-            $("#lib_url").attr("href", libUrl);
+            $("#lib_name").text(nodeData.label);
+            $("#lib_url").attr("href", tooltipData["HtmlUrlGithubRepository"]);
             $("#lib_description").text(tooltipData["DescriptionGithubRepository"]);
             $("#lib_stars_count").text(tooltipData["StargazersCountGithubRepository"]);
-            
-            /*"attributes" : {                
-                "TagsGithubRepository" : " C#",                
-                "DescriptionGithubRepository" : " Polly is a .NET 3.5 / 4.0 / 4.5 / PCL library that allows developers to express transient exception handling policies such as Retry, Retry Forever, Wait and Retry or Circuit Breaker in a fluent manner.",
-                "StargazersCountGithubRepository" : " 1279",                
-                "HtmlUrlGithubRepository" : " https://github.com/App-vNext/Polly",                
-            },*/
         }
 
         function initCourseTooltip() {
@@ -291,15 +275,7 @@ var visgexf = {
 
             $("#cource_name").text(tooltipData["NamePluralsightCourse"]);
             $("#cource_url").attr("href", tooltipData["UrlPluralsightCourse"]);
-
-            /*
-            "attributes" : {                
-                "UrlPluralsightCourse" : " http://pluralsight.com/training/Courses/TableOfContents/skeet-async",
-                "NamePluralsightCourse" : "Asynchronous C# 5.0",
-                "TagsPluralsightCourse" : " C#",
-            },
-            */
-        } // group_name
+        }
 
         function initGroupTooltip() {
             visgexf.tooltipGuruContent.hide();
