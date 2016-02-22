@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StacMan", "Source\StacMan\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataGenerator", "Source\DataGenerator\DataGenerator.csproj", "{08E07E5C-E642-407C-83E4-0F0485D3D0F1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{2FA90756-F6DC-4AC5-8596-61F852210FB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakeHappy", "Source\MakeHappy\MakeHappy.csproj", "{06D12CCD-927C-4A15-9053-B60F1E3EDD0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,8 +55,15 @@ Global
 		{08E07E5C-E642-407C-83E4-0F0485D3D0F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08E07E5C-E642-407C-83E4-0F0485D3D0F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08E07E5C-E642-407C-83E4-0F0485D3D0F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06D12CCD-927C-4A15-9053-B60F1E3EDD0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06D12CCD-927C-4A15-9053-B60F1E3EDD0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06D12CCD-927C-4A15-9053-B60F1E3EDD0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06D12CCD-927C-4A15-9053-B60F1E3EDD0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{06D12CCD-927C-4A15-9053-B60F1E3EDD0E} = {2FA90756-F6DC-4AC5-8596-61F852210FB2}
 	EndGlobalSection
 EndGlobal
