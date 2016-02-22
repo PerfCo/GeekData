@@ -247,8 +247,7 @@ cite {
     margin-bottom: 0;
 }
 
-.tooltip .header.cource,
-.tooltip .header.group {
+.tooltip .header.cource {
     border-bottom: 0;
     padding-bottom: 0;
     margin-bottom: 0;

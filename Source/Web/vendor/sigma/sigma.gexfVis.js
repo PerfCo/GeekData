@@ -73,7 +73,7 @@ var visgexf = {
             var nodeData = visgexf.sig.getNodes(event.content)[0];
             var tooltipData = nodeData.attr.attributes;
 
-            if(tooltipData.Level == 1) {
+            if(tooltipData.Level != 3) {
                 return;
             }
 
@@ -144,9 +144,7 @@ var visgexf = {
 
         var tooltipPosition = getTooltipPosition(nodeData);
         
-        if(tooltipData.Level == 2) {
-            initGroupTooltip();
-        } else if(tooltipData[typeMondatoryField.geek]) {
+        if(tooltipData[typeMondatoryField.geek]) {
             initPersonTooltip();
         } else if(tooltipData[typeMondatoryField.lib]) {
             initLibTooltip();
@@ -272,15 +270,6 @@ var visgexf = {
             $("#cource_name").text(tooltipData["NamePluralsightCourse"]);
             $("#cource_url").attr("href", tooltipData["UrlPluralsightCourse"]);
         }
-
-        function initGroupTooltip() {
-            visgexf.tooltipGuruContent.hide();
-            visgexf.tooltipLibContent.hide();
-            visgexf.tooltipCourceContent.hide();
-            visgexf.tooltipGroupContent.show();
-
-            $("#group_name").text(nodeData.label);
-        }
     },
 
     // set the color of node or edge
@@ -300,15 +289,15 @@ var visgexf = {
     setOpacity: function(o, alpha) {
         var r,g,b;
         var color = o.color;
-		if (0 == color.indexOf('rgb')) {
-			var m = color.match(/(\d+),(\d+),(\d+)/);
-			if (m) {
-			var colors = m.slice(1,5);
-			r = colors[0];
-			g = colors[1];
-			b = colors[2];
-			 }
-			}
+        if (0 == color.indexOf('rgb')) {
+            var m = color.match(/(\d+),(\d+),(\d+)/);
+            if (m) {
+                var colors = m.slice(1,5);
+                r = colors[0];
+                g = colors[1];
+                b = colors[2];
+            }
+        }
         else if (0 == color.indexOf('rgba')) {
             var m = color.match(/(\d+),(\d+),(\d+),(\d*.?\d+)/);
             if (m) {
