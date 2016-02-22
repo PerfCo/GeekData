@@ -401,7 +401,11 @@ var visgexf = {
         var sources = {},
             targets = {};
         visgexf.sig.iterEdges(function(e){
-            if (e.source != node.id && e.target != node.id) {
+			if (node.attr.attributes.Level === "1" && e.attr.attributes.Tag === node.id){
+				targets[e.target] = true;
+                visgexf.setColor(e, visgexf.sourceColor);
+                e.hidden = 0;
+			} else if (e.source != node.id && e.target != node.id) {
                 e.hidden = 1;
             } else if (e.source == node.id) {
                 targets[e.target] = true;
@@ -411,7 +415,7 @@ var visgexf = {
                 visgexf.setColor(e, visgexf.targetColor);
                 sources[e.source] = true;
                 e.hidden = 0;
-            }
+            }			
         }).iterNodes(function(n){
             if (n.id == node.id) {
                 visgexf.nodeShow(n);
