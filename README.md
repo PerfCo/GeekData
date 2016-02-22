@@ -8,6 +8,20 @@ GeekData - visualizes technologies, courses and geeks
 ![Guru planet](https://raw.githubusercontent.com/PerfCo/GeekData/master/Images/CSharpGuru.png)
 
 
+## OSS Libraries used
+
+GeekData includes source code of the great libraries below for some of its core functionality.
+Each library is released under its respective licence:
+
+  - [StacMan](https://github.com/emmettnicholas/StacMan) [(License)](https://github.com/emmettnicholas/StacMan/blob/master/LICENSE)
+
+
+## Team
+
+ - [FireAlkazar](https://github.com/FireAlkazar) (Pavel Maltsev)
+ - [Sufflavus](https://github.com/Sufflavus) (Tania Shatilova)
+ - [GSerjo](https://github.com/GSerjo) (Sergey Morenko)
+
 ## Contributing
 
 ### To contribute please follow these guidelines:
