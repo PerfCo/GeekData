@@ -42,14 +42,4 @@
         }
     });
 
-    /*$('#toggle_view').change(function() {
-        var isChecked = $(this).prop("checked");
-        if(isChecked) {
-            gexf = 'data/data.json';
-            visgexf.resetSearch();
-        } else {
-            gexf = 'data/data-lose.json';
-            visgexf.resetSearch();
-        }
-    })*/
 }(window, document));

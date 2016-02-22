@@ -256,10 +256,6 @@ var visgexf = {
             visgexf.tooltipCourceContent.hide();
             visgexf.tooltipGroupContent.hide();
             visgexf.tooltipLibContent.show();
-
-            /*var libUrl = tooltipData["HtmlUrlGithubRepository"];
-            var libUrlParts = libUrl.split("/");
-            var libName = libUrlParts[libUrlParts.length - 1];*/
             
             $("#lib_name").text(nodeData.label);
             $("#lib_url").attr("href", tooltipData["HtmlUrlGithubRepository"]);

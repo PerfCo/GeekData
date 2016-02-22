@@ -79,43 +79,6 @@ cite {
     color: #fff;
 }
 
-.slogan .toggle.btn.btn-primary,
-.slogan .toggle.btn.btn-default.off {
-    width: 75px!important;
-    margin-top: -7px!important;
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-
-.slogan .btn.btn-primary.toggle-on,
-.slogan .btn.btn-default.active.toggle-off {
-    font-size: 25px;
-    padding-top: 0;
-    padding-bottom: 0;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-}
-
-.slogan .btn.btn-primary.toggle-on {
-    background-color: #569FEC;
-    padding-left: 2px;
-}
-
-.slogan .toggle.btn.btn-default.off {
-    border-color: #BEBEBE;
-}
-
-.slogan .btn.btn-default.active.toggle-off {
-    padding-right: 2px;
-    padding-left: 15px;
-    background-color: #E1E1E1;
-}
-
-.slogan .btn.btn-primary {
-    background-color: #167EEC;
-    border-color: #167EEC;
-}
-
 .navbar-profiles {
     margin-right: 80px;
     padding-top: 8px;
@@ -254,10 +217,6 @@ cite {
     z-index: 1002;
 }
 
-/*.tooltip.user {
-    width: 250px;
-}
-*/
 .tooltip .content {
     /*pointer-events: none;  required for d3 */
     position: relative;
