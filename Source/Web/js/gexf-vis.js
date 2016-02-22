@@ -1,3 +1,4 @@
+// Inspired by http://exploringdata.github.io/vis/programming-languages-influence-network
 var visgexf = {
     visid: null,
     filename: null,
