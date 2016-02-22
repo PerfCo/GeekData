@@ -300,12 +300,15 @@ var visgexf = {
     setOpacity: function(o, alpha) {
         var r,g,b;
         var color = o.color;
-        // is it a hex color
-        if (0 == color.indexOf('#')) {
-            r = visgexf.hex2dec(color.slice(1,3));
-            g = visgexf.hex2dec(color.slice(3,5));
-            b = visgexf.hex2dec(color.slice(5,7));
-        }
+		if (0 == color.indexOf('rgb')) {
+			var m = color.match(/(\d+),(\d+),(\d+)/);
+			if (m) {
+			var colors = m.slice(1,5);
+			r = colors[0];
+			g = colors[1];
+			b = colors[2];
+			 }
+			}
         else if (0 == color.indexOf('rgba')) {
             var m = color.match(/(\d+),(\d+),(\d+),(\d*.?\d+)/);
             if (m) {
