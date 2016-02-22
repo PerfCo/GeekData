@@ -19,6 +19,7 @@ var visgexf = {
     tooltipCourceContent: $("#cource_content"),
     tooltipGroupContent: $("#group_content"),
     tooltipLastTimeShown: new Date(),
+    tooltipHideDelaySeconds: 3,
 
     init: function(visid, filename, props, callback) {
         $('#loading').show();
@@ -162,18 +163,18 @@ var visgexf = {
         $tooltip.delay(1000).show();
         visgexf.tooltipLastTimeShown = new Date();
 
-        setTimeout(onTooltipTimeout, 5000);
+        setTimeout(onTooltipTimeout, visgexf.tooltipHideDelaySeconds * 1000);
 
         function onTooltipTimeout() {
             var nowDate = new Date();
             var diffSeconds = (nowDate.getTime() - visgexf.tooltipLastTimeShown.getTime()) / 1000;
             
-            if(diffSeconds >= 5) {
+            if(diffSeconds >= visgexf.tooltipHideDelaySeconds) {
                 $tooltip.hide();
                 return;
             }
 
-            setTimeout(onTooltipTimeout, 5000);
+            setTimeout(onTooltipTimeout, visgexf.tooltipHideDelaySeconds * 1000);
         }
 
         function getTooltipPosition(nodeData) {
