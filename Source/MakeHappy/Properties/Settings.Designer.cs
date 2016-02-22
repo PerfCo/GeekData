@@ -25,7 +25,7 @@ namespace MakeHappy.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Development\\GeekData\\Source\\Web\\data\\data.json.js")]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\..\\Source\\Web\\data\\data.json")]
         public string DataFilePath {
             get {
                 return ((string)(this["DataFilePath"]));

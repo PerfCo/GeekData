@@ -16,12 +16,13 @@ namespace MakeHappy
             {
                 Console.WriteLine($"File doesn't exist: {filePath}");
             }
+
             string fileContent = File.ReadAllText(filePath);
             var builder = new StringBuilder(fileContent);
             builder.Replace("\"source\"", "\"sourceID\"");
             builder.Replace("\"target\"", "\"targetID\"");
             builder.Insert(0, "var data = ");
-            File.WriteAllText(filePath, builder.ToString());
+            File.WriteAllText($"{filePath}.js", builder.ToString());
             Console.WriteLine($"{DateTime.Now}: Done");
         }
     }
