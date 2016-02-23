@@ -74,7 +74,7 @@ var visgexf = {
             var nodeData = visgexf.sig.getNodes(event.content)[0];
             var tooltipData = nodeData.attr.attributes;
 
-            if(tooltipData.Level != 3) {
+            if(tooltipData.Level != 3 || document.location.hash && !nodeData.attr.hl) {
                 return;
             }
 
@@ -214,8 +214,26 @@ var visgexf = {
                 .attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
 
             $("#guru_profile_url").attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
-            $("#guru_avatar").attr("src", tooltipData["ProfileImageStackOverflowUser"]);
 
+            var avatarUrl = tooltipData["ProfileImageStackOverflowUser"];
+            
+            /*if(avatarUrl.indexOf("gravatar.com/avatar/") > 0) { // fix gravatar.com avatar paths
+                var i = avatarUrl.indexOf("?");
+                if(i > 0){
+                    avatarUrl = avatarUrl.substring(0, i);
+                    avatarUrl = avatarUrl + ".jpg?s=128";
+                    avatarUrl = avatarUrl.replace(/https/gi, 'http');
+                }
+            }*/
+
+            if(avatarUrl && avatarUrl.indexOf("gravatar.com/avatar/") < 0) {
+                $("#guru_avatar").attr("src", avatarUrl);
+            } else {
+                $("#guru_avatar").attr("src", "images/no-avatar.jpg");
+            }
+
+            console.log(avatarUrl)
+            
             $("#guru_site").attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
 
             var badges = {};
@@ -290,16 +308,7 @@ var visgexf = {
     setOpacity: function(o, alpha) {
         var r,g,b;
         var color = o.color;
-        if (0 == color.indexOf('rgb')) {
-            var m = color.match(/(\d+),(\d+),(\d+)/);
-            if (m) {
-                var colors = m.slice(1,5);
-                r = colors[0];
-                g = colors[1];
-                b = colors[2];
-            }
-        }
-        else if (0 == color.indexOf('rgba')) {
+        if (0 == color.indexOf('rgba')) {
             var m = color.match(/(\d+),(\d+),(\d+),(\d*.?\d+)/);
             if (m) {
               var colors = m.slice(1,5);
@@ -307,7 +316,20 @@ var visgexf = {
               g = colors[1];
               b = colors[2];
             }
+        } else if (0 == color.indexOf('rgb')) {
+            var m = color.match(/(\d+),(\d+),(\d+)/);
+            if (m) {
+                var colors = m.slice(1,5);
+                r = colors[0];
+                g = colors[1];
+                b = colors[2];
+            }
+        } else if (0 == color.indexOf('#')) {
+              r = visgexf.hex2dec(color.slice(1,3));
+              g = visgexf.hex2dec(color.slice(3,5));
+              b = visgexf.hex2dec(color.slice(5,7));
         }
+
         if (r && g && b) {
             o.color = 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
         }
@@ -374,13 +396,13 @@ var visgexf = {
 
     // show node with optional color, check if it satisfies possibly set filter
     nodeShow: function(node, color) {
-      if (visgexf.filteredOut(node)) { 
-          return; 
-      }
-      if (color) { 
-          visgexf.setColor(node, color);
-      }
-      visgexf.resetNode(node, 0);
+        if (visgexf.filteredOut(node)) { 
+              return; 
+        }
+        if (color) { 
+           visgexf.setColor(node, color);
+        }
+        visgexf.resetNode(node, 0);
     },
 
     highlightNode: function(node) {
@@ -391,11 +413,11 @@ var visgexf = {
         var sources = {},
             targets = {};
         visgexf.sig.iterEdges(function(e){
-			if (node.attr.attributes.Level === "1" && e.attr.attributes.Tag === node.id){
-				targets[e.target] = true;
+            if (node.attr.attributes.Level === "1" && e.attr.attributes.Tag === node.id){
+                targets[e.target] = true;
                 visgexf.setColor(e, visgexf.sourceColor);
                 e.hidden = 0;
-			} else if (e.source != node.id && e.target != node.id) {
+            } else if (e.source != node.id && e.target != node.id) {
                 e.hidden = 1;
             } else if (e.source == node.id) {
                 targets[e.target] = true;
@@ -405,7 +427,7 @@ var visgexf = {
                 visgexf.setColor(e, visgexf.targetColor);
                 sources[e.source] = true;
                 e.hidden = 0;
-            }			
+            }
         }).iterNodes(function(n){
             if (n.id == node.id) {
                 visgexf.nodeShow(n);
@@ -519,7 +541,6 @@ var visgexf = {
     resetFilter: function() {
         visgexf.activeFilterId = null;
         visgexf.activeFilterVal = null;
-        //$('.graphfilter li').removeClass('active');
         visgexf.resetNodes();
     },
 
@@ -527,7 +548,6 @@ var visgexf = {
         visgexf.activeFilterId = null;
         visgexf.activeFilterVal = null;
         visgexf.searchInput.val('');
-        //$('.graphfilter li').removeClass('active');
         visgexf.resetNodes();
         dialog.hide();
     }
