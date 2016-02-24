@@ -1,90 +1,91 @@
 // Inspired by http://exploringdata.github.io/vis/programming-languages-influence-network
-var visgexf = {
-    visid: null,
-    filename: null,
-    sig: null,
-    filters: {},
-    graph: null,
-    props: null,
-    nodelabels: [],
-    nodemap: {},
-    searchInput: $('.typeahead'),
-    activeFilterId: null,
-    activeFilterVal: null,
-    sourceColor: '#67A9CF',
-    targetColor: '#EF8A62',
+var App = {};
+App.visgexf = (function() {
+    var visualizationId = null;
+    var dataFileName = null;
+    var sig = null;
+    var filters = {};
+    var graph = null;
+    var visualizationProperties = null;
+    var nodelabels = [];
+    var nodemap = {};
+    var searchInput = $('.typeahead');
+    var activeFilterId = null;
+    var activeFilterVal = null;
+    var sourceColor = '#67A9CF';
+    var targetColor = '#EF8A62';
 
-    tooltipElement: $("#tooltip"),
-    tooltipLibContent: $("#lib_content"),
-    tooltipGuruContent: $("#guru_content"),
-    tooltipCourceContent: $("#cource_content"),
-    tooltipGroupContent: $("#group_content"),
-    tooltipLastTimeShown: new Date(),
-    tooltipHideDelaySeconds: 3,
+    var tooltipElement = $("#tooltip");
+    var tooltipLibContent = $("#lib_content");
+    var tooltipGuruContent = $("#guru_content");
+    var tooltipCourceContent = $("#cource_content");
+    var tooltipGroupContent = $("#group_content");
+    var tooltipLastTimeShown = new Date();
+    var tooltipHideDelaySeconds = 3;
 
-    init: function(visid, filename, props, callback) {
+    function init(visid, filename, props, callback) {
         $('#loading').show();
-        visgexf.visid = visid;
-        visgexf.filename = filename;
-        visgexf.props = props;
-        var viscontainer = document.getElementById(visid);
+        visualizationId = visid;
+        dataFileName = filename;
+        visualizationProperties = props;
+        var viscontainer = document.getElementById(visualizationId);
         // adjust height of graph to screen
         var h_win = $(window).height() - $('#navbar').height();
         var h_vis = $(viscontainer).height();
         if (h_win > 400) {
             $(viscontainer).height(h_win);
         }
-        visgexf.sig = sigma.init(viscontainer)
-            .drawingProperties(props['drawing'])
-            .graphProperties(props['graph'])
+        sig = sigma.init(viscontainer)
+            .drawingProperties(visualizationProperties['drawing'])
+            .graphProperties(visualizationProperties['graph'])
             .mouseProperties({maxRatio: 128});
 
-        visgexf.sig.parseJson(filename, function(){
-            visgexf.sig.draw();
+        sig.parseJson(dataFileName, function(){
+            sig.draw();
             // create array of node labels used for auto complete once
-            if (0 == visgexf.nodelabels.length) {
-                visgexf.sig.iterNodes(function(n){
-                    visgexf.nodelabels.push(n.label);
-                    visgexf.nodemap[n.label] = n.id;
+            if (0 == nodelabels.length) {
+                sig.iterNodes(function(n){
+                    nodelabels.push(n.label);
+                    nodemap[n.label] = n.id;
                     n.attr.label = n.label;// needed for highlighting
                 });
-                visgexf.nodelabels.sort();
+                nodelabels.sort();
             }
-            visgexf.initSearch();
-            visgexf.searchInput.focus();
+            initSearch();
+            searchInput.focus();
             // call callback after json is parsed
             if (callback) callback();
             $('#loading').hide();
         });
 
-        visgexf.initTooltip();
+        initTooltip();
 
-        visgexf.sig.bind('upnodes', function(event) {
+        sig.bind('upnodes', function(event) {
             // on node click
-            hnode = visgexf.sig.getNodes(event.content)[0];
+            hnode = sig.getNodes(event.content)[0];
             if(document.location.hash.replace(/#/i, '') == hnode.attr.label) {
-                visgexf.resetSearch();
+                resetSearch();
                 return;
             }
             document.location.hash = hnode.attr.label;
         });
 
-        visgexf.sig.bind('overnodes', function(event) {
+        sig.bind('overnodes', function(event) {
             // on node hover by mouse
-            var nodeData = visgexf.sig.getNodes(event.content)[0];
+            var nodeData = sig.getNodes(event.content)[0];
             var tooltipData = nodeData.attr.attributes;
 
             if(tooltipData.Level != 3 || document.location.hash && !nodeData.attr.hl) {
                 return;
             }
 
-            visgexf.showTooltip(nodeData, tooltipData);
+            showTooltip(nodeData, tooltipData);
         });
 
-        visgexf.sig.bind('outnodes', function(event) {
+        sig.bind('outnodes', function(event) {
             // on mouse out of node
 
-            /*var $tooltip = visgexf.tooltipElement;
+            /*var $tooltip = tooltipElement;
             $tooltip.delay(500).fadeOut(1000);*/
         });
 
@@ -113,27 +114,25 @@ var visgexf = {
             }
 
             if(delta < 0 && depth < 0) {
-                visgexf.resetSearch();
+                resetSearch();
             }
             
             return false;
         }
+    }
 
-        return visgexf;
-    },
-
-    initTooltip: function() {
-        /*var $tooltip = visgexf.tooltipElement;
+    function initTooltip() {
+        /*var $tooltip = tooltipElement;
 
         $tooltip.hover(function() {
             $("#tooltip").fadeIn("fast");
         }).mouseleave(function() {
             $tooltip.fadeOut(1000);
         });*/
-    },
+    }
 
-    showTooltip: function(nodeData, tooltipData) {
-        var $tooltip = visgexf.tooltipElement;
+    function showTooltip(nodeData, tooltipData) {
+        var $tooltip = tooltipElement;
 
         $tooltip;
 
@@ -160,25 +159,25 @@ var visgexf = {
         });
 
         $tooltip.delay(1000).show();
-        visgexf.tooltipLastTimeShown = new Date();
+        tooltipLastTimeShown = new Date();
 
-        setTimeout(onTooltipTimeout, visgexf.tooltipHideDelaySeconds * 1000);
+        setTimeout(onTooltipTimeout, tooltipHideDelaySeconds * 1000);
 
         function onTooltipTimeout() {
             var nowDate = new Date();
-            var diffSeconds = (nowDate.getTime() - visgexf.tooltipLastTimeShown.getTime()) / 1000;
+            var diffSeconds = (nowDate.getTime() - tooltipLastTimeShown.getTime()) / 1000;
             
-            if(diffSeconds >= visgexf.tooltipHideDelaySeconds) {
+            if(diffSeconds >= tooltipHideDelaySeconds) {
                 $tooltip.hide();
                 return;
             }
 
-            setTimeout(onTooltipTimeout, visgexf.tooltipHideDelaySeconds * 1000);
+            setTimeout(onTooltipTimeout, tooltipHideDelaySeconds * 1000);
         }
 
         function getTooltipPosition(nodeData) {
             var $window = $(window);
-            var $tooltip = visgexf.tooltipElement;
+            var $tooltip = tooltipElement;
 
             var winWidth = $window.width();
             var winHeight = $window.height();
@@ -202,12 +201,12 @@ var visgexf = {
         }
 
         function initPersonTooltip() {
-            var $tooltip = visgexf.tooltipElement;
+            var $tooltip = tooltipElement;
 
-            visgexf.tooltipLibContent.hide();
-            visgexf.tooltipCourceContent.hide();
-            visgexf.tooltipGroupContent.hide();
-            visgexf.tooltipGuruContent.show();
+            tooltipLibContent.hide();
+            tooltipCourceContent.hide();
+            tooltipGroupContent.hide();
+            tooltipGuruContent.show();
 
             $("#guru_name")
                 .text(tooltipData["DisplayNameStackOverflowUser"])
@@ -267,12 +266,12 @@ var visgexf = {
         }
 
         function initLibTooltip() {
-            var $tooltip = visgexf.tooltipElement;
+            var $tooltip = tooltipElement;
 
-            visgexf.tooltipGuruContent.hide();
-            visgexf.tooltipCourceContent.hide();
-            visgexf.tooltipGroupContent.hide();
-            visgexf.tooltipLibContent.show();
+            tooltipGuruContent.hide();
+            tooltipCourceContent.hide();
+            tooltipGroupContent.hide();
+            tooltipLibContent.show();
             
             $("#lib_name").text(nodeData.label);
             $("#lib_url").attr("href", tooltipData["HtmlUrlGithubRepository"]);
@@ -281,31 +280,31 @@ var visgexf = {
         }
 
         function initCourseTooltip() {
-            visgexf.tooltipGuruContent.hide();
-            visgexf.tooltipLibContent.hide();
-            visgexf.tooltipGroupContent.hide();
-            visgexf.tooltipCourceContent.show();
+            tooltipGuruContent.hide();
+            tooltipLibContent.hide();
+            tooltipGroupContent.hide();
+            tooltipCourceContent.show();
 
             $("#cource_name").text(tooltipData["NamePluralsightCourse"]);
             $("#cource_url").attr("href", tooltipData["UrlPluralsightCourse"]);
         }
-    },
+    }
 
     // set the color of node or edge
-    setColor: function(o, c) {
+    function setColor(o, c) {
         // don't change node an edge colors of undirected graphs
-        if ('undirected' == visgexf.props.type) return;
+        if ('undirected' == visualizationProperties.type) return;
         o.attr.hl = true;
         o.attr.color = o.color;
         o.color = c;
-    },
+    }
 
-    hex2dec: function(hexval) {
+    function hex2dec(hexval) {
         return parseInt('0x' + hexval).toString(10)
-    },
+    }
 
     // set the opacity of node or edge
-    setOpacity: function(o, alpha) {
+    function setOpacity(o, alpha) {
         var r,g,b;
         var color = o.color;
         if (0 == color.indexOf('rgba')) {
@@ -325,142 +324,142 @@ var visgexf = {
                 b = colors[2];
             }
         } else if (0 == color.indexOf('#')) {
-              r = visgexf.hex2dec(color.slice(1,3));
-              g = visgexf.hex2dec(color.slice(3,5));
-              b = visgexf.hex2dec(color.slice(5,7));
+              r = hex2dec(color.slice(1,3));
+              g = hex2dec(color.slice(3,5));
+              b = hex2dec(color.slice(5,7));
         }
 
         if (r && g && b) {
             o.color = 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
         }
-    },
+    }
 
     // called with array of ids of attributes to use as filters
-    getFilters: function(attrids) {
-        visgexf.sig.iterNodes(function(n) {
+    function getFilters(attrids) {
+        sig.iterNodes(function(n) {
             for (i in attrids) {
                 var aname = attrids[i];
                 if (n.attr.attributes.hasOwnProperty(aname)) {
                     var vals = n.attr.attributes[aname].split('|');
                     for (v in vals) {
                         val = vals[v];
-                        if (!visgexf.filters.hasOwnProperty(val)) {
-                            visgexf.filters[val] = 0;
+                        if (!filters.hasOwnProperty(val)) {
+                            filters[val] = 0;
                         }
-                        visgexf.filters[val]++;
+                        filters[val]++;
                     }
                 }
             }
         });
         // sort by frequencies of filter attributes
         var sorted = [];
-        for (var a in visgexf.filters) {
-            sorted.push([a, visgexf.filters[a]]);
+        for (var a in filters) {
+            sorted.push([a, filters[a]]);
         }
         sorted.sort(function(a, b) { return b[1] - a[1] });
         return sorted;
-    },
+    }
 
-    nodeHasFilter: function(node, filterid, filterval) {
+    function nodeHasFilter(node, filterid, filterval) {
         return node.attr.attributes.hasOwnProperty(filterid) && -1 !== node.attr.attributes[filterid].indexOf(filterval)
-    },
+    }
 
     // show only nodes that match filter
-    setFilter: function(filterid, filterval) {
-        visgexf.activeFilterId = filterid;
-        visgexf.activeFilterVal = filterval;
-        visgexf.sig.iterNodes(function(n){
+    function setFilter(filterid, filterval) {
+        activeFilterId = filterid;
+        activeFilterVal = filterval;
+        sig.iterNodes(function(n){
             n.hidden = filterval ? 1 : 0;
-            if (visgexf.nodeHasFilter(n, filterid, filterval)) {
+            if (nodeHasFilter(n, filterid, filterval)) {
                 n.hidden = 0;
             }
         }).draw(2,2,2);
-    },
+    }
 
     // return true if given node does not satisfy set filter, else false
-    filteredOut: function(node) {
-      if (null !== visgexf.activeFilterId
-          && null !== visgexf.activeFilterVal
-          && !visgexf.nodeHasFilter(node, visgexf.activeFilterId, visgexf.activeFilterVal)) {
-          return true;
-      }
-      return false;
-    },
+    function filteredOut(node) {
+        if (null !== activeFilterId
+            && null !== activeFilterVal
+            && !nodeHasFilter(node, activeFilterId, activeFilterVal)) {
+            return true;
+        }
+        return false;
+    }
 
-    resetNode: function(node, forceLabel) {
+    function resetNode(node, forceLabel) {
         node.hidden = 0;
         node.forceLabel = forceLabel;
         if (!node.label) node.label = node.attr.label;
-        visgexf.setOpacity(node, 1);
-    },
+        setOpacity(node, 1);
+    }
 
     // show node with optional color, check if it satisfies possibly set filter
-    nodeShow: function(node, color) {
-        if (visgexf.filteredOut(node)) { 
+    function nodeShow(node, color) {
+        if (filteredOut(node)) { 
               return; 
         }
         if (color) { 
-           visgexf.setColor(node, color);
+           setColor(node, color);
         }
-        visgexf.resetNode(node, 0);
-    },
+        resetNode(node, 0);
+    }
 
-    highlightNode: function(node) {
-        visgexf.sig.position(0,0,1);
-        visgexf.sig.goTo(node.displayX, node.displayY, 2);
-        visgexf.sig.position(0,0,1);
+    function highlightNode(node) {
+        sig.position(0,0,1);
+        sig.goTo(node.displayX, node.displayY, 2);
+        sig.position(0,0,1);
 
         var sources = {},
             targets = {};
-        visgexf.sig.iterEdges(function(e){
+        sig.iterEdges(function(e){
             if (node.attr.attributes.Level === "1" && e.attr.attributes.Tag === node.id){
                 targets[e.target] = true;
-                visgexf.setColor(e, visgexf.sourceColor);
+                setColor(e, sourceColor);
                 e.hidden = 0;
             } else if (e.source != node.id && e.target != node.id) {
                 e.hidden = 1;
             } else if (e.source == node.id) {
                 targets[e.target] = true;
-                visgexf.setColor(e, visgexf.sourceColor);
+                setColor(e, sourceColor);
                 e.hidden = 0;
             } else if (e.target == node.id) {
-                visgexf.setColor(e, visgexf.targetColor);
+                setColor(e, targetColor);
                 sources[e.source] = true;
                 e.hidden = 0;
             }
         }).iterNodes(function(n){
             if (n.id == node.id) {
-                visgexf.nodeShow(n);
+                nodeShow(n);
             } else if (sources[n.id]) {
-                visgexf.nodeShow(n, visgexf.targetColor);
+                nodeShow(n, targetColor);
             } else if (targets[n.id]) {
-                visgexf.nodeShow(n, visgexf.sourceColor);
+                nodeShow(n, sourceColor);
             } else {
-                visgexf.setOpacity(n, .05);
+                setOpacity(n, .05);
                 n.label = null;
             }
         }).draw(2,2,2);
-    },
+    }
 
-    clear: function() {
-        visgexf.sig.emptyGraph();
-        document.getElementById(visgexf.visid).innerHTML = '';
-    },
+    function clear() {
+        sig.emptyGraph();
+        document.getElementById(visualizationId).innerHTML = '';
+    }
 
-    initSearch: function() {
+    function initSearch() {
         var labels = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
-            local: $.map(visgexf.nodelabels, function(label) { return { value: label }; }),
+            local: $.map(nodelabels, function(label) { return { value: label }; }),
             limit: 20
         });
         labels.initialize();
         var updater = function(event) {
             event.preventDefault();
-            visgexf.redirectHash(visgexf.searchInput.val());
+            redirectHash(searchInput.val());
         };
 
-        visgexf.searchInput.typeahead({
+        searchInput.typeahead({
               hint: true,
               highlight: true
           }, {
@@ -471,47 +470,47 @@ var visgexf = {
         $('#highlight-node').on('submit', updater);
 
         if (document.location.hash) {
-            visgexf.redirectHash();
+            redirectHash();
         }
 
         // search on hash change, unless it should trigger info or comments view
         $(window).bind('hashchange', function(event) {
-            visgexf.redirectHash();
+            redirectHash();
         });
-    },
+    }
 
-    redirectHash: function(q) {
+    function redirectHash(q) {
         if (q) {
             document.location.hash = q;
             return;
         }
         var h = decodeURIComponent(document.location.hash.replace(/^#/, ''));
-        visgexf.nodeSearch(h);
-    },
+        nodeSearch(h);
+    }
 
-    queryHasResult: function(q) {
-        return -1 !== visgexf.nodelabels.indexOf(q);
-    },
+    function queryHasResult(q) {
+        return -1 !== nodelabels.indexOf(q);
+    }
 
-    nodeSearch: function(query) {
-        visgexf.resetFilter();
-        if (visgexf.queryHasResult(query)) {
+    function nodeSearch(query) {
+        resetFilter();
+        if (queryHasResult(query)) {
             document.location.hash = query;
-            visgexf.searchInput.val(query);
-            node = visgexf.sig.getNodes(visgexf.nodemap[query])
-            visgexf.highlightNode(node);
+            searchInput.val(query);
+            node = sig.getNodes(nodemap[query])
+            highlightNode(node);
             return query;
         }
-    },
+    }
 
-    resetNodes: function() {
-        visgexf.sig.iterNodes(function(n){
+    function resetNodes() {
+        sig.iterNodes(function(n){
             if (n.attr.hl) {
                 n.color = n.attr.color;
                 n.attr.hl = false;
             }
-            visgexf.resetNode(n, 0);
-            if (visgexf.filteredOut(n)) {
+            resetNode(n, 0);
+            if (filteredOut(n)) {
                 n.hidden = 1;
             }
         }).iterEdges(function(e){
@@ -521,34 +520,39 @@ var visgexf = {
           }
           e.hidden = 0;
         }).draw(2,2,2);
-    },
+    }
 
-    resetSearch: function() {
+    function resetSearch() {
         document.location.href = document.location.pathname;
 
         /*document.location.hash = "";
-        visgexf.sig = null;
+        sig = null;
 
         $('#sig').remove(); 
         $('#vis').html('<div id="sig"></div>'); 
 
-        visgexf.init('sig', gexf, visgexf.props, function() {
+        init('sig', gexf, visualizationProperties, function() {
             var filterid = 'paradigms';
-            var filters = visgexf.getFilters([filterid]);
+            var filters = getFilters([filterid]);
         });*/
-    },
+    }
 
-    resetFilter: function() {
-        visgexf.activeFilterId = null;
-        visgexf.activeFilterVal = null;
-        visgexf.resetNodes();
-    },
+    function resetFilter() {
+        activeFilterId = null;
+        activeFilterVal = null;
+        resetNodes();
+    }
 
-    reset: function() {
-        visgexf.activeFilterId = null;
-        visgexf.activeFilterVal = null;
-        visgexf.searchInput.val('');
-        visgexf.resetNodes();
+    function reset() {
+        activeFilterId = null;
+        activeFilterVal = null;
+        searchInput.val('');
+        resetNodes();
         dialog.hide();
     }
-};
+
+    return {
+        init: init,
+        getFilters: getFilters
+    }
+})();

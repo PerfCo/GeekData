@@ -18,8 +18,8 @@ $(function(){
         type: 'directed'
     }
 
-    visgexf.init('sig', gexf, props, function() {
+    App.visgexf.init('sig', gexf, props, function() {
         var filterid = 'paradigms';
-        var filters = visgexf.getFilters([filterid]);
+        var filters = App.visgexf.getFilters([filterid]);
     });
 });
