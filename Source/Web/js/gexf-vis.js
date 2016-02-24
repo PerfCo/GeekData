@@ -3,7 +3,7 @@ var App = {};
 App.visgexf = (function() {
     var visualizationId = null;
     var dataFileName = null;
-    var sig = null;
+    var sigmaInstance = null;
     var filters = {};
     var graph = null;
     var visualizationProperties = null;
@@ -30,21 +30,20 @@ App.visgexf = (function() {
         visualizationProperties = props;
         var viscontainer = document.getElementById(visualizationId);
         // adjust height of graph to screen
-        var h_win = $(window).height() - $('#navbar').height();
-        var h_vis = $(viscontainer).height();
-        if (h_win > 400) {
-            $(viscontainer).height(h_win);
+        var winHeight = $(window).height() - $('#navbar').height();
+        if (winHeight > 400) {
+            $(viscontainer).height(winHeight);
         }
-        sig = sigma.init(viscontainer)
+        sigmaInstance = sigma.init(viscontainer)
             .drawingProperties(visualizationProperties['drawing'])
             .graphProperties(visualizationProperties['graph'])
             .mouseProperties({maxRatio: 128});
 
-        sig.parseJson(dataFileName, function(){
-            sig.draw();
+        sigmaInstance.parseJson(dataFileName, function(){
+            sigmaInstance.draw();
             // create array of node labels used for auto complete once
             if (0 == nodelabels.length) {
-                sig.iterNodes(function(n){
+                sigmaInstance.iterNodes(function(n){
                     nodelabels.push(n.label);
                     nodemap[n.label] = n.id;
                     n.attr.label = n.label;// needed for highlighting
@@ -60,9 +59,9 @@ App.visgexf = (function() {
 
         initTooltip();
 
-        sig.bind('upnodes', function(event) {
+        sigmaInstance.bind('upnodes', function(event) {
             // on node click
-            hnode = sig.getNodes(event.content)[0];
+            hnode = sigmaInstance.getNodes(event.content)[0];
             if(document.location.hash.replace(/#/i, '') == hnode.attr.label) {
                 resetSearch();
                 return;
@@ -70,9 +69,9 @@ App.visgexf = (function() {
             document.location.hash = hnode.attr.label;
         });
 
-        sig.bind('overnodes', function(event) {
+        sigmaInstance.bind('overnodes', function(event) {
             // on node hover by mouse
-            var nodeData = sig.getNodes(event.content)[0];
+            var nodeData = sigmaInstance.getNodes(event.content)[0];
             var tooltipData = nodeData.attr.attributes;
 
             if(tooltipData.Level != 3 || document.location.hash && !nodeData.attr.hl) {
@@ -82,7 +81,7 @@ App.visgexf = (function() {
             showTooltip(nodeData, tooltipData);
         });
 
-        sig.bind('outnodes', function(event) {
+        sigmaInstance.bind('outnodes', function(event) {
             // on mouse out of node
 
             /*var $tooltip = tooltipElement;
@@ -141,8 +140,6 @@ App.visgexf = (function() {
             geek: "DisplayNameStackOverflowUser",
             cource: "NamePluralsightCourse"
         };
-
-        var tooltipPosition = getTooltipPosition(nodeData);
         
         if(tooltipData[typeMondatoryField.geek]) {
             initPersonTooltip();
@@ -151,6 +148,8 @@ App.visgexf = (function() {
         } else if(tooltipData[typeMondatoryField.cource]) {
             initCourseTooltip();
         }
+
+        var tooltipPosition = getTooltipPosition(nodeData);
 
         $tooltip.css({
             top: tooltipPosition.y, 
@@ -177,13 +176,13 @@ App.visgexf = (function() {
 
         function getTooltipPosition(nodeData) {
             var $window = $(window);
-            var $tooltip = tooltipElement;
+            var $tooltip = $("#tooltip");
 
             var winWidth = $window.width();
             var winHeight = $window.height();
 
-            var tooltipWidth = $tooltip.width();
-            var tooltipHeight = $tooltip.height();
+            var tooltipWidth = $tooltip.outerWidth();
+            var tooltipHeight = $tooltip.outerHeight();
 
             var marginX = 10;
             var marginY = 50;
@@ -192,7 +191,9 @@ App.visgexf = (function() {
                 (winWidth - tooltipWidth - marginX) : nodeData.displayX;
 
             var y = nodeData.displayY + marginY + tooltipHeight >= winHeight ? 
-                (nodeData.displayY - 2 * marginY) : nodeData.displayY + marginY;
+                (nodeData.displayY - tooltipHeight + 30) : (nodeData.displayY + marginY);
+
+            //console.log("displayY:" + nodeData.displayY + " tooltipHeight:" + tooltipHeight + " y:" + y)
 
             return {
                 x: x,
@@ -336,7 +337,7 @@ App.visgexf = (function() {
 
     // called with array of ids of attributes to use as filters
     function getFilters(attrids) {
-        sig.iterNodes(function(n) {
+        sigmaInstance.iterNodes(function(n) {
             for (i in attrids) {
                 var aname = attrids[i];
                 if (n.attr.attributes.hasOwnProperty(aname)) {
@@ -368,7 +369,7 @@ App.visgexf = (function() {
     function setFilter(filterid, filterval) {
         activeFilterId = filterid;
         activeFilterVal = filterval;
-        sig.iterNodes(function(n){
+        sigmaInstance.iterNodes(function(n){
             n.hidden = filterval ? 1 : 0;
             if (nodeHasFilter(n, filterid, filterval)) {
                 n.hidden = 0;
@@ -405,13 +406,13 @@ App.visgexf = (function() {
     }
 
     function highlightNode(node) {
-        sig.position(0,0,1);
-        sig.goTo(node.displayX, node.displayY, 2);
-        sig.position(0,0,1);
+        sigmaInstance.position(0,0,1);
+        sigmaInstance.goTo(node.displayX, node.displayY, 2);
+        sigmaInstance.position(0,0,1);
 
         var sources = {},
             targets = {};
-        sig.iterEdges(function(e){
+        sigmaInstance.iterEdges(function(e){
             if (node.attr.attributes.Level === "1" && e.attr.attributes.Tag === node.id){
                 targets[e.target] = true;
                 setColor(e, sourceColor);
@@ -442,7 +443,7 @@ App.visgexf = (function() {
     }
 
     function clear() {
-        sig.emptyGraph();
+        sigmaInstance.emptyGraph();
         document.getElementById(visualizationId).innerHTML = '';
     }
 
@@ -497,14 +498,14 @@ App.visgexf = (function() {
         if (queryHasResult(query)) {
             document.location.hash = query;
             searchInput.val(query);
-            node = sig.getNodes(nodemap[query])
+            node = sigmaInstance.getNodes(nodemap[query])
             highlightNode(node);
             return query;
         }
     }
 
     function resetNodes() {
-        sig.iterNodes(function(n){
+        sigmaInstance.iterNodes(function(n){
             if (n.attr.hl) {
                 n.color = n.attr.color;
                 n.attr.hl = false;
@@ -526,7 +527,7 @@ App.visgexf = (function() {
         document.location.href = document.location.pathname;
 
         /*document.location.hash = "";
-        sig = null;
+        sigmaInstance = null;
 
         $('#sig').remove(); 
         $('#vis').html('<div id="sig"></div>'); 
