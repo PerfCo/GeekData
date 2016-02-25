@@ -14,13 +14,6 @@ App.visgexf = (function($, sigma) {
     var sourceColor = '#67A9CF';
     var targetColor = '#EF8A62';
 
-    var tooltipElement = $("#tooltip");
-    var tooltipLibContent = $("#lib_content");
-    var tooltipGuruContent = $("#guru_content");
-    var tooltipCourceContent = $("#cource_content");
-    var tooltipLastTimeShown = new Date();
-    var tooltipHideDelaySeconds = 3;
-
     function init(visid, filename, props, callback) {
         $('#loading').show();
         visualizationId = visid;
@@ -55,8 +48,6 @@ App.visgexf = (function($, sigma) {
             $('#loading').hide();
         });
 
-        initTooltip();
-
         sigmaInstance.bind('upnodes', function(event) {
             // on node click
             hnode = sigmaInstance.getNodes(event.content)[0];
@@ -81,22 +72,19 @@ App.visgexf = (function($, sigma) {
 
         sigmaInstance.bind('outnodes', function(event) {
             // on mouse out of node
-
-            /*var $tooltip = tooltipElement;
-            $tooltip.delay(500).fadeOut(1000);*/
         });
 
         var forEach = Array.prototype.forEach;
         var $$ = document.querySelectorAll.bind(document);
 
         forEach.call($$('.sigma-parent'), function(v) {
-            v.addEventListener('mousewheel', MouseWheelHandler, false);
-            v.addEventListener('DOMMouseScroll', MouseWheelHandler, false);
+            v.addEventListener('mousewheel', mouseWheelHandler, false);
+            v.addEventListener('DOMMouseScroll', mouseWheelHandler, false);
         });
 
         var depth = 0;
         
-        function MouseWheelHandler(e) {
+        function mouseWheelHandler(e) {
             if(!document.location.hash) {
                 return;
             }
@@ -118,170 +106,8 @@ App.visgexf = (function($, sigma) {
         }
     }
 
-    function initTooltip() {
-        /*var $tooltip = tooltipElement;
-
-        $tooltip.hover(function() {
-            $("#tooltip").fadeIn("fast");
-        }).mouseleave(function() {
-            $tooltip.fadeOut(1000);
-        });*/
-    }
-
     function showTooltip(nodeData, tooltipData) {
-        var $tooltip = tooltipElement;
-
-        $tooltip;
-
-        var typeMondatoryField = {
-            lib: "HtmlUrlGithubRepository",
-            geek: "DisplayNameStackOverflowUser",
-            cource: "NamePluralsightCourse"
-        };
-        
-        if(tooltipData[typeMondatoryField.geek]) {
-            initPersonTooltip();
-        } else if(tooltipData[typeMondatoryField.lib]) {
-            initLibTooltip();
-        } else if(tooltipData[typeMondatoryField.cource]) {
-            initCourseTooltip();
-        }
-
-        var tooltipPosition = getTooltipPosition(nodeData);
-
-        $tooltip.css({
-            top: tooltipPosition.y, 
-            left: tooltipPosition.x,
-            opacity: 1
-        });
-
-        $tooltip.delay(1000).show();
-        tooltipLastTimeShown = new Date();
-
-        setTimeout(onTooltipTimeout, tooltipHideDelaySeconds * 1000);
-
-        function onTooltipTimeout() {
-            var nowDate = new Date();
-            var diffSeconds = (nowDate.getTime() - tooltipLastTimeShown.getTime()) / 1000;
-            
-            if(diffSeconds >= tooltipHideDelaySeconds) {
-                $tooltip.hide();
-                return;
-            }
-
-            setTimeout(onTooltipTimeout, tooltipHideDelaySeconds * 1000);
-        }
-
-        function getTooltipPosition(nodeData) {
-            var $window = $(window);
-            var $tooltip = $("#tooltip");
-
-            var winWidth = $window.width();
-            var winHeight = $window.height();
-
-            var tooltipWidth = $tooltip.outerWidth();
-            var tooltipHeight = $tooltip.outerHeight();
-
-            var marginX = 10;
-            var marginY = 50;
-
-            var x = nodeData.displayX + tooltipWidth >= winWidth ? 
-                (winWidth - tooltipWidth - marginX) : nodeData.displayX;
-
-            var y = nodeData.displayY + marginY + tooltipHeight >= winHeight ? 
-                (nodeData.displayY - tooltipHeight + 30) : (nodeData.displayY + marginY);
-
-            return {
-                x: x,
-                y: y
-            };
-        }
-
-        function initPersonTooltip() {
-            var $tooltip = tooltipElement;
-
-            tooltipLibContent.hide();
-            tooltipCourceContent.hide();
-            tooltipGuruContent.show();
-
-            $("#guru_name")
-                .text(tooltipData["DisplayNameStackOverflowUser"])
-                .attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
-
-            $("#guru_profile_url").attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
-
-            var avatarUrl = tooltipData["ProfileImageStackOverflowUser"];
-            
-            /*if(avatarUrl.indexOf("gravatar.com/avatar/") > 0) { // fix gravatar.com avatar paths
-                var i = avatarUrl.indexOf("?");
-                if(i > 0){
-                    avatarUrl = avatarUrl.substring(0, i);
-                    avatarUrl = avatarUrl + ".jpg?s=128";
-                    avatarUrl = avatarUrl.replace(/https/gi, 'http');
-                }
-            }*/
-
-            if(avatarUrl && avatarUrl.indexOf("gravatar.com/avatar/") < 0) {
-                $("#guru_avatar").attr("src", avatarUrl);
-            } else {
-                $("#guru_avatar").attr("src", "images/no-avatar.jpg");
-            }
-
-            console.log(avatarUrl)
-            
-            $("#guru_site").attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
-
-            var badges = {};
-            var badgesRawData = tooltipData["BadgeCountsStackOverflowUser"];
-            if(badgesRawData) {
-                badgesRawData = badgesRawData.replace(/([a-zA-Z][^:]*)(?=\s*:)/g, '"$1"'); // add quotes to make valid json
-                badges = JSON.parse(badgesRawData);
-            }
-
-            var $goldBadge = $("#guru_badges_gold");
-            var $silverBadge = $("#guru_badges_silver");
-            var $bronzeBadge = $("#guru_badges_bronze");
-
-            if(badges["Gold"]){
-                $goldBadge.show().find(".badgecount").text(badges["Gold"]);
-            } else {
-                $goldBadge.hide().find(".badgecount").text("");
-            }
-
-            if(badges["Silver"]){
-                $silverBadge.show().find(".badgecount").text(badges["Gold"]);
-            } else {
-                $silverBadge.hide().find(".badgecount").text("");
-            }
-
-            if(badges["Bronze"]){
-                $bronzeBadge.show().find(".badgecount").text(badges["Bronze"]);
-            } else {
-                $bronzeBadge.hide().find(".badgecount").text("");
-            }
-        }
-
-        function initLibTooltip() {
-            var $tooltip = tooltipElement;
-
-            tooltipGuruContent.hide();
-            tooltipCourceContent.hide();
-            tooltipLibContent.show();
-            
-            $("#lib_name").text(nodeData.label);
-            $("#lib_url").attr("href", tooltipData["HtmlUrlGithubRepository"]);
-            $("#lib_description").text(tooltipData["DescriptionGithubRepository"]);
-            $("#lib_stars_count").text(tooltipData["StargazersCountGithubRepository"]);
-        }
-
-        function initCourseTooltip() {
-            tooltipGuruContent.hide();
-            tooltipLibContent.hide();
-            tooltipCourceContent.show();
-
-            $("#cource_name").text(tooltipData["NamePluralsightCourse"]);
-            $("#cource_url").attr("href", tooltipData["UrlPluralsightCourse"]);
-        }
+        App.tooltip.show(nodeData);
     }
 
     // set the color of node or edge

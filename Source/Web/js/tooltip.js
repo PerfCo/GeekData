@@ -23,7 +23,7 @@ App.tooltip = (function($) {
         var tooltipData = nodeData.attr.attributes;
         
         if(tooltipData[requiredAttribute.geek]) {
-            initGeekContent(nodeData);
+            initGeekContent(tooltipData);
             return;
         }
 
@@ -33,17 +33,15 @@ App.tooltip = (function($) {
         }
 
         if(tooltipData[requiredAttribute.cource]) {
-            initCourceContent(nodeData);
+            initCourceContent(tooltipData);
             return;
         }
     }
 
-    function initGeekContent(nodeData){
-        var $tooltip = tooltipElement;
-
-        libContent.hide();
-        courceContent.hide();
-        guruContent.show();
+    function initGeekContent(tooltipData) {
+        $libContent.hide();
+        $courceContent.hide();
+        $guruContent.show();
 
         $("#guru_name")
             .text(tooltipData["DisplayNameStackOverflowUser"])
@@ -91,12 +89,12 @@ App.tooltip = (function($) {
         }
     }
 
-    function initLibContent(nodeData){
-        var $tooltip = tooltipElement;
-
-        guruContent.hide();
-        courceContent.hide();
-        libContent.show();
+    function initLibContent(nodeData) {
+        var tooltipData = nodeData.attr.attributes;
+        
+        $guruContent.hide();
+        $courceContent.hide();
+        $libContent.show();
         
         $("#lib_name").text(nodeData.label);
         $("#lib_url").attr("href", tooltipData["HtmlUrlGithubRepository"]);
@@ -104,10 +102,10 @@ App.tooltip = (function($) {
         $("#lib_stars_count").text(tooltipData["StargazersCountGithubRepository"]);
     }
 
-    function initCourceContent(nodeData){
-        guruContent.hide();
-        libContent.hide();
-        courceContent.show();
+    function initCourceContent(tooltipData) {
+        $guruContent.hide();
+        $libContent.hide();
+        $courceContent.show();
 
         $("#cource_name").text(tooltipData["NamePluralsightCourse"]);
         $("#cource_url").attr("href", tooltipData["UrlPluralsightCourse"]);
