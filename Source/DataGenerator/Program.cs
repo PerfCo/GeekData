@@ -1,32 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core;
-using DataGenerator.Properties;
+using DataGenerator.Dependencies;
+using Ninject;
 using NLog;
 
 namespace DataGenerator
 {
     class Program
     {
-        private static readonly ConnectionFactory _connectionFactory = new ConnectionFactory(Settings.Default.MongoDbConnectionString, Settings.Default.DatabaseName);
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private static readonly IKernel _kernel = new StandardKernel(new DependencyModule());
 
         static void Main()
         {
             _logger.Info("DataGenerator is running...");
             List<TagItem> rootTags = new Tags().Root;
-            var worker = new Worker(_connectionFactory);
-            foreach (TagItem tag in rootTags)
-            {
-                try
-                {
-                    worker.Generate(tag.StackOverflow);
-                }
-                catch (Exception ex)
-                {
-                    _logger.Error(ex);
-                }
-            }
+            var worker = _kernel.Get<Worker>();
+            worker.Generate(rootTags);
 
             _logger.Info("Press ANY key to exit.");
             Console.ReadKey();
