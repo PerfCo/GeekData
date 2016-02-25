@@ -3,31 +3,47 @@ using System.Collections.Generic;
 using System.IO;
 using Core;
 using DataGenerator.Entities;
-using MongoDB.Driver;
+using DataGenerator.Properties;
 using NLog;
 
 namespace DataGenerator
 {
-    public sealed class Worker : Repository
+    public sealed class Worker
     {
-        private const int TopUsers = 20;
-        private const int TopRepositories = 200;
-//        private const int TopCources = 3;
         private const string NodeFile = "Nodes.csv";
         private const string EdgeFile = "Edges.csv";
+        private readonly DataRepository _dataRepository;
+        private readonly Settings _settings = Settings.Default;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public Worker(ConnectionFactory connectionFactory) : base(connectionFactory)
+
+        public Worker(DataRepository dataRepository)
         {
+            _dataRepository = dataRepository;
             File.WriteAllLines(NodeFile, new[] { NodeRow.Caption, string.Empty });
             File.WriteAllLines(EdgeFile, new[] { EdgeRow.Caption, string.Empty });
         }
 
-        public void Generate(string tag)
+        public void Generate(List<TagItem> rootTags)
         {
-            List<UserEntity> users = GetStackOverflowUsers(tag);
-            List<CourseEntity> courses = GetPluralsightCourses(tag);
-            List<RepositoryInfoEntity> repositories = GetGithubRepositories(tag);
+            foreach (TagItem tag in rootTags)
+            {
+                try
+                {
+                    Generate(tag.StackOverflow);
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex);
+                }
+            }
+        }
+
+        private void Generate(string tag)
+        {
+            List<UserEntity> users = _dataRepository.GetStackOverflowUsers(tag, _settings.TopStackOverflowUsers);
+            List<CourseEntity> courses = _dataRepository.GetPluralsightCourses(tag);
+            List<RepositoryInfoEntity> repositories = _dataRepository.GetGithubRepositories(tag, _settings.TopGithubRepositories);
 
             var node = new NodeRow(tag)
             {
@@ -40,63 +56,6 @@ namespace DataGenerator
 
             WriteEdge(edge);
             WriteNode(node);
-        }
-
-        private List<RepositoryInfoEntity> GetGithubRepositories(string tag)
-        {
-            try
-            {
-                List<RepositoryInfoEntity> result = OpenConnection()
-                    .GetCollection<RepositoryInfoEntity>(MongoCollection.GithubRepositories)
-                    .Find(x => x.Tags.Contains(tag))
-                    .Limit(TopRepositories)
-                    .ToListAsync()
-                    .Result;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                return new List<RepositoryInfoEntity>();
-            }
-        }
-
-        private List<CourseEntity> GetPluralsightCourses(string tag)
-        {
-            try
-            {
-                List<CourseEntity> result = OpenConnection()
-                    .GetCollection<CourseEntity>(MongoCollection.PluralsightCourses)
-                    .Find(x => x.Tags.Contains(tag))
-//                    .Limit(TopCources)
-                    .ToListAsync()
-                    .Result;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                return new List<CourseEntity>();
-            }
-        }
-
-        private List<UserEntity> GetStackOverflowUsers(string tag)
-        {
-            try
-            {
-                List<UserEntity> result = OpenConnection()
-                    .GetCollection<UserEntity>(MongoCollection.StackOverflowUsers)
-                    .Find(x => x.Tags.Contains(tag))
-                    .Limit(TopUsers)
-                    .ToListAsync()
-                    .Result;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                return new List<UserEntity>();
-            }
         }
 
         private static void WriteEdge(EdgeRow row)

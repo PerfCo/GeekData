@@ -8,5 +8,11 @@
     <Setting Name="DatabaseName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">GeekData</Value>
     </Setting>
+    <Setting Name="TopStackOverflowUsers" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="TopGithubRepositories" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

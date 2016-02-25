@@ -40,5 +40,23 @@ namespace DataGenerator.Properties {
                 return ((string)(this["DatabaseName"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int TopStackOverflowUsers {
+            get {
+                return ((int)(this["TopStackOverflowUsers"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int TopGithubRepositories {
+            get {
+                return ((int)(this["TopGithubRepositories"]));
+            }
+        }
     }
 }
