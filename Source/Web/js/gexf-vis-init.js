@@ -1,4 +1,6 @@
-$(function(){
+/*content moved to file event-handler.js*/
+
+/*$(function(){
     var props = {
         drawing: {
             defaultLabelColor: '#fff',
@@ -22,4 +24,4 @@ $(function(){
         var filterid = 'paradigms';
         var filters = App.visgexf.getFilters([filterid]);
     });
-});
+});*/
