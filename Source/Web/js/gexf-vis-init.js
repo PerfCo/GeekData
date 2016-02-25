@@ -5,7 +5,7 @@ $(function(){
             defaultLabelSize: 12,
             defaultLabelBGColor: '#fff',
             defaultLabelHoverColor: '#000',
-            labelThreshold: 4,
+            labelThreshold: 4, // minimum size a node has to have to have its label being displayed
             defaultEdgeType: 'curve'
         },
         graph: {

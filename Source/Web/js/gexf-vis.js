@@ -1,15 +1,14 @@
 // Inspired by http://exploringdata.github.io/vis/programming-languages-influence-network
-var App = {};
-App.visgexf = (function() {
+App.visgexf = (function($, sigma) {
     var visualizationId = null;
     var dataFileName = null;
     var sigmaInstance = null;
     var filters = {};
     var graph = null;
     var visualizationProperties = null;
-    var nodelabels = [];
-    var nodemap = {};
-    var searchInput = $('.typeahead');
+    var nodeLabels = [];
+    var nodeMap = {};
+    //var searchInput = $('.typeahead');
     var activeFilterId = null;
     var activeFilterVal = null;
     var sourceColor = '#67A9CF';
@@ -19,7 +18,6 @@ App.visgexf = (function() {
     var tooltipLibContent = $("#lib_content");
     var tooltipGuruContent = $("#guru_content");
     var tooltipCourceContent = $("#cource_content");
-    var tooltipGroupContent = $("#group_content");
     var tooltipLastTimeShown = new Date();
     var tooltipHideDelaySeconds = 3;
 
@@ -37,21 +35,21 @@ App.visgexf = (function() {
         sigmaInstance = sigma.init(viscontainer)
             .drawingProperties(visualizationProperties['drawing'])
             .graphProperties(visualizationProperties['graph'])
-            .mouseProperties({maxRatio: 128});
+            .mouseProperties({ maxRatio: 128 });
 
         sigmaInstance.parseJson(dataFileName, function(){
             sigmaInstance.draw();
             // create array of node labels used for auto complete once
-            if (0 == nodelabels.length) {
+            if (0 == nodeLabels.length) {
                 sigmaInstance.iterNodes(function(n){
-                    nodelabels.push(n.label);
-                    nodemap[n.label] = n.id;
+                    nodeLabels.push(n.label);
+                    nodeMap[n.label] = n.id;
                     n.attr.label = n.label;// needed for highlighting
                 });
-                nodelabels.sort();
+                nodeLabels.sort();
             }
             initSearch();
-            searchInput.focus();
+            //searchInput.focus();
             // call callback after json is parsed
             if (callback) callback();
             $('#loading').hide();
@@ -193,8 +191,6 @@ App.visgexf = (function() {
             var y = nodeData.displayY + marginY + tooltipHeight >= winHeight ? 
                 (nodeData.displayY - tooltipHeight + 30) : (nodeData.displayY + marginY);
 
-            //console.log("displayY:" + nodeData.displayY + " tooltipHeight:" + tooltipHeight + " y:" + y)
-
             return {
                 x: x,
                 y: y
@@ -206,7 +202,6 @@ App.visgexf = (function() {
 
             tooltipLibContent.hide();
             tooltipCourceContent.hide();
-            tooltipGroupContent.hide();
             tooltipGuruContent.show();
 
             $("#guru_name")
@@ -271,7 +266,6 @@ App.visgexf = (function() {
 
             tooltipGuruContent.hide();
             tooltipCourceContent.hide();
-            tooltipGroupContent.hide();
             tooltipLibContent.show();
             
             $("#lib_name").text(nodeData.label);
@@ -283,7 +277,6 @@ App.visgexf = (function() {
         function initCourseTooltip() {
             tooltipGuruContent.hide();
             tooltipLibContent.hide();
-            tooltipGroupContent.hide();
             tooltipCourceContent.show();
 
             $("#cource_name").text(tooltipData["NamePluralsightCourse"]);
@@ -294,7 +287,10 @@ App.visgexf = (function() {
     // set the color of node or edge
     function setColor(o, c) {
         // don't change node an edge colors of undirected graphs
-        if ('undirected' == visualizationProperties.type) return;
+        if (visualizationProperties.type == "undirected") { 
+            return; 
+        }
+
         o.attr.hl = true;
         o.attr.color = o.color;
         o.color = c;
@@ -336,10 +332,10 @@ App.visgexf = (function() {
     }
 
     // called with array of ids of attributes to use as filters
-    function getFilters(attrids) {
+    function getFilters(attribs) {
         sigmaInstance.iterNodes(function(n) {
-            for (i in attrids) {
-                var aname = attrids[i];
+            for (i in attribs) {
+                var aname = attribs[i];
                 if (n.attr.attributes.hasOwnProperty(aname)) {
                     var vals = n.attr.attributes[aname].split('|');
                     for (v in vals) {
@@ -390,17 +386,19 @@ App.visgexf = (function() {
     function resetNode(node, forceLabel) {
         node.hidden = 0;
         node.forceLabel = forceLabel;
-        if (!node.label) node.label = node.attr.label;
+        if (!node.label) { 
+            node.label = node.attr.label;
+        }
         setOpacity(node, 1);
     }
 
     // show node with optional color, check if it satisfies possibly set filter
     function nodeShow(node, color) {
         if (filteredOut(node)) { 
-              return; 
+            return; 
         }
         if (color) { 
-           setColor(node, color);
+            setColor(node, color);
         }
         resetNode(node, 0);
     }
@@ -410,8 +408,8 @@ App.visgexf = (function() {
         sigmaInstance.goTo(node.displayX, node.displayY, 2);
         sigmaInstance.position(0,0,1);
 
-        var sources = {},
-            targets = {};
+        var sources = {};
+        var targets = {};
         sigmaInstance.iterEdges(function(e){
             if (node.attr.attributes.Level === "1" && e.attr.attributes.Tag === node.id){
                 targets[e.target] = true;
@@ -451,23 +449,25 @@ App.visgexf = (function() {
         var labels = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
-            local: $.map(nodelabels, function(label) { return { value: label }; }),
+            local: $.map(nodeLabels, function(label) { return { value: label }; }),
             limit: 20
         });
+
         labels.initialize();
         var updater = function(event) {
             event.preventDefault();
-            redirectHash(searchInput.val());
+            //redirectHash(searchInput.val());
         };
 
-        searchInput.typeahead({
+        /*searchInput.typeahead({
               hint: true,
               highlight: true
           }, {
               name: 'languages',
               displayKey: 'value',
               source: labels.ttAdapter()
-        }).on('typeahead:selected', updater);
+        }).on('typeahead:selected', updater);*/
+
         $('#highlight-node').on('submit', updater);
 
         if (document.location.hash) {
@@ -490,15 +490,15 @@ App.visgexf = (function() {
     }
 
     function queryHasResult(q) {
-        return -1 !== nodelabels.indexOf(q);
+        return -1 !== nodeLabels.indexOf(q);
     }
 
     function nodeSearch(query) {
         resetFilter();
         if (queryHasResult(query)) {
             document.location.hash = query;
-            searchInput.val(query);
-            node = sigmaInstance.getNodes(nodemap[query])
+            //searchInput.val(query);
+            node = sigmaInstance.getNodes(nodeMap[query])
             highlightNode(node);
             return query;
         }
@@ -547,7 +547,7 @@ App.visgexf = (function() {
     function reset() {
         activeFilterId = null;
         activeFilterVal = null;
-        searchInput.val('');
+        //searchInput.val('');
         resetNodes();
         dialog.hide();
     }
@@ -556,4 +556,4 @@ App.visgexf = (function() {
         init: init,
         getFilters: getFilters
     }
-})();
+})($, sigma);
