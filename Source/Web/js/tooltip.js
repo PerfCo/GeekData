@@ -4,6 +4,23 @@ App.tooltip = (function($) {
     var $libContent = $("#lib_content");
     var $guruContent = $("#guru_content");
     var $courceContent = $("#cource_content");
+
+    var $guruName = $("#guru_name");
+    var $guruProfileUrl = $("#guru_profile_url");
+    var $guruAvatar = $("#guru_avatar");
+    var $guruSite = $("#guru_site");
+    var $goldBadge = $("#guru_badges_gold");
+    var $silverBadge = $("#guru_badges_silver");
+    var $bronzeBadge = $("#guru_badges_bronze");
+
+    var $libName = $("#lib_name");
+    var $libUrl = $("#lib_url");
+    var $libDescription = $("#lib_description");
+    var $libStarsCount = $("#lib_stars_count");
+
+    var $courceName = $("#cource_name");
+    var $courceUrl = $("#cource_url");
+
     var lastTimeShown = getNowTime();
     var hideDelaySeconds = 3;
 
@@ -18,10 +35,10 @@ App.tooltip = (function($) {
         setPosition(nodeData);
         doShow();
     }
-      
+
     function initContent(nodeData){
         var tooltipData = nodeData.attr.attributes;
-        
+
         if(tooltipData[requiredAttribute.geek]) {
             initGeekContent(tooltipData);
             return;
@@ -43,21 +60,20 @@ App.tooltip = (function($) {
         $courceContent.hide();
         $guruContent.show();
 
-        $("#guru_name")
-            .text(tooltipData["DisplayNameStackOverflowUser"])
+        $guruName.html(tooltipData["DisplayNameStackOverflowUser"])
             .attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
 
-        $("#guru_profile_url").attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
+        $guruProfileUrl.attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
 
         var avatarUrl = tooltipData["ProfileImageStackOverflowUser"];
 
         if(avatarUrl && avatarUrl.indexOf("gravatar.com/avatar/") < 0) {
-            $("#guru_avatar").attr("src", avatarUrl);
+            $guruAvatar.attr("src", avatarUrl);
         } else {
-            $("#guru_avatar").attr("src", "images/no-avatar.jpg");
+            $guruAvatar.attr("src", "images/no-avatar.jpg");
         }
 
-        $("#guru_site").attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
+        $guruSite.attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
 
         var badges = {};
         var badgesRawData = tooltipData["BadgeCountsStackOverflowUser"];
@@ -91,15 +107,15 @@ App.tooltip = (function($) {
 
     function initLibContent(nodeData) {
         var tooltipData = nodeData.attr.attributes;
-        
+
         $guruContent.hide();
         $courceContent.hide();
         $libContent.show();
-        
-        $("#lib_name").text(nodeData.label);
-        $("#lib_url").attr("href", tooltipData["HtmlUrlGithubRepository"]);
-        $("#lib_description").text(tooltipData["DescriptionGithubRepository"]);
-        $("#lib_stars_count").text(tooltipData["StargazersCountGithubRepository"]);
+
+        $libName.html(nodeData.label);
+        $libUrl.attr("href", tooltipData["HtmlUrlGithubRepository"]);
+        $libDescription.html(tooltipData["DescriptionGithubRepository"]);
+        $libStarsCount.text(tooltipData["StargazersCountGithubRepository"]);
     }
 
     function initCourceContent(tooltipData) {
@@ -107,8 +123,14 @@ App.tooltip = (function($) {
         $libContent.hide();
         $courceContent.show();
 
-        $("#cource_name").text(tooltipData["NamePluralsightCourse"]);
-        $("#cource_url").attr("href", tooltipData["UrlPluralsightCourse"]);
+        $courceName.html(tooltipData["NamePluralsightCourse"]);
+        $courceUrl.attr("href", tooltipData["UrlPluralsightCourse"]);
+    }
+
+    function hideAllContent() {
+        $guruContent.hide();
+        $libContent.hide();
+        $courceContent.hide();
     }
 
     function setPosition(nodeData){

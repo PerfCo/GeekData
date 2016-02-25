@@ -128,7 +128,7 @@ App.visgexf = (function($, sigma) {
 
     // set the opacity of node or edge
     function setOpacity(o, alpha) {
-        var r,g,b;
+        var r, g, b;
         var color = o.color;
         if (0 == color.indexOf('rgba')) {
             var m = color.match(/(\d+),(\d+),(\d+),(\d*.?\d+)/);
@@ -146,10 +146,6 @@ App.visgexf = (function($, sigma) {
                 g = colors[1];
                 b = colors[2];
             }
-        } else if (0 == color.indexOf('#')) {
-              r = hex2dec(color.slice(1,3));
-              g = hex2dec(color.slice(3,5));
-              b = hex2dec(color.slice(5,7));
         }
 
         if (r && g && b) {
