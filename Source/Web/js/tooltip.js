@@ -2,16 +2,16 @@ App.tooltip = (function($) {
 
     var $tooltip = $("#tooltip");
     var $libContent = $("#lib_content");
-    var $guruContent = $("#guru_content");
+    var $geekContent = $("#geek_content");
     var $courceContent = $("#cource_content");
 
-    var $guruName = $("#guru_name");
-    var $guruProfileUrl = $("#guru_profile_url");
-    var $guruAvatar = $("#guru_avatar");
-    var $guruSite = $("#guru_site");
-    var $goldBadge = $("#guru_badges_gold");
-    var $silverBadge = $("#guru_badges_silver");
-    var $bronzeBadge = $("#guru_badges_bronze");
+    var $geekName = $("#geek_name");
+    var $geekProfileUrl = $("#geek_profile_url");
+    var $geekAvatar = $("#geek_avatar");
+    var $geekSite = $("#geek_site");
+    var $goldBadge = $("#geek_badges_gold");
+    var $silverBadge = $("#geek_badges_silver");
+    var $bronzeBadge = $("#geek_badges_bronze");
 
     var $libName = $("#lib_name");
     var $libUrl = $("#lib_url");
@@ -31,8 +31,8 @@ App.tooltip = (function($) {
         cource: "NamePluralsightCourse"
     };
 
-    $guruAvatar.on("error", function() {
-        $guruAvatar.attr("src", noAvatarPath);
+    $geekAvatar.on("error", function() {
+        $geekAvatar.attr("src", noAvatarPath);
     });
 
     function show(nodeData){
@@ -61,24 +61,22 @@ App.tooltip = (function($) {
     }
 
     function initGeekContent(tooltipData) {
-        $libContent.hide();
-        $courceContent.hide();
-        $guruContent.show();
+        hideAllContent();
 
-        $guruName.html(tooltipData["DisplayNameStackOverflowUser"])
+        $geekName.html(tooltipData["DisplayNameStackOverflowUser"])
             .attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
 
-        $guruProfileUrl.attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
+        $geekProfileUrl.attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
 
         var avatarUrl = tooltipData["ProfileImageStackOverflowUser"];
 
         if(avatarUrl) {
-            $guruAvatar.attr("src", avatarUrl);
+            $geekAvatar.attr("src", avatarUrl);
         } else {
-            $guruAvatar.attr("src", noAvatarPath);
+            $geekAvatar.attr("src", noAvatarPath);
         }
 
-        $guruSite.attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
+        $geekSite.attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
 
         var badges = {};
         var badgesRawData = tooltipData["BadgeCountsStackOverflowUser"];
@@ -87,9 +85,9 @@ App.tooltip = (function($) {
             badges = JSON.parse(badgesRawData);
         }
 
-        var $goldBadge = $("#guru_badges_gold");
-        var $silverBadge = $("#guru_badges_silver");
-        var $bronzeBadge = $("#guru_badges_bronze");
+        var $goldBadge = $("#geek_badges_gold");
+        var $silverBadge = $("#geek_badges_silver");
+        var $bronzeBadge = $("#geek_badges_bronze");
 
         if(badges["Gold"]){
             $goldBadge.show().find(".badgecount").text(badges["Gold"]);
@@ -108,32 +106,34 @@ App.tooltip = (function($) {
         } else {
             $bronzeBadge.hide().find(".badgecount").text("");
         }
+
+        $geekContent.show();
     }
 
     function initLibContent(nodeData) {
         var tooltipData = nodeData.attr.attributes;
 
-        $guruContent.hide();
-        $courceContent.hide();
-        $libContent.show();
+        hideAllContent();
 
         $libName.html(nodeData.label);
         $libUrl.attr("href", tooltipData["HtmlUrlGithubRepository"]);
         $libDescription.html(tooltipData["DescriptionGithubRepository"]);
         $libStarsCount.text(tooltipData["StargazersCountGithubRepository"]);
+
+        $libContent.show();
     }
 
     function initCourceContent(tooltipData) {
-        $guruContent.hide();
-        $libContent.hide();
-        $courceContent.show();
+        hideAllContent();
 
         $courceName.html(tooltipData["NamePluralsightCourse"]);
         $courceUrl.attr("href", tooltipData["UrlPluralsightCourse"]);
+
+        $courceContent.show();
     }
 
     function hideAllContent() {
-        $guruContent.hide();
+        $geekContent.hide();
         $libContent.hide();
         $courceContent.hide();
     }
