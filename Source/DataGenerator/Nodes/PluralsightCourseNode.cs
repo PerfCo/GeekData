@@ -6,8 +6,11 @@ namespace DataGenerator.Nodes
 {
     public sealed class PluralsightCourseNode : Node
     {
+        private readonly PluralsightCourseEntity _entity;
+
         public PluralsightCourseNode(PluralsightCourseEntity entity)
         {
+            _entity = entity;
             Level = 3;
             IdNode = entity.Id.ToString();
             Label = entity.Name;
@@ -23,9 +26,10 @@ namespace DataGenerator.Nodes
         {
             return new List<object>
             {
-
+                _entity.Name,
+                string.Join(",", _entity.Tags),
+                _entity.Url
             };
         }
-
     }
 }
