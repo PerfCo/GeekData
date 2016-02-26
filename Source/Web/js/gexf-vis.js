@@ -20,11 +20,13 @@ App.visgexf = (function($, sigma) {
         dataFileName = filename;
         visualizationProperties = props;
         var viscontainer = document.getElementById(visualizationId);
+        
         // adjust height of graph to screen
         var winHeight = $(window).height() - $('#navbar').height();
         if (winHeight > 400) {
             $(viscontainer).height(winHeight);
         }
+
         sigmaInstance = sigma.init(viscontainer)
             .drawingProperties(visualizationProperties['drawing'])
             .graphProperties(visualizationProperties['graph'])
@@ -41,10 +43,15 @@ App.visgexf = (function($, sigma) {
                 });
                 nodeLabels.sort();
             }
+            
             initSearch();
             //searchInput.focus();
             // call callback after json is parsed
-            if (callback) callback();
+            
+            if (callback) { 
+                callback();
+            }
+
             $('#loading').hide();
         });
 
@@ -74,12 +81,16 @@ App.visgexf = (function($, sigma) {
             // on mouse out of node
         });
 
-        var forEach = Array.prototype.forEach;
-        var $$ = document.querySelectorAll.bind(document);
+        addWheelHandler();
+    }
 
-        forEach.call($$('.sigma-parent'), function(v) {
+    function addWheelHandler() {
+        var forEach = Array.prototype.forEach;
+        //var $$ = document.querySelectorAll.bind(document);
+
+        forEach.call($('.sigma-parent'), function(v) {
             v.addEventListener('mousewheel', mouseWheelHandler, false);
-            v.addEventListener('DOMMouseScroll', mouseWheelHandler, false);
+            v.addEventListener('DOMMouseScroll', mouseWheelHandler, false); // Fix for FF
         });
 
         var depth = 0;
@@ -90,7 +101,7 @@ App.visgexf = (function($, sigma) {
             }
 
             var e = window.event || e;
-            var delta = e.wheelDelta ? e.wheelDelta : -e.detail;
+            var delta = e.wheelDelta ? e.wheelDelta : -e.detail; // Fix for FF
             
             if(delta > 0 && depth < 8) {
                 depth++;
@@ -276,10 +287,10 @@ App.visgexf = (function($, sigma) {
         });
 
         labels.initialize();
-        var updater = function(event) {
+        /*var updater = function(event) {
             event.preventDefault();
             //redirectHash(searchInput.val());
-        };
+        };*/
 
         /*searchInput.typeahead({
               hint: true,
@@ -290,7 +301,7 @@ App.visgexf = (function($, sigma) {
               source: labels.ttAdapter()
         }).on('typeahead:selected', updater);*/
 
-        $('#highlight-node').on('submit', updater);
+        //$('#highlight-node').on('submit', updater);
 
         if (document.location.hash) {
             redirectHash();

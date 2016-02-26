@@ -23,12 +23,17 @@ App.tooltip = (function($) {
 
     var lastTimeShown = getNowTime();
     var hideDelaySeconds = 3;
+    var noAvatarPath = "images/no-avatar.jpg";
 
     var requiredAttribute = {
         lib: "HtmlUrlGithubRepository",
         geek: "DisplayNameStackOverflowUser",
         cource: "NamePluralsightCourse"
     };
+
+    $guruAvatar.on("error", function() {
+        $guruAvatar.attr("src", noAvatarPath);
+    });
 
     function show(nodeData){
         initContent(nodeData);
@@ -67,10 +72,10 @@ App.tooltip = (function($) {
 
         var avatarUrl = tooltipData["ProfileImageStackOverflowUser"];
 
-        if(avatarUrl && avatarUrl.indexOf("gravatar.com/avatar/") < 0) {
+        if(avatarUrl) {
             $guruAvatar.attr("src", avatarUrl);
         } else {
-            $guruAvatar.attr("src", "images/no-avatar.jpg");
+            $guruAvatar.attr("src", noAvatarPath);
         }
 
         $guruSite.attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
