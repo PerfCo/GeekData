@@ -1,6 +1,6 @@
 // Inspired by http://exploringdata.github.io/vis/programming-languages-influence-network
 App.visgexf = (function($, sigma) {
-    var visualizationId = null;
+    var sigmaContainerId = null;
     var dataFileName = null;
     var sigmaInstance = null;
     var filters = {};
@@ -14,13 +14,13 @@ App.visgexf = (function($, sigma) {
     var sourceColor = '#67A9CF';
     var targetColor = '#EF8A62';
 
-    function init(visid, filename, props, callback) {
+    function init(options, callback) {
         $('#loading').show();
-        visualizationId = visid;
-        dataFileName = filename;
-        visualizationProperties = props;
-        var viscontainer = document.getElementById(visualizationId);
-        
+        sigmaContainerId = options.sigmaContainerId;
+        dataFileName = options.dataFilePath;
+        visualizationProperties = options.sigmaProperties;
+        var viscontainer = document.getElementById(sigmaContainerId);
+
         // adjust height of graph to screen
         var winHeight = $(window).height() - $('#navbar').height();
         if (winHeight > 400) {
@@ -86,7 +86,6 @@ App.visgexf = (function($, sigma) {
 
     function addWheelHandler() {
         var forEach = Array.prototype.forEach;
-        //var $$ = document.querySelectorAll.bind(document);
 
         forEach.call($('.sigma-parent'), function(v) {
             v.addEventListener('mousewheel', mouseWheelHandler, false);
@@ -275,7 +274,7 @@ App.visgexf = (function($, sigma) {
 
     function clear() {
         sigmaInstance.emptyGraph();
-        document.getElementById(visualizationId).innerHTML = '';
+        document.getElementById(sigmaContainerId).innerHTML = '';
     }
 
     function initSearch() {

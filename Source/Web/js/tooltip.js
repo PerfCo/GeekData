@@ -96,7 +96,7 @@ App.tooltip = (function($) {
         }
 
         if(badges["Silver"]){
-            $silverBadge.show().find(".badgecount").text(badges["Gold"]);
+            $silverBadge.show().find(".badgecount").text(badges["Silver"]);
         } else {
             $silverBadge.hide().find(".badgecount").text("");
         }
