@@ -1,19 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
 namespace Core
 {
-    public sealed class Tags
+    public static class Tags
     {
         private const string TagFile = "Tags.json";
 
-        public Tags()
+        public static Lazy<List<TagItem>> Root { get; } = new Lazy<List<TagItem>>(() =>
         {
-            string file = File.ReadAllText(TagFile);
-            Root = JsonConvert.DeserializeObject<List<TagItem>>(file);
-        }
-
-        public List<TagItem> Root { get; }
+            string fileContent = File.ReadAllText(TagFile);
+            return JsonConvert.DeserializeObject<List<TagItem>>(fileContent);
+        });
     }
 }

@@ -17,8 +17,7 @@ namespace StackOverflow.Crawler
         {
             _logger.Info("StackOverflow.Crawler is running...");
             var worker = new Worker();
-            List<TagItem> rootTags = new Tags().Root;
-            foreach (TagItem tag in rootTags)
+            foreach (TagItem tag in Tags.Root.Value)
             {
                 try
                 {

@@ -17,8 +17,7 @@ namespace Github.Crawler
         {
             _logger.Info("Github.Crawler is running...");
 
-            List<TagItem> rootTags = new Tags().Root;
-            foreach (TagItem tag in rootTags)
+            foreach (TagItem tag in Tags.Root.Value)
             {
                 try
                 {

@@ -15,9 +15,8 @@ namespace DataGenerator
         static void Main()
         {
             _logger.Info("DataGenerator is running...");
-            List<TagItem> rootTags = new Tags().Root;
             var worker = _kernel.Get<Worker>();
-            worker.Generate(rootTags);
+            worker.Generate(Tags.Root.Value);
 
             _logger.Info("Press ANY key to exit.");
             Console.ReadKey();
