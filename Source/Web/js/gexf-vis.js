@@ -5,20 +5,22 @@ App.visgexf = (function($, sigma) {
     var sigmaInstance = null;
     var filters = {};
     var graph = null;
-    var visualizationProperties = null;
+    var sigmaProperties = null;
     var nodeLabels = [];
     var nodeMap = {};
-    //var searchInput = $('.typeahead');
+    
     var activeFilterId = null;
     var activeFilterVal = null;
     var sourceColor = '#67A9CF';
     var targetColor = '#EF8A62';
 
+    var $loading = $('#loading');
+
     function init(options, callback) {
-        $('#loading').show();
+        $loading.show();
         sigmaContainerId = options.sigmaContainerId;
         dataFileName = options.dataFilePath;
-        visualizationProperties = options.sigmaProperties;
+        sigmaProperties = options.sigmaProperties;
         var viscontainer = document.getElementById(sigmaContainerId);
 
         // adjust height of graph to screen
@@ -28,8 +30,8 @@ App.visgexf = (function($, sigma) {
         }
 
         sigmaInstance = sigma.init(viscontainer)
-            .drawingProperties(visualizationProperties['drawing'])
-            .graphProperties(visualizationProperties['graph'])
+            .drawingProperties(sigmaProperties['drawing'])
+            .graphProperties(sigmaProperties['graph'])
             .mouseProperties({ maxRatio: 128 });
 
         sigmaInstance.parseJson(dataFileName, function(){
@@ -43,16 +45,14 @@ App.visgexf = (function($, sigma) {
                 });
                 nodeLabels.sort();
             }
-            
+
             initSearch();
-            //searchInput.focus();
-            // call callback after json is parsed
-            
+
             if (callback) { 
                 callback();
             }
 
-            $('#loading').hide();
+            $loading.hide();
         });
 
         sigmaInstance.bind('upnodes', function(event) {
@@ -74,7 +74,7 @@ App.visgexf = (function($, sigma) {
                 return;
             }
 
-            showTooltip(nodeData, tooltipData);
+            App.tooltip.show(nodeData);
         });
 
         sigmaInstance.bind('outnodes', function(event) {
@@ -116,14 +116,10 @@ App.visgexf = (function($, sigma) {
         }
     }
 
-    function showTooltip(nodeData, tooltipData) {
-        App.tooltip.show(nodeData);
-    }
-
     // set the color of node or edge
     function setColor(o, c) {
         // don't change node an edge colors of undirected graphs
-        if (visualizationProperties.type == "undirected") { 
+        if (sigmaProperties.type == "undirected") { 
             return; 
         }
 
@@ -132,15 +128,11 @@ App.visgexf = (function($, sigma) {
         o.color = c;
     }
 
-    function hex2dec(hexval) {
-        return parseInt('0x' + hexval).toString(10)
-    }
-
     // set the opacity of node or edge
     function setOpacity(o, alpha) {
         var r, g, b;
         var color = o.color;
-        if (0 == color.indexOf('rgba')) {
+        if (color.indexOf('rgba') === 0) {
             var m = color.match(/(\d+),(\d+),(\d+),(\d*.?\d+)/);
             if (m) {
               var colors = m.slice(1,5);
@@ -148,7 +140,7 @@ App.visgexf = (function($, sigma) {
               g = colors[1];
               b = colors[2];
             }
-        } else if (0 == color.indexOf('rgb')) {
+        } else if (color.indexOf('rgb') === 0) {
             var m = color.match(/(\d+),(\d+),(\d+)/);
             if (m) {
                 var colors = m.slice(1,5);
@@ -190,7 +182,8 @@ App.visgexf = (function($, sigma) {
     }
 
     function nodeHasFilter(node, filterid, filterval) {
-        return node.attr.attributes.hasOwnProperty(filterid) && -1 !== node.attr.attributes[filterid].indexOf(filterval)
+        return node.attr.attributes.hasOwnProperty(filterid) && 
+            node.attr.attributes[filterid].indexOf(filterval) !== -1;
     }
 
     // show only nodes that match filter
@@ -207,9 +200,8 @@ App.visgexf = (function($, sigma) {
 
     // return true if given node does not satisfy set filter, else false
     function filteredOut(node) {
-        if (null !== activeFilterId
-            && null !== activeFilterVal
-            && !nodeHasFilter(node, activeFilterId, activeFilterVal)) {
+        if (activeFilterId !== null && activeFilterVal !== null && 
+            !nodeHasFilter(node, activeFilterId, activeFilterVal)) {
             return true;
         }
         return false;
@@ -281,7 +273,9 @@ App.visgexf = (function($, sigma) {
         var labels = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
-            local: $.map(nodeLabels, function(label) { return { value: label }; }),
+            local: $.map(nodeLabels, function(label) { 
+                return { value: label }; 
+            }),
             limit: 20
         });
 
@@ -312,32 +306,31 @@ App.visgexf = (function($, sigma) {
         });
     }
 
-    function redirectHash(q) {
-        if (q) {
-            document.location.hash = q;
+    function redirectHash(hash) {
+        if (hash) {
+            document.location.hash = hash;
             return;
         }
-        var h = decodeURIComponent(document.location.hash.replace(/^#/, ''));
-        nodeSearch(h);
+        var query = decodeURIComponent(document.location.hash.replace(/^#/, ''));
+        nodeSearch(query);
     }
 
-    function queryHasResult(q) {
-        return -1 !== nodeLabels.indexOf(q);
+    function queryHasResult(query) {
+        return nodeLabels.indexOf(query) !== -1;
     }
 
     function nodeSearch(query) {
         resetFilter();
         if (queryHasResult(query)) {
             document.location.hash = query;
-            //searchInput.val(query);
-            node = sigmaInstance.getNodes(nodeMap[query])
+            var node = sigmaInstance.getNodes(nodeMap[query]);
             highlightNode(node);
             return query;
         }
     }
 
     function resetNodes() {
-        sigmaInstance.iterNodes(function(n){
+        sigmaInstance.iterNodes(function(n) {
             if (n.attr.hl) {
                 n.color = n.attr.color;
                 n.attr.hl = false;
@@ -346,13 +339,13 @@ App.visgexf = (function($, sigma) {
             if (filteredOut(n)) {
                 n.hidden = 1;
             }
-        }).iterEdges(function(e){
+        }).iterEdges(function(e) {
           if (e.attr.hl) {
               e.color = e.attr.color;
               e.attr.hl = false;
           }
           e.hidden = 0;
-        }).draw(2,2,2);
+        }).draw(2, 2, 2);
     }
 
     function resetSearch() {
@@ -364,7 +357,7 @@ App.visgexf = (function($, sigma) {
         $('#sig').remove(); 
         $('#vis').html('<div id="sig"></div>'); 
 
-        init('sig', gexf, visualizationProperties, function() {
+        init('sig', gexf, sigmaProperties, function() {
             var filterid = 'paradigms';
             var filters = getFilters([filterid]);
         });*/
@@ -379,7 +372,6 @@ App.visgexf = (function($, sigma) {
     function reset() {
         activeFilterId = null;
         activeFilterVal = null;
-        //searchInput.val('');
         resetNodes();
         dialog.hide();
     }
@@ -387,5 +379,5 @@ App.visgexf = (function($, sigma) {
     return {
         init: init,
         getFilters: getFilters
-    }
+    };
 })($, sigma);
