@@ -57,7 +57,7 @@ namespace DataGenerator
 
         private IEnumerable<string> CourcesLinks()
         {
-            foreach (CourseEntity item in _node.PluralsightCourses)
+            foreach (PluralsightCourseEntity item in _node.PluralsightCourses)
             {
                 yield return $"{_courseNode.IdNode};{item.Id};{EdgeType};{_tagNode.IdNode}";
             }
@@ -65,7 +65,7 @@ namespace DataGenerator
 
         private IEnumerable<string> GeeksLinks()
         {
-            foreach (UserEntity item in _node.StackOverflowUsers)
+            foreach (StackOverflowUserEntity item in _node.StackOverflowUsers)
             {
                 yield return $"{_geekNode.IdNode};{item.Id};{EdgeType};{_tagNode.IdNode}";
             }
@@ -73,7 +73,7 @@ namespace DataGenerator
 
         private IEnumerable<string> LibLinks()
         {
-            foreach (RepositoryInfoEntity item in _node.GithubRepositories)
+            foreach (GithubRepositoryEntity item in _node.GithubRepositories)
             {
                 yield return $"{_libNode.IdNode};{item.Id};{EdgeType};{_tagNode.IdNode}";
             }

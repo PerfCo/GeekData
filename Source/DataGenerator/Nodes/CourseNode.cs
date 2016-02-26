@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DataGenerator.Entities;
 
 namespace DataGenerator.Nodes
@@ -18,12 +19,13 @@ namespace DataGenerator.Nodes
         public override string Label { get; }
 
         public override int Level { get; } = 2;
+        public List<PluralsightCourseEntity> PluralsightCourses { get; } = new List<PluralsightCourseEntity>();
 
         public override string ToString()
         {
-            var items1 = new string(';', RepositoryInfoEntity.Captions().Count - 1);
-            var items2 = new string(';', CourseEntity.Captions().Count - 1);
-            var items3 = new string(';', UserEntity.Captions().Count - 1);
+            var items1 = new string(';', GithubRepositoryEntity.Captions().Count - 1);
+            var items2 = new string(';', PluralsightCourseEntity.Captions().Count - 1);
+            var items3 = new string(';', StackOverflowUserEntity.Captions().Count - 1);
 
             return $"{IdNode};{Label};{Level};{_node.Tag};{items1};{items2};{items3}";
         }

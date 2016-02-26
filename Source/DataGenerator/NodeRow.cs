@@ -23,9 +23,9 @@ namespace DataGenerator
             {
                 var columns = new List<string>();
                 columns.AddRange(Node.Captions());
-                columns.AddRange(RepositoryInfoEntity.Captions());
-                columns.AddRange(CourseEntity.Captions());
-                columns.AddRange(UserEntity.Captions());
+                columns.AddRange(GithubRepositoryEntity.Captions());
+                columns.AddRange(PluralsightCourseEntity.Captions());
+                columns.AddRange(StackOverflowUserEntity.Captions());
                 return string.Join(";", columns);
             }
         }
@@ -33,10 +33,10 @@ namespace DataGenerator
         public CourseNode CourseNode { get; }
         public GeekNode GeekNode { get; }
 
-        public List<RepositoryInfoEntity> GithubRepositories { get; set; } = new List<RepositoryInfoEntity>();
+        public List<GithubRepositoryEntity> GithubRepositories { get; set; } = new List<GithubRepositoryEntity>();
         public LibNode LibNode { get; }
-        public List<CourseEntity> PluralsightCourses { get; set; } = new List<CourseEntity>();
-        public List<UserEntity> StackOverflowUsers { get; set; } = new List<UserEntity>();
+        public List<PluralsightCourseEntity> PluralsightCourses { get; set; } = new List<PluralsightCourseEntity>();
+        public List<StackOverflowUserEntity> StackOverflowUsers { get; set; } = new List<StackOverflowUserEntity>();
         public string Tag { get; }
         public TagNode TagNode { get; }
 

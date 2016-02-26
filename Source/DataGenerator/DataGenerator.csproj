@@ -70,13 +70,14 @@
     <Compile Include="Dependencies\DependencyModule.cs" />
     <Compile Include="Nodes\CourseNode.cs" />
     <Compile Include="EdgeRow.cs" />
-    <Compile Include="Entities\CourseEntity.cs" />
-    <Compile Include="Entities\RepositoryInfoEntity.cs" />
-    <Compile Include="Entities\UserEntity.cs" />
+    <Compile Include="Entities\PluralsightCourseEntity.cs" />
+    <Compile Include="Entities\GithubRepositoryEntity.cs" />
+    <Compile Include="Entities\StackOverflowUserEntity.cs" />
     <Compile Include="Nodes\GeekNode.cs" />
     <Compile Include="Nodes\LibNode.cs" />
     <Compile Include="NodeRow.cs" />
     <Compile Include="Nodes\Node.cs" />
+    <Compile Include="Nodes\PluralsightCourseNode.cs" />
     <Compile Include="Nodes\TagNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

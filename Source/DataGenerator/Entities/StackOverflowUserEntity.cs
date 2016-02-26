@@ -3,10 +3,12 @@ using System.Linq;
 using Contracts.StackOverflow;
 using DataGenerator.Nodes;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DataGenerator.Entities
 {
-    public sealed class UserEntity : Node
+    [BsonIgnoreExtraElements]
+    public sealed class StackOverflowUserEntity : Node
     {
         public int AccountId { get; set; }
         public BadgeCounts BadgeCounts { get; set; }
@@ -30,8 +32,8 @@ namespace DataGenerator.Entities
 
         public override string ToString()
         {
-            var items1 = new string(';', RepositoryInfoEntity.Captions().Count - 1);
-            var items2 = new string(';', CourseEntity.Captions().Count - 1);
+            var items1 = new string(';', GithubRepositoryEntity.Captions().Count - 1);
+            var items2 = new string(';', PluralsightCourseEntity.Captions().Count - 1);
 
             var result = new List<object>
             {

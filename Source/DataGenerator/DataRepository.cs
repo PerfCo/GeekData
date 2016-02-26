@@ -15,12 +15,12 @@ namespace DataGenerator
         {
         }
 
-        public List<RepositoryInfoEntity> GetGithubRepositories(string tag, int topItems)
+        public List<GithubRepositoryEntity> GetGithubRepositories(string tag, int topItems)
         {
             try
             {
-                List<RepositoryInfoEntity> result = OpenConnection()
-                    .GetCollection<RepositoryInfoEntity>(MongoCollection.GithubRepositories)
+                List<GithubRepositoryEntity> result = OpenConnection()
+                    .GetCollection<GithubRepositoryEntity>(MongoCollection.GithubRepositories)
                     .Find(x => x.Tags.Contains(tag))
                     .Limit(topItems)
                     .ToListAsync()
@@ -30,16 +30,16 @@ namespace DataGenerator
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                return new List<RepositoryInfoEntity>();
+                return new List<GithubRepositoryEntity>();
             }
         }
 
-        public List<CourseEntity> GetPluralsightCourses(string tag)
+        public List<PluralsightCourseEntity> GetPluralsightCourses(string tag)
         {
             try
             {
-                List<CourseEntity> result = OpenConnection()
-                    .GetCollection<CourseEntity>(MongoCollection.PluralsightCourses)
+                List<PluralsightCourseEntity> result = OpenConnection()
+                    .GetCollection<PluralsightCourseEntity>(MongoCollection.PluralsightCourses)
                     .Find(x => x.Tags.Contains(tag))
                     .ToListAsync()
                     .Result;
@@ -48,16 +48,16 @@ namespace DataGenerator
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                return new List<CourseEntity>();
+                return new List<PluralsightCourseEntity>();
             }
         }
 
-        public List<UserEntity> GetStackOverflowUsers(string tag, int topItems)
+        public List<StackOverflowUserEntity> GetStackOverflowUsers(string tag, int topItems)
         {
             try
             {
-                List<UserEntity> result = OpenConnection()
-                    .GetCollection<UserEntity>(MongoCollection.StackOverflowUsers)
+                List<StackOverflowUserEntity> result = OpenConnection()
+                    .GetCollection<StackOverflowUserEntity>(MongoCollection.StackOverflowUsers)
                     .Find(x => x.Tags.Contains(tag))
                     .Limit(topItems)
                     .ToListAsync()
@@ -67,7 +67,7 @@ namespace DataGenerator
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                return new List<UserEntity>();
+                return new List<StackOverflowUserEntity>();
             }
         }
     }

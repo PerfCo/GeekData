@@ -41,9 +41,9 @@ namespace DataGenerator
 
         private void Generate(string tag)
         {
-            List<UserEntity> users = _dataRepository.GetStackOverflowUsers(tag, _settings.TopStackOverflowUsers);
-            List<CourseEntity> courses = _dataRepository.GetPluralsightCourses(tag);
-            List<RepositoryInfoEntity> repositories = _dataRepository.GetGithubRepositories(tag, _settings.TopGithubRepositories);
+            List<StackOverflowUserEntity> users = _dataRepository.GetStackOverflowUsers(tag, _settings.TopStackOverflowUsers);
+            List<PluralsightCourseEntity> courses = _dataRepository.GetPluralsightCourses(tag);
+            List<GithubRepositoryEntity> repositories = _dataRepository.GetGithubRepositories(tag, _settings.TopGithubRepositories);
 
             var node = new NodeRow(tag)
             {

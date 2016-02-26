@@ -7,7 +7,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace DataGenerator.Entities
 {
     [BsonIgnoreExtraElements]
-    public sealed class RepositoryInfoEntity : Node
+    public sealed class GithubRepositoryEntity : Node
     {
         public string Description { get; set; }
         public string HtmlUrl { get; set; }
@@ -29,8 +29,8 @@ namespace DataGenerator.Entities
 
         public override string ToString()
         {
-            var items1 = new string(';', CourseEntity.Captions().Count - 1);
-            var items2 = new string(';', UserEntity.Captions().Count - 1);
+            var items1 = new string(';', PluralsightCourseEntity.Captions().Count - 1);
+            var items2 = new string(';', StackOverflowUserEntity.Captions().Count - 1);
 
             var result = new List<object>
             {
