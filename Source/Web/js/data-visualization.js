@@ -9,46 +9,65 @@ App.dataVisualization = (function($, sigma) {
     var activeFilterValue = null;
 
     var minHeight = 400;
-    
-    var $loading = $('#loading');
 
-    function init(options, callback) {
+    var sigmaContainerId = "sigma_content";
+    var dataFilePath = "data/data.json.js"; // fake, actually hasn't loaded async
+
+    var sigmaOptions = {
+        drawing: {
+            defaultLabelColor: '#fff',
+            defaultLabelSize: 12,
+            defaultLabelBGColor: '#fff',
+            defaultLabelHoverColor: '#000',
+            labelThreshold: 4, // minimum size a node has to have to have its label being displayed
+            defaultEdgeType: 'curve'
+        },
+        graph: {
+            minNodeSize: .5,
+            maxNodeSize: 25,
+            minEdgeSize: 1,
+            maxEdgeSize: 1
+        },
+        forceLabel: 1,
+        type: 'directed',
+        maxRatio: 128
+    };
+
+    function init() {
+        var $loading = $('#loading');
+
         $loading.show();
-        var sigmaContainerId = options.sigmaContainerId;
-        var dataFileName = options.dataFilePath;
-        sigmaProperties = options.sigmaProperties;
 
         var sigmaContainer = document.getElementById(sigmaContainerId);
         setSigmaContainerHeight(sigmaContainer);
 
         sigmaInstance = sigma.init(sigmaContainer)
-            .drawingProperties(sigmaProperties['drawing'])
-            .graphProperties(sigmaProperties['graph'])
-            .mouseProperties({ maxRatio: 128 });
+            .drawingProperties(sigmaOptions.drawing)
+            .graphProperties(sigmaOptions.graph)
+            .mouseProperties(sigmaOptions.maxRatio);
 
-        sigmaInstance.parseJson(dataFileName, function() {
+        sigmaInstance.parseJson(dataFilePath, function() {
             sigmaInstance.draw();
-            // create array of node labels used for auto complete once
-            if (0 == nodeLabels.length) {
-                sigmaInstance.iterNodes(function(n) {
-                    nodeLabels.push(n.label);
-                    nodeMap[n.label] = n.id;
-                    n.attr.label = n.label; // needed for highlighting
-                });
-                nodeLabels.sort();
-            }
 
+            cacheNodeLabels();
             initSearch();
-
-            if (callback) { 
-                callback();
-            }
 
             $loading.hide();
         });
 
         initSigmaHandlers();
         initWheelHandler();
+    }
+
+    function cacheNodeLabels() {
+        if (nodeLabels.length == 0) {
+            sigmaInstance.iterNodes(function(n) {
+                nodeLabels.push(n.label);
+                nodeMap[n.label] = n.id;
+                n.attr.label = n.label; // needed for highlighting
+            });
+            nodeLabels.sort();
+        }
     }
 
     function setSigmaContainerHeight(sigmaContainer) {
@@ -121,11 +140,6 @@ App.dataVisualization = (function($, sigma) {
 
     // set the color of node or edge
     function setColor(o, c) {
-        // don't change node an edge colors of undirected graphs
-        if (sigmaProperties.type == "undirected") { 
-            return; 
-        }
-
         o.attr.hl = true;
         o.attr.color = o.color;
         o.color = c;
@@ -158,11 +172,6 @@ App.dataVisualization = (function($, sigma) {
         }
     }
 
-    function nodeHasFilter(node, filterId, filterValue) {
-        return node.attr.attributes.hasOwnProperty(filterId) && 
-            node.attr.attributes[filterId].indexOf(filterValue) !== -1;
-    }
-
     function resetNode(node, forceLabel) {
         node.hidden = 0;
         node.forceLabel = forceLabel;
@@ -191,7 +200,7 @@ App.dataVisualization = (function($, sigma) {
         var sourceColor = '#67A9CF';
         var targetColor = '#EF8A62';
 
-        sigmaInstance.iterEdges(function(e){
+        sigmaInstance.iterEdges(function(e) {
             if (node.attr.attributes.Level === "1" && e.attr.attributes.Tag === node.id){
                 targets[e.target] = true;
                 setColor(e, sourceColor);
@@ -222,28 +231,17 @@ App.dataVisualization = (function($, sigma) {
     }
 
     function initSearch() {
-        var labels = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            local: $.map(nodeLabels, function(label) { 
-                return { value: label }; 
-            }),
-            limit: 20
-        });
-
-        labels.initialize();
-
         if (document.location.hash) {
-            redirectHash();
+            redirectToHash();
         }
 
         // search on hash change, unless it should trigger info or comments view
         $(window).bind('hashchange', function(event) {
-            redirectHash();
+            redirectToHash();
         });
     }
 
-    function redirectHash(hash) {
+    function redirectToHash(hash) {
         if (hash) {
             document.location.hash = hash;
             return;
@@ -262,7 +260,6 @@ App.dataVisualization = (function($, sigma) {
             document.location.hash = query;
             var node = sigmaInstance.getNodes(nodeMap[query]);
             highlightNode(node);
-            return query;
         }
     }
 
