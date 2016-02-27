@@ -3,10 +3,6 @@ App.dataVisualization = (function($, sigma) {
     var sigmaInstance = null;
     var nodeLabels = [];
     var nodeMap = {};
-    
-    var filters = {};
-    var activeFilterId = null;
-    var activeFilterValue = null;
 
     var minHeight = 400;
 
@@ -15,12 +11,12 @@ App.dataVisualization = (function($, sigma) {
 
     var sigmaOptions = {
         drawing: {
-            defaultLabelColor: '#fff',
+            defaultLabelColor: "#fff",
             defaultLabelSize: 12,
-            defaultLabelBGColor: '#fff',
-            defaultLabelHoverColor: '#000',
+            defaultLabelBGColor: "#fff",
+            defaultLabelHoverColor: "#000",
             labelThreshold: 4, // minimum size a node has to have to have its label being displayed
-            defaultEdgeType: 'curve'
+            defaultEdgeType: "curve"
         },
         graph: {
             minNodeSize: .5,
@@ -29,7 +25,7 @@ App.dataVisualization = (function($, sigma) {
             maxEdgeSize: 1
         },
         forceLabel: 1,
-        type: 'directed',
+        type: "directed",
         maxRatio: 128
     };
 
@@ -70,14 +66,17 @@ App.dataVisualization = (function($, sigma) {
     }
 
     function cacheNodeLabels() {
-        if (nodeLabels.length == 0) {
-            sigmaInstance.iterNodes(function(n) {
-                nodeLabels.push(n.label);
-                nodeMap[n.label] = n.id;
-                n.attr.label = n.label; // needed for highlighting
-            });
-            nodeLabels.sort();
+        if(nodeLabels.length) {
+            return;
         }
+
+        sigmaInstance.iterNodes(function(node) {
+            nodeLabels.push(node.label);
+            nodeMap[node.label] = node.id;
+            node.attr.label = node.label; // needed for highlighting
+        });
+
+        nodeLabels.sort();
     }
 
     function setSigmaContainerHeight(sigmaContainer) {
@@ -89,7 +88,7 @@ App.dataVisualization = (function($, sigma) {
     }
 
     function initSigmaHandlers() {
-        sigmaInstance.bind('upnodes', function(event) {
+        sigmaInstance.bind("upnodes", function(event) {
             // on node click
             var node = getNode(event);
             var isFocusedNode = document.location.hash.replace(/#/i, '') == node.attr.label;
@@ -102,7 +101,7 @@ App.dataVisualization = (function($, sigma) {
             document.location.hash = node.attr.label;
         });
 
-        sigmaInstance.bind('overnodes', function(event) {
+        sigmaInstance.bind("overnodes", function(event) {
             // on node hover by mouse
             var node = getNode(event);
             var isHiddenNode = document.location.hash && !node.attr.hl;
@@ -114,10 +113,6 @@ App.dataVisualization = (function($, sigma) {
             }
         });
 
-        sigmaInstance.bind('outnodes', function(event) {
-            // on mouse out of node
-        });
-
         function getNode(event) {
             return sigmaInstance.getNodes(event.content)[0];
         }
@@ -126,9 +121,9 @@ App.dataVisualization = (function($, sigma) {
     function initWheelHandler() {
         var forEach = Array.prototype.forEach;
 
-        forEach.call($(sigmaParentSelector), function(v) {
-            v.addEventListener('mousewheel', mouseWheelHandler, false);
-            v.addEventListener('DOMMouseScroll', mouseWheelHandler, false); // Fix for FF
+        forEach.call($(sigmaParentSelector), function(element) {
+            element.addEventListener("mousewheel", mouseWheelHandler, false);
+            element.addEventListener("DOMMouseScroll", mouseWheelHandler, false); // Fix for FF
         });
 
         var depth = 0;
@@ -156,43 +151,44 @@ App.dataVisualization = (function($, sigma) {
         }
     }
 
-    function highlightNode(node) {
+    function highlightNode(highlightedNode) {
         sigmaInstance.position(0, 0, 1);
-        sigmaInstance.goTo(node.displayX, node.displayY, 2);
+        sigmaInstance.goTo(highlightedNode.displayX, highlightedNode.displayY, 2);
         sigmaInstance.position(0, 0, 1);
 
         var sources = {};
         var targets = {};
 
-        var sourceColor = '#67A9CF';
-        var targetColor = '#EF8A62';
+        var sourceColor = "#67A9CF";
+        var targetColor = "#EF8A62";
 
-        sigmaInstance.iterEdges(function(e) {
-            if (node.attr.attributes.Level === nodeLevelAttrValues.level1 && e.attr.attributes.Tag === node.id){
-                targets[e.target] = true;
-                setColor(e, sourceColor);
-                e.hidden = 0;
-            } else if (e.source != node.id && e.target != node.id) {
-                e.hidden = 1;
-            } else if (e.source == node.id) {
-                targets[e.target] = true;
-                setColor(e, sourceColor);
-                e.hidden = 0;
-            } else if (e.target == node.id) {
-                setColor(e, targetColor);
-                sources[e.source] = true;
-                e.hidden = 0;
+        sigmaInstance.iterEdges(function(edge) {
+            if (highlightedNode.attr.attributes.Level === nodeLevelAttrValues.level1 && 
+                edge.attr.attributes.Tag === highlightedNode.id) {
+                targets[edge.target] = true;
+                setColor(edge, sourceColor);
+                edge.hidden = 0;
+            } else if (edge.source != highlightedNode.id && edge.target != highlightedNode.id) {
+                edge.hidden = 1;
+            } else if (edge.source == highlightedNode.id) {
+                targets[edge.target] = true;
+                setColor(edge, sourceColor);
+                edge.hidden = 0;
+            } else if (edge.target == highlightedNode.id) {
+                setColor(edge, targetColor);
+                sources[edge.source] = true;
+                edge.hidden = 0;
             }
-        }).iterNodes(function(n){
-            if (n.id == node.id) {
-                showNode(n);
-            } else if (sources[n.id]) {
-                showNode(n, targetColor);
-            } else if (targets[n.id]) {
-                showNode(n, sourceColor);
+        }).iterNodes(function(node) {
+            if (node.id == highlightedNode.id) {
+                showNode(node);
+            } else if (sources[node.id]) {
+                showNode(node, targetColor);
+            } else if (targets[node.id]) {
+                showNode(node, sourceColor);
             } else {
-                setOpacity(n, .05);
-                n.label = null;
+                setOpacity(node, .05);
+                node.label = null;
             }
         }).draw(2, 2, 2);
     }
@@ -206,17 +202,17 @@ App.dataVisualization = (function($, sigma) {
     }
 
     // set the color of node or edge
-    function setColor(o, c) {
-        o.attr.hl = true;
-        o.attr.color = o.color;
-        o.color = c;
+    function setColor(element, color) {
+        element.attr.hl = true;
+        element.attr.color = element.color;
+        element.color = color;
     }
 
     // set the opacity of node or edge
-    function setOpacity(o, alpha) {
+    function setOpacity(element, alpha) {
         var r, g, b;
-        var color = o.color;
-        if (color.indexOf('rgba') === 0) {
+        var color = element.color;
+        if (color.indexOf("rgba") === 0) {
             var m = color.match(/(\d+),(\d+),(\d+),(\d*.?\d+)/);
             if (m) {
               var colors = m.slice(1,5);
@@ -224,7 +220,7 @@ App.dataVisualization = (function($, sigma) {
               g = colors[1];
               b = colors[2];
             }
-        } else if (color.indexOf('rgb') === 0) {
+        } else if (color.indexOf("rgb") === 0) {
             var m = color.match(/(\d+),(\d+),(\d+)/);
             if (m) {
                 var colors = m.slice(1,5);
@@ -235,7 +231,7 @@ App.dataVisualization = (function($, sigma) {
         }
 
         if (r && g && b) {
-            o.color = 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+            element.color = "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
         }
     }
 
@@ -252,7 +248,7 @@ App.dataVisualization = (function($, sigma) {
         }
 
         // search on hash change, unless it should trigger info or comments view
-        $(window).bind('hashchange', function(event) {
+        $(window).bind("hashchange", function(event) {
             redirectToHash();
         });
     }
@@ -267,7 +263,7 @@ App.dataVisualization = (function($, sigma) {
     }
 
     function nodeSearch(query) {
-        resetFilter();
+        resetNodesAndEdges();
         if (queryHasResult(query)) {
             document.location.hash = query;
             var node = sigmaInstance.getNodes(nodeMap[query]);
@@ -283,25 +279,19 @@ App.dataVisualization = (function($, sigma) {
         document.location.href = document.location.pathname;
     }
 
-    function resetFilter() {
-        activeFilterId = null;
-        activeFilterValue = null;
-        resetNodes();
-    }
-
-    function resetNodes() {
-        sigmaInstance.iterNodes(function(n) {
-            if (n.attr.hl) {
-                n.color = n.attr.color;
-                n.attr.hl = false;
+    function resetNodesAndEdges() {
+        sigmaInstance.iterNodes(function(node) {
+            if (node.attr.hl) {
+                node.color = node.attr.color;
+                node.attr.hl = false;
             }
-            resetNode(n, 0);
-        }).iterEdges(function(e) {
-          if (e.attr.hl) {
-              e.color = e.attr.color;
-              e.attr.hl = false;
-          }
-          e.hidden = 0;
+            resetNode(node, 0);
+        }).iterEdges(function(edge) {
+            if (edge.attr.hl) {
+                edge.color = edge.attr.color;
+                edge.attr.hl = false;
+            }
+            edge.hidden = 0;
         }).draw(2, 2, 2);
     }
 
