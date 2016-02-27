@@ -1,6 +1,8 @@
 App.tooltip = (function($) {
 
-    var $tooltip = $("#tooltip");
+    var tooltipSelector = "#tooltip";
+
+    var $tooltip = $(tooltipSelector);
     var $libContent = $("#lib_content");
     var $geekContent = $("#geek_content");
     var $courceContent = $("#cource_content");
@@ -25,10 +27,31 @@ App.tooltip = (function($) {
     var hideDelaySeconds = 3;
     var noAvatarPath = "images/no-avatar.jpg";
 
+    var geekAttributeNames = {
+        displayName: "DisplayNameStackOverflowUser",
+        profileUrl: "ProfileUrlStackOverflowUser",
+        profileImage: "ProfileImageStackOverflowUser",
+        badgeCounts: "BadgeCountsStackOverflowUser",
+        goldBadge: "Gold",
+        silverBadge: "Silver",
+        bronzeBadge: "Bronze",
+    };
+
+    var libAttributeNames = {
+        url: "HtmlUrlGithubRepository",
+        description: "DescriptionGithubRepository",
+        starCount: "StargazersCountGithubRepository"
+    };
+
+    var courceAttributeNames = {
+        name: "NamePluralsightCourse",
+        url: "UrlPluralsightCourse"
+    };
+
     var requiredAttribute = {
-        lib: "HtmlUrlGithubRepository",
-        geek: "DisplayNameStackOverflowUser",
-        cource: "NamePluralsightCourse"
+        lib: libAttributeNames.url,
+        geek: geekAttributeNames.displayName,
+        cource: courceAttributeNames.name
     };
 
     $geekAvatar.on("error", function() {
@@ -62,13 +85,13 @@ App.tooltip = (function($) {
 
     function initGeekContent(tooltipData) {
         hideAllContent();
+        
+        $geekName.html(tooltipData[geekAttributeNames.displayName])
+            .attr("href", tooltipData[geekAttributeNames.profileUrl]);
 
-        $geekName.html(tooltipData["DisplayNameStackOverflowUser"])
-            .attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
+        $geekProfileUrl.attr("href", tooltipData[geekAttributeNames.profileUrl]);
 
-        $geekProfileUrl.attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
-
-        var avatarUrl = tooltipData["ProfileImageStackOverflowUser"];
+        var avatarUrl = tooltipData[geekAttributeNames.profileImage];
 
         if(avatarUrl) {
             $geekAvatar.attr("src", avatarUrl);
@@ -76,35 +99,33 @@ App.tooltip = (function($) {
             $geekAvatar.attr("src", noAvatarPath);
         }
 
-        $geekSite.attr("href", tooltipData["ProfileUrlStackOverflowUser"]);
+        $geekSite.attr("href", tooltipData[geekAttributeNames.profileUrl]);
 
         var badges = {};
-        var badgesRawData = tooltipData["BadgeCountsStackOverflowUser"];
+        var badgesRawData = tooltipData[geekAttributeNames.badgeCounts];
         if(badgesRawData) {
             badgesRawData = badgesRawData.replace(/([a-zA-Z][^:]*)(?=\s*:)/g, '"$1"'); // add quotes to make valid json
             badges = JSON.parse(badgesRawData);
         }
 
-        var $goldBadge = $("#geek_badges_gold");
-        var $silverBadge = $("#geek_badges_silver");
-        var $bronzeBadge = $("#geek_badges_bronze");
+        var countSelector = ".badgecount";
 
-        if(badges["Gold"]){
-            $goldBadge.show().find(".badgecount").text(badges["Gold"]);
+        if(badges[geekAttributeNames.goldBadge]) {
+            $goldBadge.show().find(countSelector).text(badges[geekAttributeNames.goldBadge]);
         } else {
-            $goldBadge.hide().find(".badgecount").text("");
+            $goldBadge.hide().find(countSelector).text("");
         }
 
-        if(badges["Silver"]){
-            $silverBadge.show().find(".badgecount").text(badges["Silver"]);
+        if(badges[geekAttributeNames.silverBadge]) {
+            $silverBadge.show().find(countSelector).text(badges[geekAttributeNames.silverBadge]);
         } else {
-            $silverBadge.hide().find(".badgecount").text("");
+            $silverBadge.hide().find(countSelector).text("");
         }
 
-        if(badges["Bronze"]){
-            $bronzeBadge.show().find(".badgecount").text(badges["Bronze"]);
+        if(badges[geekAttributeNames.bronzeBadge]) {
+            $bronzeBadge.show().find(countSelector).text(badges[geekAttributeNames.bronzeBadge]);
         } else {
-            $bronzeBadge.hide().find(".badgecount").text("");
+            $bronzeBadge.hide().find(countSelector).text("");
         }
 
         $geekContent.show();
@@ -116,9 +137,9 @@ App.tooltip = (function($) {
         hideAllContent();
 
         $libName.html(nodeData.label);
-        $libUrl.attr("href", tooltipData["HtmlUrlGithubRepository"]);
-        $libDescription.html(tooltipData["DescriptionGithubRepository"]);
-        $libStarsCount.text(tooltipData["StargazersCountGithubRepository"]);
+        $libUrl.attr("href", tooltipData[libAttributeNames.url]);
+        $libDescription.html(tooltipData[libAttributeNames.description]);
+        $libStarsCount.text(tooltipData[libAttributeNames.starCount]);
 
         $libContent.show();
     }
@@ -126,8 +147,8 @@ App.tooltip = (function($) {
     function initCourceContent(tooltipData) {
         hideAllContent();
 
-        $courceName.html(tooltipData["NamePluralsightCourse"]);
-        $courceUrl.attr("href", tooltipData["UrlPluralsightCourse"]);
+        $courceName.html(tooltipData[courceAttributeNames.name]);
+        $courceUrl.attr("href", tooltipData[courceAttributeNames.url]);
 
         $courceContent.show();
     }
@@ -150,7 +171,7 @@ App.tooltip = (function($) {
 
     function findCoordinates(nodeData){
         var $window = $(window);
-        var $tooltip = $("#tooltip");
+        var $tooltip = $(tooltipSelector);
 
         var winWidth = $window.width();
         var winHeight = $window.height();
