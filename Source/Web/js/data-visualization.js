@@ -132,6 +132,7 @@ App.dataVisualization = (function($, sigma) {
         });
 
         var depth = 0;
+        var maxDepth = 8;
         
         function mouseWheelHandler(e) {
             if(!document.location.hash) {
@@ -141,7 +142,7 @@ App.dataVisualization = (function($, sigma) {
             var e = window.event || e;
             var delta = e.wheelDelta ? e.wheelDelta : -e.detail; // Fix for FF
             
-            if(delta > 0 && depth < 8) {
+            if(delta > 0 && depth < maxDepth) {
                 depth++;
             } else if(delta < 0 && depth >= 0) {
                 depth--;
@@ -153,6 +154,55 @@ App.dataVisualization = (function($, sigma) {
             
             return false;
         }
+    }
+
+    function highlightNode(node) {
+        sigmaInstance.position(0, 0, 1);
+        sigmaInstance.goTo(node.displayX, node.displayY, 2);
+        sigmaInstance.position(0, 0, 1);
+
+        var sources = {};
+        var targets = {};
+
+        var sourceColor = '#67A9CF';
+        var targetColor = '#EF8A62';
+
+        sigmaInstance.iterEdges(function(e) {
+            if (node.attr.attributes.Level === nodeLevelAttrValues.level1 && e.attr.attributes.Tag === node.id){
+                targets[e.target] = true;
+                setColor(e, sourceColor);
+                e.hidden = 0;
+            } else if (e.source != node.id && e.target != node.id) {
+                e.hidden = 1;
+            } else if (e.source == node.id) {
+                targets[e.target] = true;
+                setColor(e, sourceColor);
+                e.hidden = 0;
+            } else if (e.target == node.id) {
+                setColor(e, targetColor);
+                sources[e.source] = true;
+                e.hidden = 0;
+            }
+        }).iterNodes(function(n){
+            if (n.id == node.id) {
+                showNode(n);
+            } else if (sources[n.id]) {
+                showNode(n, targetColor);
+            } else if (targets[n.id]) {
+                showNode(n, sourceColor);
+            } else {
+                setOpacity(n, .05);
+                n.label = null;
+            }
+        }).draw(2, 2, 2);
+    }
+
+    // show node with optional color, check if it satisfies possibly set filter
+    function showNode(node, color) {
+        if (color) { 
+            setColor(node, color);
+        }
+        resetNode(node, 0);
     }
 
     // set the color of node or edge
@@ -196,55 +246,6 @@ App.dataVisualization = (function($, sigma) {
         setOpacity(node, 1);
     }
 
-    // show node with optional color, check if it satisfies possibly set filter
-    function nodeShow(node, color) {
-        if (color) { 
-            setColor(node, color);
-        }
-        resetNode(node, 0);
-    }
-
-    function highlightNode(node) {
-        sigmaInstance.position(0, 0, 1);
-        sigmaInstance.goTo(node.displayX, node.displayY, 2);
-        sigmaInstance.position(0, 0, 1);
-
-        var sources = {};
-        var targets = {};
-
-        var sourceColor = '#67A9CF';
-        var targetColor = '#EF8A62';
-
-        sigmaInstance.iterEdges(function(e) {
-            if (node.attr.attributes.Level === nodeLevelAttrValues.level1 && e.attr.attributes.Tag === node.id){
-                targets[e.target] = true;
-                setColor(e, sourceColor);
-                e.hidden = 0;
-            } else if (e.source != node.id && e.target != node.id) {
-                e.hidden = 1;
-            } else if (e.source == node.id) {
-                targets[e.target] = true;
-                setColor(e, sourceColor);
-                e.hidden = 0;
-            } else if (e.target == node.id) {
-                setColor(e, targetColor);
-                sources[e.source] = true;
-                e.hidden = 0;
-            }
-        }).iterNodes(function(n){
-            if (n.id == node.id) {
-                nodeShow(n);
-            } else if (sources[n.id]) {
-                nodeShow(n, targetColor);
-            } else if (targets[n.id]) {
-                nodeShow(n, sourceColor);
-            } else {
-                setOpacity(n, .05);
-                n.label = null;
-            }
-        }).draw(2, 2, 2);
-    }
-
     function initSearch() {
         if (document.location.hash) {
             redirectToHash();
@@ -265,10 +266,6 @@ App.dataVisualization = (function($, sigma) {
         nodeSearch(query);
     }
 
-    function queryHasResult(query) {
-        return nodeLabels.indexOf(query) !== -1;
-    }
-
     function nodeSearch(query) {
         resetFilter();
         if (queryHasResult(query)) {
@@ -276,6 +273,20 @@ App.dataVisualization = (function($, sigma) {
             var node = sigmaInstance.getNodes(nodeMap[query]);
             highlightNode(node);
         }
+    }
+
+    function queryHasResult(query) {
+        return nodeLabels.indexOf(query) !== -1;
+    }
+
+    function resetSearch() {
+        document.location.href = document.location.pathname;
+    }
+
+    function resetFilter() {
+        activeFilterId = null;
+        activeFilterValue = null;
+        resetNodes();
     }
 
     function resetNodes() {
@@ -292,16 +303,6 @@ App.dataVisualization = (function($, sigma) {
           }
           e.hidden = 0;
         }).draw(2, 2, 2);
-    }
-
-    function resetSearch() {
-        document.location.href = document.location.pathname;
-    }
-
-    function resetFilter() {
-        activeFilterId = null;
-        activeFilterValue = null;
-        resetNodes();
     }
 
     return {
