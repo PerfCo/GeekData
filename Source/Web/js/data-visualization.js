@@ -33,8 +33,18 @@ App.dataVisualization = (function($, sigma) {
         maxRatio: 128
     };
 
+    var sigmaParentSelector = ".sigma-parent";
+    var loadingSelector = "#loading";
+    var navbarSelector = "#navbar";
+    
+    var nodeLevelAttrValues = {
+        level1: "1",
+        level2: "2",
+        level3: "3"
+    };
+
     function init() {
-        var $loading = $('#loading');
+        var $loading = $(loadingSelector);
 
         $loading.show();
 
@@ -72,7 +82,7 @@ App.dataVisualization = (function($, sigma) {
 
     function setSigmaContainerHeight(sigmaContainer) {
         // adjust height of graph to screen
-        var winHeight = $(window).height() - $('#navbar').height();
+        var winHeight = $(window).height() - $(navbarSelector).height();
         if (winHeight > minHeight) {
             $(sigmaContainer).height(winHeight);
         }
@@ -81,35 +91,42 @@ App.dataVisualization = (function($, sigma) {
     function initSigmaHandlers() {
         sigmaInstance.bind('upnodes', function(event) {
             // on node click
-            var node = sigmaInstance.getNodes(event.content)[0];
-            if(document.location.hash.replace(/#/i, '') == node.attr.label) {
+            var node = getNode(event);
+            var isFocusedNode = document.location.hash.replace(/#/i, '') == node.attr.label;
+            
+            if(isFocusedNode) {
                 resetSearch();
                 return;
             }
+
             document.location.hash = node.attr.label;
         });
 
         sigmaInstance.bind('overnodes', function(event) {
             // on node hover by mouse
-            var node = sigmaInstance.getNodes(event.content)[0];
-            var tooltipData = node.attr.attributes;
+            var node = getNode(event);
+            var isHiddenNode = document.location.hash && !node.attr.hl;
 
-            if(tooltipData.Level !== "3" || document.location.hash && !node.attr.hl) {
-                return;
+            var isTooltipNeeded = !isHiddenNode && node.attr.attributes.Level === nodeLevelAttrValues.level3;
+
+            if(isTooltipNeeded) {
+                App.tooltip.show(node);
             }
-
-            App.tooltip.show(node);
         });
 
         sigmaInstance.bind('outnodes', function(event) {
             // on mouse out of node
         });
+
+        function getNode(event) {
+            return sigmaInstance.getNodes(event.content)[0];
+        }
     }
 
     function initWheelHandler() {
         var forEach = Array.prototype.forEach;
 
-        forEach.call($('.sigma-parent'), function(v) {
+        forEach.call($(sigmaParentSelector), function(v) {
             v.addEventListener('mousewheel', mouseWheelHandler, false);
             v.addEventListener('DOMMouseScroll', mouseWheelHandler, false); // Fix for FF
         });
@@ -175,9 +192,7 @@ App.dataVisualization = (function($, sigma) {
     function resetNode(node, forceLabel) {
         node.hidden = 0;
         node.forceLabel = forceLabel;
-        if (!node.label) { 
-            node.label = node.attr.label;
-        }
+        node.label = node.label || node.attr.label;
         setOpacity(node, 1);
     }
 
@@ -201,7 +216,7 @@ App.dataVisualization = (function($, sigma) {
         var targetColor = '#EF8A62';
 
         sigmaInstance.iterEdges(function(e) {
-            if (node.attr.attributes.Level === "1" && e.attr.attributes.Tag === node.id){
+            if (node.attr.attributes.Level === nodeLevelAttrValues.level1 && e.attr.attributes.Tag === node.id){
                 targets[e.target] = true;
                 setColor(e, sourceColor);
                 e.hidden = 0;
