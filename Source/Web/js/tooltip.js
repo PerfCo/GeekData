@@ -2,6 +2,7 @@ App.tooltip = (function($) {
 
     var tooltipSelector = "#tooltip";
 
+    // cache elements for faster work
     var $tooltip = $(tooltipSelector);
     var $libContent = $("#lib_content");
     var $geekContent = $("#geek_content");
@@ -23,8 +24,11 @@ App.tooltip = (function($) {
     var $courceName = $("#cource_name");
     var $courceUrl = $("#cource_url");
 
+
     var lastTimeShown = getNowTime();
     var hideDelaySeconds = 3;
+
+    var millisecondsInSecond = 1000;
     var noAvatarPath = "images/no-avatar.jpg";
 
     var geekAttributeNames = {
@@ -54,6 +58,7 @@ App.tooltip = (function($) {
         cource: courceAttributeNames.name
     };
 
+    // show noAvatarPath if there is no avatar
     $geekAvatar.on("error", function() {
         $geekAvatar.attr("src", noAvatarPath);
     });
@@ -104,6 +109,7 @@ App.tooltip = (function($) {
         var badges = {};
         var badgesRawData = tooltipData[geekAttributeNames.badgeCounts];
         if(badgesRawData) {
+            // TODO: make valid json on server
             badgesRawData = badgesRawData.replace(/([a-zA-Z][^:]*)(?=\s*:)/g, '"$1"'); // add quotes to make valid json
             badges = JSON.parse(badgesRawData);
         }
@@ -181,12 +187,18 @@ App.tooltip = (function($) {
 
         var marginX = 10;
         var marginY = 50;
+        var extraY = 30; // needed if tooltip overflows window height
 
-        var x = nodeData.displayX + tooltipWidth >= winWidth ? 
-            (winWidth - tooltipWidth - marginX) : nodeData.displayX;
+        var isOverflowByX = nodeData.displayX + tooltipWidth >= winWidth;
+        var isOverflowByY = nodeData.displayY + marginY + tooltipHeight >= winHeight;
 
-        var y = nodeData.displayY + marginY + tooltipHeight >= winHeight ? 
-            (nodeData.displayY - tooltipHeight + 30) : (nodeData.displayY + marginY);
+        var x = isOverflowByX ? 
+            (winWidth - tooltipWidth - marginX) : 
+            nodeData.displayX;
+
+        var y = isOverflowByY ? 
+            (nodeData.displayY - tooltipHeight + extraY) : 
+            (nodeData.displayY + marginY);
 
         return {
             x: x,
@@ -195,22 +207,25 @@ App.tooltip = (function($) {
     }
 
     function doShow() {
-        $tooltip.delay(1000).show();
+        $tooltip.delay(1 * millisecondsInSecond).show();
         lastTimeShown = getNowTime();
+        setHideTimeout();
+    }
 
-        setTimeout(onTooltipTimeout, hideDelaySeconds * 1000);
+    function setHideTimeout() {
+        setTimeout(onTooltipTimeout, hideDelaySeconds * millisecondsInSecond);
     }
 
     function onTooltipTimeout() {
         var nowDate = getNowTime();
-        var diffSeconds = (nowDate - lastTimeShown) / 1000;
+        var diffSeconds = (nowDate - lastTimeShown) / millisecondsInSecond;
         
         if(diffSeconds >= hideDelaySeconds) {
             $tooltip.hide();
             return;
         }
 
-        setTimeout(onTooltipTimeout, hideDelaySeconds * 1000);
+        setHideTimeout();
     }
 
     function getNowTime() {
