@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using Core;
-using DataGenerator.Entities;
 using DataGenerator.Properties;
+using DataGenerator.Repositories;
+using DataGenerator.Repositories.Entities;
 using NLog;
 
 namespace DataGenerator

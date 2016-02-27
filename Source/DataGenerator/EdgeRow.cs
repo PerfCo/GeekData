@@ -1,6 +1,9 @@
 using System.Collections.Generic;
-using DataGenerator.Entities;
 using DataGenerator.Nodes;
+using DataGenerator.Nodes.Cources;
+using DataGenerator.Nodes.Geeks;
+using DataGenerator.Nodes.Libs;
+using DataGenerator.Repositories.Entities;
 using Nelibur.Sword.Extensions;
 
 namespace DataGenerator
@@ -38,15 +41,15 @@ namespace DataGenerator
             var result = new List<string>();
             if (_node.GithubRepositories.IsNotEmpty())
             {
-                result.Add($"{_tagNode.IdNode};{_libNode.IdNode};{EdgeType};{_tagNode.IdNode}");
+                result.Add($"{_tagNode.Id};{_libNode.Id};{EdgeType};{_tagNode.Id}");
             }
             if (_node.PluralsightCourses.IsNotEmpty())
             {
-                result.Add($"{_tagNode.IdNode};{_courseNode.IdNode};{EdgeType};{_tagNode.IdNode}");
+                result.Add($"{_tagNode.Id};{_courseNode.Id};{EdgeType};{_tagNode.Id}");
             }
             if (_node.StackOverflowUsers.IsNotEmpty())
             {
-                result.Add($"{_tagNode.IdNode};{_geekNode.IdNode};{EdgeType};{_tagNode.IdNode}");
+                result.Add($"{_tagNode.Id};{_geekNode.Id};{EdgeType};{_tagNode.Id}");
             }
             result.AddRange(LibLinks());
             result.AddRange(CourcesLinks());
@@ -59,7 +62,7 @@ namespace DataGenerator
         {
             foreach (PluralsightCourseEntity item in _node.PluralsightCourses)
             {
-                yield return $"{_courseNode.IdNode};{item.Id};{EdgeType};{_tagNode.IdNode}";
+                yield return $"{_courseNode.Id};{item.Id};{EdgeType};{_tagNode.Id}";
             }
         }
 
@@ -67,7 +70,7 @@ namespace DataGenerator
         {
             foreach (StackOverflowUserEntity item in _node.StackOverflowUsers)
             {
-                yield return $"{_geekNode.IdNode};{item.Id};{EdgeType};{_tagNode.IdNode}";
+                yield return $"{_geekNode.Id};{item.Id};{EdgeType};{_tagNode.Id}";
             }
         }
 
@@ -75,7 +78,7 @@ namespace DataGenerator
         {
             foreach (GithubRepositoryEntity item in _node.GithubRepositories)
             {
-                yield return $"{_libNode.IdNode};{item.Id};{EdgeType};{_tagNode.IdNode}";
+                yield return $"{_libNode.Id};{item.Id};{EdgeType};{_tagNode.Id}";
             }
         }
     }

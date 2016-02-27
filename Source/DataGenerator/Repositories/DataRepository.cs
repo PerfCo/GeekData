@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core;
-using DataGenerator.Entities;
+using DataGenerator.Repositories.Entities;
 using MongoDB.Driver;
 using NLog;
 
-namespace DataGenerator
+namespace DataGenerator.Repositories
 {
     public sealed class DataRepository : Repository
     {

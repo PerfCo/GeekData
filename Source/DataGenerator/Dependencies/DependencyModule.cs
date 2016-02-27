@@ -1,5 +1,6 @@
 ﻿using Core;
 using DataGenerator.Properties;
+using DataGenerator.Repositories;
 using Ninject.Modules;
 
 namespace DataGenerator.Dependencies

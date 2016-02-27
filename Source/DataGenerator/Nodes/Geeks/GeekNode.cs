@@ -1,22 +1,24 @@
 using System.Collections.Generic;
 
-namespace DataGenerator.Nodes
+namespace DataGenerator.Nodes.Geeks
 {
-    public sealed class TagNode : Node
+    public sealed class GeekNode : Node
     {
-        private const string Suffix = "TagNode";
+        private const string Suffix = "GeekNode";
 
-        public TagNode(NodeRow node)
+        public GeekNode(NodeRow node)
         {
-            Level = 1;
             Id = $"{node.Tag}{Suffix}";
-            Label = $"{node.Tag}";
+            Level = 2;
+            Label = $"{node.Tag} Geeks";
             Tag = node.Tag;
         }
 
         public override string Id { get; }
         public override string Label { get; }
         public override int Level { get; }
+
+        public List<StackOverflowUserNode> StackOverflowUsers { get; } = new List<StackOverflowUserNode>();
         public override string Tag { get; }
 
         public List<object> ToCsv()

@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DataGenerator.Entities;
 using DataGenerator.Nodes;
+using DataGenerator.Nodes.Cources;
+using DataGenerator.Nodes.Geeks;
+using DataGenerator.Nodes.Libs;
+using DataGenerator.Repositories.Entities;
 using Nelibur.Sword.Extensions;
 
 namespace DataGenerator
