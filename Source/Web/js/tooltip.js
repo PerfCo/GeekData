@@ -106,35 +106,48 @@ App.tooltip = (function($) {
 
         $geekSite.attr("href", tooltipData[geekAttributeNames.profileUrl]);
 
-        var badges = {};
-        var badgesRawData = tooltipData[geekAttributeNames.badgeCounts];
-        if(badgesRawData) {
-            // TODO: make valid json on server
-            badgesRawData = badgesRawData.replace(/([a-zA-Z][^:]*)(?=\s*:)/g, '"$1"'); // add quotes to make valid json
-            badges = JSON.parse(badgesRawData);
-        }
-
+        var badgesCount = getBadgesCount(tooltipData);
         var countSelector = ".badgecount";
 
-        if(badges[geekAttributeNames.goldBadge]) {
-            $goldBadge.show().find(countSelector).text(badges[geekAttributeNames.goldBadge]);
+        if(badgesCount.gold) {
+            $goldBadge.show().find(countSelector).text(badgesCount.gold);
         } else {
-            $goldBadge.hide().find(countSelector).text("");
+            $goldBadge.hide();
         }
 
-        if(badges[geekAttributeNames.silverBadge]) {
-            $silverBadge.show().find(countSelector).text(badges[geekAttributeNames.silverBadge]);
+        if(badgesCount.silver) {
+            $silverBadge.show().find(countSelector).text(badgesCount.silver);
         } else {
-            $silverBadge.hide().find(countSelector).text("");
+            $silverBadge.hide();
         }
 
-        if(badges[geekAttributeNames.bronzeBadge]) {
-            $bronzeBadge.show().find(countSelector).text(badges[geekAttributeNames.bronzeBadge]);
+        if(badgesCount.bronze) {
+            $bronzeBadge.show().find(countSelector).text(badgesCount.bronze);
         } else {
-            $bronzeBadge.hide().find(countSelector).text("");
+            $bronzeBadge.hide();
         }
 
         $geekContent.show();
+
+        function getBadgesCount(tooltipData) {
+            var badges = {};
+            var badgesRawData = tooltipData[geekAttributeNames.badgeCounts];
+            if(badgesRawData) {
+                // TODO: make valid json on server
+                badgesRawData = badgesRawData.replace(/([a-zA-Z][^:]*)(?=\s*:)/g, '"$1"'); // add quotes to make valid json
+                badges = JSON.parse(badgesRawData);
+            }
+
+            var goldBadgesCount = badges[geekAttributeNames.goldBadge];
+            var silverBadgesCount = badges[geekAttributeNames.silverBadge];
+            var bronzeBadgesCount = badges[geekAttributeNames.bronzeBadge];
+
+            return {
+                gold: goldBadgesCount,
+                silver: silverBadgesCount,
+                bronze: bronzeBadgesCount
+            };
+        }
     }
 
     function initLibContent(nodeData) {
