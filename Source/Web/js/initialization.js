@@ -42,7 +42,7 @@
         }
     }
 
-    function initVisgexf() {
+    function initVisualization() {
         var options = {
 
             sigmaContainerId: "sigma_content",
@@ -68,14 +68,14 @@
             }
         };
 
-        App.visgexf.init(options, function() {
+        App.dataVisualization.init(options, function() {
             var filterid = 'paradigms';
-            var filters = App.visgexf.getFilters([filterid]);
+            var filters = App.dataVisualization.getFilters([filterid]);
         });
     }
 
     $(function(){
-        initVisgexf();
+        initVisualization();
     });
 
     $(window).load(function () {
