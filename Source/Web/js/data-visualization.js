@@ -102,7 +102,7 @@ App.dataVisualization = (function($, sigma) {
         });
 
         sigmaInstance.bind("overnodes", function(event) {
-            // on node hover by mouse
+            // on node hovered by mouse
             var node = getNode(event);
             var isHiddenNode = document.location.hash && !node.attr.hl;
 
