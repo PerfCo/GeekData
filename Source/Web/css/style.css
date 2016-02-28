@@ -16,34 +16,38 @@ cite {
     clear: both;
 }
 
+.navbar {
+    background-color: #222222;
+    color: #ffffff;
+}
+
 .navbar-brand.site-name {
-    font-size: 1.6em;
-    color: #444444;
+    font-size: 1.5em;
+    color: #ffffff;
     font-weight: bold;
     margin-left: 0;
 }
 
 .navbar-brand.site-name:hover {
-    color: #444444;
+    color: #ffffff;
     font-weight: bold;
 }
 
 .slogan {
     display: inline-block;
+    font-size: 0.9em;
+    margin-top: 10px;
+    margin-left: 120px;
 }
 
 .slogan .highlight-part {
-    display: inline-block; 
-    margin-top: 8px;
-    background-color: #569FEC;
-    border-radius: 8px 20px 0 0;
-    padding: 0 5px 0 2px;
-    color: #fff;
+    color: #68B6FF;
+    text-transform: uppercase;
 }
 
 .navbar-profiles {
     margin-right: 80px;
-    padding-top: 8px;
+    padding-top: 5px;
 }
 
 .navbar-profiles a {
@@ -58,6 +62,7 @@ cite {
 .navbar-profiles img {
     width: 30px; 
     height: 30px;
+    background-color: #ffffff;
 }
 
 .sigma-parent {
