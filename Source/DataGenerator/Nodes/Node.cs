@@ -1,18 +1,24 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace DataGenerator.Nodes
 {
     public abstract class Node
     {
-        public abstract string IdNode { get; }
+        public static List<string> HeadersCommon => new List<string> { "Id", "Label", "Level", "Tag" };
+        public abstract string Id { get; }
         public abstract string Label { get; }
         public abstract int Level { get; }
+        public abstract string Tag { get; }
 
-        public static List<string> Captions()
+        public List<object> ToCsvCommon()
         {
-            var items = new[] { "id", "Label", "Level", "Tag" };
-            return items.ToList();
+            return new List<object>
+            {
+                Id,
+                Label,
+                Level,
+                Tag
+            };
         }
     }
 }

@@ -1,30 +1,27 @@
-using DataGenerator.Entities;
+using System.Collections.Generic;
 
 namespace DataGenerator.Nodes
 {
     public sealed class TagNode : Node
     {
-        private readonly NodeRow _node;
         private const string Suffix = "TagNode";
 
         public TagNode(NodeRow node)
         {
-            _node = node;
-            IdNode = $"{node.Tag}{Suffix}";
+            Level = 1;
+            Id = $"{node.Tag}{Suffix}";
             Label = $"{node.Tag}";
+            Tag = node.Tag;
         }
 
-        public override string IdNode { get; }
+        public override string Id { get; }
         public override string Label { get; }
-        public override int Level { get; } = 1;
+        public override int Level { get; }
+        public override string Tag { get; }
 
-        public override string ToString()
+        public List<object> ToCsv()
         {
-            var items1 = new string(';', RepositoryInfoEntity.Captions().Count - 1);
-            var items2 = new string(';', CourseEntity.Captions().Count - 1);
-            var items3 = new string(';', UserEntity.Captions().Count - 1);
-
-            return $"{IdNode};{Label};{Level};{_node.Tag};{items1};{items2};{items3}";
+            return ToCsvCommon();
         }
     }
 }
