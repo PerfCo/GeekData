@@ -22,46 +22,26 @@ namespace DataGenerator.Nodes.Libs
         public override int Level { get; }
         public override string Tag { get; }
 
-        public new static List<string> Captions()
+        public static List<string> Headers
         {
-            var suffix = "GithubRepository";
-            var items = new[] { "Description", "HtmlUrl", "StargazersCount", "Tags" };
-            return items.Select(x => $"{x}{suffix}").ToList();
+            get
+            {
+                var suffix = "GithubRepository";
+                var items = new[] { "Description", "HtmlUrl", "StargazersCount", "Tags" };
+                return items.Select(x => $"{x}{suffix}").ToList();
+            }
         }
 
         public List<object> ToCsv()
         {
-            List<object> result = ToCsvCommon();
-            var node = new List<object>
+            var result = new List<object>
             {
                 _entity.Description,
                 _entity.HtmlUrl,
                 _entity.StargazersCount,
                 string.Join(",", _entity.Tags)
             };
-            result.AddRange(node);
             return result;
         }
-
-//        public override string ToString()
-//        {
-//            var items1 = new string(';', PluralsightCourseEntity.Captions().Count - 1);
-//            var items2 = new string(';', StackOverflowUserEntity.Captions().Count - 1);
-//
-//            var result = new List<object>
-//            {
-//                Id,
-//                Name,
-//                Level,
-//                Tags.FirstOrDefault(),
-//                Description,
-//                HtmlUrl,
-//                StargazersCount,
-//                string.Join(",", Tags),
-//                items1,
-//                items2
-//            };
-//            return string.Join(";", result);
-//        }
     }
 }

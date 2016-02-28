@@ -22,17 +22,19 @@ namespace DataGenerator.Nodes.Geeks
         public override int Level { get; }
         public override string Tag { get; }
 
-        public static List<string> Captions()
+        public static List<string> Headers
         {
-            var suffix = "StackOverflowUser";
-            var items = new[] { "AccountId", "BadgeCounts", "DisplayName", "ProfileImage", "ProfileUrl", "Tags" };
-            return items.Select(x => $"{x}{suffix}").ToList();
+            get
+            {
+                var suffix = "StackOverflowUser";
+                var items = new[] { "AccountId", "BadgeCounts", "DisplayName", "ProfileImage", "ProfileUrl", "Tags" };
+                return items.Select(x => $"{x}{suffix}").ToList();
+            }
         }
 
         public List<object> ToCsv()
         {
-            List<object> result = ToCsvCommon();
-            var node = new List<object>
+            var result = new List<object>
             {
                 _entity.AccountId,
                 _entity.BadgeCounts.ToNode().ToCsv(),
@@ -41,31 +43,7 @@ namespace DataGenerator.Nodes.Geeks
                 _entity.ProfileUrl,
                 string.Join(",", _entity.Tags)
             };
-            result.AddRange(node);
             return result;
         }
-
-//        public override string ToString()
-//        {
-//            var items1 = new string(';', GithubRepositoryEntity.Captions().Count - 1);
-//            var items2 = new string(';', PluralsightCourseEntity.Captions().Count - 1);
-//
-//            var result = new List<object>
-//            {
-//                Id,
-//                DisplayName,
-//                Level,
-//                Tags.FirstOrDefault(),
-//                items1,
-//                items2,
-//                AccountId,
-//                BadgeCounts.ToString(),
-//                DisplayName,
-//                ProfileImage,
-//                ProfileUrl,
-//                string.Join(",", Tags)
-//            };
-//            return string.Join(";", result);
-//        }
     }
 }

@@ -46,13 +46,7 @@ namespace DataGenerator
             List<PluralsightCourseEntity> courses = _dataRepository.GetPluralsightCourses(tag);
             List<GithubRepositoryEntity> repositories = _dataRepository.GetGithubRepositories(tag, _settings.TopGithubRepositories);
 
-            var node = new NodeRow(tag)
-            {
-                GithubRepositories = repositories,
-                PluralsightCourses = courses,
-                StackOverflowUsers = users
-            };
-
+            var node = new NodeRow(tag, repositories, courses, users);
             var edge = new EdgeRow(node);
 
             WriteEdge(edge);
