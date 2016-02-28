@@ -1,5 +1,4 @@
-﻿using DataGenerator.Nodes;
-using DataGenerator.Nodes.Geeks;
+﻿using DataGenerator.Nodes.Geeks;
 
 namespace DataGenerator.Repositories.Entities
 {

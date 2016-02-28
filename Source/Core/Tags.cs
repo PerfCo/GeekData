@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Newtonsoft.Json;
+using Jil;
 
 namespace Core
 {
@@ -12,7 +12,8 @@ namespace Core
         public static Lazy<List<TagItem>> Root { get; } = new Lazy<List<TagItem>>(() =>
         {
             string fileContent = File.ReadAllText(TagFile);
-            return JsonConvert.DeserializeObject<List<TagItem>>(fileContent);
+            return JSON.Deserialize<List<TagItem>>(fileContent);
+//            return JsonConvert.DeserializeObject<List<TagItem>>(fileContent);
         });
     }
 }

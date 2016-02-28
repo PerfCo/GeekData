@@ -1,4 +1,6 @@
-﻿using DataGenerator.Repositories.Entities;
+﻿using System.IO;
+using DataGenerator.Repositories.Entities;
+using Jil;
 
 namespace DataGenerator.Nodes.Geeks
 {
@@ -13,7 +15,11 @@ namespace DataGenerator.Nodes.Geeks
 
         public string ToCsv()
         {
-            return $"{{Bronze: {_entity.Bronze}, Gold: {_entity.Gold}, Silver: {_entity.Silver}}}";
+            using (var output = new StringWriter())
+            {
+                JSON.Serialize(_entity, output);
+                return output.ToString();
+            }
         }
     }
 }

@@ -17,11 +17,6 @@ namespace DataGenerator.Nodes.Libs
             Tag = entity.Tags.FirstOrDefault();
         }
 
-        public override string Id { get; }
-        public override string Label { get; }
-        public override int Level { get; }
-        public override string Tag { get; }
-
         public static List<string> Headers
         {
             get
@@ -31,6 +26,11 @@ namespace DataGenerator.Nodes.Libs
                 return items.Select(x => $"{x}{suffix}").ToList();
             }
         }
+
+        public override string Id { get; }
+        public override string Label { get; }
+        public override int Level { get; }
+        public override string Tag { get; }
 
         public List<object> ToCsv()
         {
