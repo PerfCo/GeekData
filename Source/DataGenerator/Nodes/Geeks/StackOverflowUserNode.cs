@@ -8,6 +8,13 @@ namespace DataGenerator.Nodes.Geeks
     {
         private readonly StackOverflowUserEntity _entity;
 
+        static StackOverflowUserNode()
+        {
+            var suffix = "StackOverflowUser";
+            var items = new[] { "AccountId", "BadgeCounts", "DisplayName", "ProfileImage", "ProfileUrl", "Tags" };
+            Headers = items.Select(x => $"{x}{suffix}").ToList();
+        }
+
         public StackOverflowUserNode(StackOverflowUserEntity entity)
         {
             _entity = entity;
@@ -17,15 +24,7 @@ namespace DataGenerator.Nodes.Geeks
             Tag = entity.Tags.FirstOrDefault();
         }
 
-        public static List<string> Headers
-        {
-            get
-            {
-                var suffix = "StackOverflowUser";
-                var items = new[] { "AccountId", "BadgeCounts", "DisplayName", "ProfileImage", "ProfileUrl", "Tags" };
-                return items.Select(x => $"{x}{suffix}").ToList();
-            }
-        }
+        public static List<string> Headers { get; }
 
         public override string Id { get; }
         public override string Label { get; }

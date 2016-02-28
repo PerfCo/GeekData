@@ -8,6 +8,13 @@ namespace DataGenerator.Nodes.Cources
     {
         private readonly PluralsightCourseEntity _entity;
 
+        static PluralsightCourseNode()
+        {
+            var suffix = "PluralsightCourse";
+            var items = new[] { "Name", "Tags", "Url" };
+            Headers = items.Select(x => $"{x}{suffix}").ToList();
+        }
+
         public PluralsightCourseNode(PluralsightCourseEntity entity)
         {
             _entity = entity;
@@ -17,15 +24,7 @@ namespace DataGenerator.Nodes.Cources
             Tag = entity.Tags.FirstOrDefault();
         }
 
-        public static List<string> Headers
-        {
-            get
-            {
-                var suffix = "PluralsightCourse";
-                var items = new[] { "Name", "Tags", "Url" };
-                return items.Select(x => $"{x}{suffix}").ToList();
-            }
-        }
+        public static List<string> Headers { get; }
 
         public override string Id { get; }
         public override string Label { get; }

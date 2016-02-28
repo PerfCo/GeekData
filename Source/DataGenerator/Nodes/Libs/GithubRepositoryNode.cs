@@ -8,6 +8,13 @@ namespace DataGenerator.Nodes.Libs
     {
         private readonly GithubRepositoryEntity _entity;
 
+        static GithubRepositoryNode()
+        {
+            var suffix = "GithubRepository";
+            var items = new[] { "Description", "HtmlUrl", "StargazersCount", "Tags" };
+            Headers = items.Select(x => $"{x}{suffix}").ToList();
+        }
+
         public GithubRepositoryNode(GithubRepositoryEntity entity)
         {
             _entity = entity;
@@ -17,15 +24,7 @@ namespace DataGenerator.Nodes.Libs
             Tag = entity.Tags.FirstOrDefault();
         }
 
-        public static List<string> Headers
-        {
-            get
-            {
-                var suffix = "GithubRepository";
-                var items = new[] { "Description", "HtmlUrl", "StargazersCount", "Tags" };
-                return items.Select(x => $"{x}{suffix}").ToList();
-            }
-        }
+        public static List<string> Headers { get; }
 
         public override string Id { get; }
         public override string Label { get; }
