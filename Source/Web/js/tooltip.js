@@ -70,7 +70,7 @@ App.tooltip = (function($) {
     }
 
     function initContent(nodeData){
-        var tooltipData = nodeData.attr.attributes;
+        var tooltipData = nodeData.attributes;
 
         if(tooltipData[requiredAttribute.geek]) {
             initGeekContent(tooltipData);
@@ -151,7 +151,7 @@ App.tooltip = (function($) {
     }
 
     function initLibContent(nodeData) {
-        var tooltipData = nodeData.attr.attributes;
+        var tooltipData = nodeData.attributes;
 
         hideAllContent();
 
@@ -201,17 +201,20 @@ App.tooltip = (function($) {
         var marginX = 10;
         var marginY = 50;
         var extraY = 30; // needed if tooltip overflows window height
+        
+        var nodeX = nodeData["renderer1:x"];
+        var nodeY = nodeData["renderer1:y"];
 
-        var isOverflowByX = nodeData.displayX + tooltipWidth >= winWidth;
-        var isOverflowByY = nodeData.displayY + marginY + tooltipHeight >= winHeight;
+        var isOverflowByX = nodeX + tooltipWidth >= winWidth;
+        var isOverflowByY = nodeY + marginY + tooltipHeight >= winHeight;
 
         var x = isOverflowByX ? 
             (winWidth - tooltipWidth - marginX) : 
-            nodeData.displayX;
+            nodeX;
 
         var y = isOverflowByY ? 
-            (nodeData.displayY - tooltipHeight + extraY) : 
-            (nodeData.displayY + marginY);
+            (nodeY - tooltipHeight + extraY) : 
+            (nodeY + marginY);
 
         return {
             x: x,

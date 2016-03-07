@@ -8,26 +8,8 @@ App.dataVisualization = (function($, sigma) {
 
     var sigmaContainerId = "sigma_content";
     var dataFilePath = "data/data.json.js"; // fake, actually hasn't loaded async
-
-    var sigmaOptions = {
-        drawing: {
-            defaultLabelColor: "#fff",
-            defaultLabelSize: 12,
-            defaultLabelBGColor: "#fff",
-            defaultLabelHoverColor: "#000",
-            labelThreshold: 4, // minimum size a node has to have to have its label being displayed
-            defaultEdgeType: "curve"
-        },
-        graph: {
-            minNodeSize: .5,
-            maxNodeSize: 25,
-            minEdgeSize: 1,
-            maxEdgeSize: 1
-        },
-        forceLabel: 1,
-        type: "directed",
-        maxRatio: 128
-    };
+    
+    var camera;
 
     var sigmaParentSelector = ".sigma-parent";
     var loadingSelector = "#loading";
@@ -39,38 +21,91 @@ App.dataVisualization = (function($, sigma) {
         level3: "3"
     };
 
+    var resetCameraHandler;
+
     function init() {
         var $loading = $(loadingSelector);
 
         $loading.show();
 
+        // IMPORTANT: document.getElementById is required
         var sigmaContainer = document.getElementById(sigmaContainerId);
         setSigmaContainerHeight(sigmaContainer);
 
-        sigmaInstance = sigma.init(sigmaContainer)
-            .drawingProperties(sigmaOptions.drawing)
-            .graphProperties(sigmaOptions.graph)
-            .mouseProperties(sigmaOptions.maxRatio);
+        var graphData = getGraphData();
 
-        sigmaInstance.parseJson(dataFilePath, function() {
-            sigmaInstance.draw();
-
-            cacheNodeLabels();
-            initSearch();
-
-            $loading.hide();
+        sigmaInstance = new sigma({
+            graph: graphData,
+            renderer: {
+            // IMPORTANT:
+            // This works only with the canvas renderer, so the
+            // renderer type set as "canvas" is necessary here.
+            container: sigmaContainer,
+                type: 'canvas'
+            },
+            settings: {
+                defaultLabelColor: "#fff",
+                defaultLabelSize: 12,
+                defaultLabelHoverColor: "#000",
+                labelThreshold: 4, // minimum size a node has to have to have its label being displayed
+                defaultEdgeType: "curve",
+                minNodeSize: .5,
+                maxNodeSize: 25,
+                hideEdgesOnMove: true,
+                minEdgeSize: 0.35,
+                maxEdgeSize: 0.35,
+                //borderSize: 2, // The size of the border of hovered nodes.
+                animationsTime: 1000,
+                verbose: true, // Indicates if sigma can log its errors and warnings
+                zoomMax: 1 // The minimum zooming level.
+            }
         });
+
+        camera = sigmaInstance.cameras[0]; // needed for highlighting
+
+        cacheNodeLabels();
+
+        $loading.hide();
+
+        initSearch();
 
         initSigmaHandlers();
         initWheelHandler();
     }
+
+    function getGraphData() {
+        var nodes = [];
+        var edges = [];
+
+        for (var i = 0; i < data.nodes.length; i++) {
+            var node = data.nodes[i];
+            node.borderColor = node.color;
+            node.borderWidth = 0;
+            node.attr = {};
+            nodes.push(node);
+        }
+
+        for(var j = 0; j < data.edges.length; j++) {
+            var edge = data.edges[j];
+            edge.source = edge.sourceID;
+            edge.target = edge.targetID;
+            edge.type = "curve";
+            edge.attr = {}; // needed for highlighting
+            edges.push(edge);
+        }
+
+        return {
+            nodes: nodes,
+            edges: edges
+        }
+    };
 
     function cacheNodeLabels() {
         if(nodeLabels.length) {
             return;
         }
 
-        sigmaInstance.iterNodes(function(node) {
+        sigmaInstance.graph.nodes().forEach(function(node) {
             nodeLabels.push(node.label);
             nodeMap[node.label] = node.id;
             node.attr.label = node.label; // needed for highlighting
@@ -88,10 +123,10 @@ App.dataVisualization = (function($, sigma) {
     }
 
     function initSigmaHandlers() {
-        sigmaInstance.bind("upnodes", function(event) {
+        sigmaInstance.bind("clickNode", function(event) {
             // on node click
             var node = getNode(event);
-            var isFocusedNode = document.location.hash.replace(/#/i, '') == node.attr.label;
+            var isFocusedNode = document.location.hash.replace(/#/i, '') == node.label;
             
             if(isFocusedNode) {
                 resetSearch();
@@ -101,12 +136,13 @@ App.dataVisualization = (function($, sigma) {
             document.location.hash = node.attr.label;
         });
 
-        sigmaInstance.bind("overnodes", function(event) {
+        sigmaInstance.bind("overNode", function(event) {
             // on node hovered by mouse
             var node = getNode(event);
-            var isHiddenNode = document.location.hash && !node.attr.hl;
 
-            var isTooltipNeeded = !isHiddenNode && node.attr.attributes.Level === nodeLevelAttrValues.level3;
+            var isHiddenNode = document.location.hash && !node.label;
+
+            var isTooltipNeeded = !isHiddenNode && node.attributes.Level === nodeLevelAttrValues.level3;
 
             if(isTooltipNeeded) {
                 App.tooltip.show(node);
@@ -114,17 +150,16 @@ App.dataVisualization = (function($, sigma) {
         });
 
         function getNode(event) {
-            return sigmaInstance.getNodes(event.content)[0];
+            return event.data.node;
         }
     }
 
     function initWheelHandler() {
-        var forEach = Array.prototype.forEach;
+        var canvasSelector = "#" + sigmaContainerId + " canvas:last-child";
+        var canvasElement = document.querySelector(canvasSelector);
 
-        forEach.call($(sigmaParentSelector), function(element) {
-            element.addEventListener("mousewheel", mouseWheelHandler, false);
-            element.addEventListener("DOMMouseScroll", mouseWheelHandler, false); // Fix for FF
-        });
+        canvasElement.addEventListener('DOMMouseScroll', mouseWheelHandler, false);
+        canvasElement.addEventListener('mousewheel', mouseWheelHandler, false);
 
         var depth = 0;
         var maxDepth = 8;
@@ -152,9 +187,15 @@ App.dataVisualization = (function($, sigma) {
     }
 
     function highlightNode(highlightedNode) {
-        sigmaInstance.position(0, 0, 1);
-        sigmaInstance.goTo(highlightedNode.displayX, highlightedNode.displayY, 2);
-        sigmaInstance.position(0, 0, 1);
+        sigma.misc.animation.camera(
+            sigmaInstance.camera, {
+                x: highlightedNode[sigmaInstance.camera.readPrefix + 'x'], 
+                y: highlightedNode[sigmaInstance.camera.readPrefix + 'y'],
+                ratio: 0.5
+            }, {
+                duration: 500
+            }
+        );
 
         var sources = {};
         var targets = {};
@@ -162,9 +203,9 @@ App.dataVisualization = (function($, sigma) {
         var sourceColor = "#67A9CF";
         var targetColor = "#EF8A62";
 
-        sigmaInstance.iterEdges(function(edge) {
-            if (highlightedNode.attr.attributes.Level === nodeLevelAttrValues.level1 && 
-                edge.attr.attributes.Tag === highlightedNode.id) {
+        sigmaInstance.graph.edges().forEach(function(edge) {
+            if (highlightedNode.attributes.Level === nodeLevelAttrValues.level1 && 
+                edge.attributes.Tag === highlightedNode.id) {
                 targets[edge.target] = true;
                 setColor(edge, sourceColor);
                 edge.hidden = 0;
@@ -179,7 +220,9 @@ App.dataVisualization = (function($, sigma) {
                 sources[edge.source] = true;
                 edge.hidden = 0;
             }
-        }).iterNodes(function(node) {
+        });
+
+        sigmaInstance.graph.nodes().forEach(function(node) {
             if (node.id == highlightedNode.id) {
                 showNode(node);
             } else if (sources[node.id]) {
@@ -190,7 +233,7 @@ App.dataVisualization = (function($, sigma) {
                 setOpacity(node, .05);
                 node.label = null;
             }
-        }).draw(2, 2, 2);
+        });
     }
 
     // show node with optional color, check if it satisfies possibly set filter
@@ -203,7 +246,7 @@ App.dataVisualization = (function($, sigma) {
 
     // set the color of node or edge
     function setColor(element, color) {
-        element.attr.hl = true;
+        element.highlighted = true;
         element.attr.color = element.color;
         element.color = color;
     }
@@ -258,15 +301,20 @@ App.dataVisualization = (function($, sigma) {
             document.location.hash = hash;
             return;
         }
+
         var query = decodeURIComponent(document.location.hash.replace(/^#/, ''));
         nodeSearch(query);
     }
 
     function nodeSearch(query) {
+        if(!query) {
+            return;
+        }
+
         resetNodesAndEdges();
         if (queryHasResult(query)) {
             document.location.hash = query;
-            var node = sigmaInstance.getNodes(nodeMap[query]);
+            var node = sigmaInstance.graph.nodes(nodeMap[query]);
             highlightNode(node);
         }
     }
@@ -280,19 +328,20 @@ App.dataVisualization = (function($, sigma) {
     }
 
     function resetNodesAndEdges() {
-        sigmaInstance.iterNodes(function(node) {
-            if (node.attr.hl) {
+        sigmaInstance.graph.nodes().forEach(function(node) {
+            if (node.highlighted) {
                 node.color = node.attr.color;
-                node.attr.hl = false;
+                node.highlighted = false;
             }
             resetNode(node, 0);
-        }).iterEdges(function(edge) {
-            if (edge.attr.hl) {
+        });
+        sigmaInstance.graph.edges().forEach(function(edge) {
+            if (edge.highlighted) {
                 edge.color = edge.attr.color;
-                edge.attr.hl = false;
+                edge.highlighted = false;
             }
             edge.hidden = 0;
-        }).draw(2, 2, 2);
+        });
     }
 
     return {
