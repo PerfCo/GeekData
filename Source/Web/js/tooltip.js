@@ -52,6 +52,11 @@ App.tooltip = (function($) {
         url: "UrlPluralsightCourse"
     };
 
+    var nodePositionAttributeNames = {
+        x: "renderer1:x",
+        y: "renderer1:y"
+    };
+
     var requiredAttribute = {
         lib: libAttributeNames.url,
         geek: geekAttributeNames.displayName,
@@ -202,8 +207,8 @@ App.tooltip = (function($) {
         var marginY = 50;
         var extraY = 30; // needed if tooltip overflows window height
         
-        var nodeX = nodeData["renderer1:x"];
-        var nodeY = nodeData["renderer1:y"];
+        var nodeX = nodeData[nodePositionAttributeNames.x];
+        var nodeY = nodeData[nodePositionAttributeNames.y];
 
         var isOverflowByX = nodeX + tooltipWidth >= winWidth;
         var isOverflowByY = nodeY + marginY + tooltipHeight >= winHeight;
