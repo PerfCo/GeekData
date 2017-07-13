@@ -1,7 +1,10 @@
 body {
+    min-width: 1000px;
     position: relative;
     background: #222;
-    padding-top: 41px;
+    padding-top: 51px;
+    margin: 0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 h1 {
@@ -17,15 +20,27 @@ cite {
 }
 
 .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50px;
+    text-align: center;
     background-color: #222222;
     color: #ffffff;
+    border-bottom: 1px solid #ffffff;
 }
 
 .navbar-brand.site-name {
-    font-size: 1.5em;
+    position: absolute;
+    left: 0;
+    padding: 15px;
+    line-height: 20px;
+    box-sizing: border-box;
     color: #ffffff;
+    font-size: 21px;
     font-weight: bold;
-    margin-left: 0;
+    margin: 0;
+    text-decoration: none;
 }
 
 .navbar-brand.site-name:hover {
@@ -36,8 +51,7 @@ cite {
 .slogan {
     display: inline-block;
     font-size: 21px;
-    margin-top: 10px;
-    margin-left: 120px;
+    margin-top: 12px;
 }
 
 .slogan .highlight-part {
@@ -46,8 +60,11 @@ cite {
 }
 
 .navbar-profiles {
+    position: absolute;
+    right: 0;
+    top: 0;
     margin-right: 80px;
-    padding-top: 5px;
+    padding-top: 10px;
 }
 
 .navbar-profiles a {
