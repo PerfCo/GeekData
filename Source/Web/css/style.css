@@ -7,19 +7,11 @@ body {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-h1 {
-    font-size: 2.6em;
-}
-
-cite {
-    font-style: italic;
-}
-
 .clearfix {
     clear: both;
 }
 
-.navbar {
+.header {
     position: fixed;
     top: 0;
     width: 100%;
@@ -30,7 +22,7 @@ cite {
     border-bottom: 1px solid #ffffff;
 }
 
-.navbar-brand.site-name {
+.header__logo {
     position: absolute;
     left: 0;
     padding: 15px;
@@ -43,23 +35,23 @@ cite {
     text-decoration: none;
 }
 
-.navbar-brand.site-name:hover {
+.header__logo:hover {
     color: #ffffff;
     font-weight: bold;
 }
 
-.slogan {
+.header__slogan {
     display: inline-block;
     font-size: 21px;
     margin-top: 12px;
 }
 
-.slogan .highlight-part {
+.header__slogan-highlight {
     color: #68B6FF;
     text-transform: uppercase;
 }
 
-.navbar-profiles {
+.header__team {
     position: absolute;
     right: 0;
     top: 0;
@@ -67,16 +59,16 @@ cite {
     padding-top: 10px;
 }
 
-.navbar-profiles a {
+.team-member__link {
     text-decoration: none;
     margin-left: 15px;
 }
 
-.navbar-profiles a:hover {
+.team-member__link:hover {
     text-decoration: none;
 }
 
-.navbar-profiles img {
+.team-member__avatar {
     width: 30px; 
     height: 30px;
     background-color: #ffffff;
