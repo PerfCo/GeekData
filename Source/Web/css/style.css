@@ -74,21 +74,13 @@ body {
     background-color: #ffffff;
 }
 
-.sigma-parent {
+.data-visualisation {
     height: 600px;
     position: relative;
     background: #222;
 }
 
-.sigma-expand {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-
-.loading {
+.data-visualisation__loader {
     position: absolute;
     left: 30%;
     top: 25%;
@@ -96,6 +88,14 @@ body {
     color: #fff;
     font-size: 2em;
     display: none;
+}
+
+.data-visualisation__chart {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
 
 .tooltip {
@@ -110,7 +110,7 @@ body {
     z-index: 1002;
 }
 
-.tooltip .content {
+.tooltip__content {
     position: relative;
     font-size: 12px;
     padding: 10px;
@@ -122,7 +122,7 @@ body {
     z-index: 320;
 }
 
-.tooltip .header {
+.tooltip__header {
     margin: 0px 0px 8px;
     padding: 0px 0px 8px;
     font-size: 12px;
@@ -132,22 +132,39 @@ body {
     border-bottom: 1px solid #727272;
 }
 
-.tooltip .header.user {
+.tooltip__header.user {
     border-bottom: 0;
     height: 64px;
     padding-bottom: 0;
     margin-bottom: 0;
 }
 
-.tooltip .header.cource {
+.tooltip__header.cource {
     border-bottom: 0;
     padding-bottom: 0;
     margin-bottom: 0;
 }
 
-.tooltip .header-main-content {
+.tooltip__header__lib-info {
     width: 175px; 
     float: left;
+}
+
+.tooltip__header__lib-name {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.tooltip__header__lib-star {
+    font-size: 13px;
+    color: #FDCA5C;
+}
+
+.tooltip__lib_description {
+    margin: 0px 0px 8px;
+    font-size: 11px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .tooltip .cource .header-main-content {
@@ -213,38 +230,21 @@ body {
     text-decoration: none;
 }
 
-.tooltip .favorite {
-    font-size: 13px;
-    color: #FDCA5C;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.tooltip .sub-links {
+.tooltip__header__link,
+.tooltip__header__link:visited,
+.tooltip__header__link:active {
     display: block;
     float: right;
     width: 50px;
     height: 16px;
     font-size: 12px;
     font-weight: normal;
-    color: #727272;
     text-align: right;
-}
-
-.tooltip .sub-links.cource {
-    width: 80px;
-}
-
-.tooltip .sub-links a,
-.tooltip .sub-links a:visited {
     color: #FF9933;
     cursor: pointer;
     text-decoration: none;
 }
 
-.tooltip .description {
-    margin: 0px 0px 8px;
-    font-size: 11px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
+.tooltip__header__link.cource {
+    width: 80px;
 }

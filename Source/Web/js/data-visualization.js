@@ -11,7 +11,6 @@ App.dataVisualization = (function($, sigma) {
     
     var camera;
 
-    var sigmaParentSelector = ".sigma-parent";
     var loadingSelector = "#loading";
     var navbarSelector = "#navbar";
     

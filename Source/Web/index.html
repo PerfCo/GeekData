@@ -16,7 +16,7 @@
 </head>
 
 <body class="full">
-    <div class="header">
+    <div class="header" id="navbar">
         <a class="header__logo" href="index.html">GeekData</a>
         <div class="header__slogan">
             Find your way in the <span class="header__slogan-highlight">universe</span> of technology
@@ -37,30 +37,25 @@
         </div>
     </div>
 
-    <div class="sigma-parent">
-        <div id="loading" class="loading">Loading the data may take a while, please be patient...</div>
-        <div id="sigma_content" class="sigma-expand"></div>
+    <div class="data-visualisation">
+        <div id="loading" class="data-visualisation__loader">Loading the data may take a while, please be patient...</div>
+        <div id="sigma_content" class="data-visualisation__chart"></div>
     </div>
 
     <div id="tooltip" class="tooltip">
-        <div class="content" id="lib_content">
-            <div>
-                <div class="header">
-                    <span>
-                        <div class="header-main-content">
-                            <span id="lib_name">jQuery</span>&nbsp;&nbsp;&nbsp;
-                            <a title="stars on Github" class="favorite">★</a><span id="lib_stars_count"></span>
-                        </div>
-                        <div class="sub-links"> 
-                            <a id="lib_url" href="https://github.com/" target="blank" title="link to Github">Github</a>
-                        </div>
-                        <div class="clearfix"></div>
-                    </span>
+        <div class="tooltip__content" id="lib_content">
+            <div class="tooltip__header">
+                <div class="tooltip__header__lib-info">
+                    <span id="lib_name" class="tooltip__header__lib-name"></span>
+                    <span class="tooltip__header__lib-star">★</span>
+                    <span id="lib_stars_count"></span>
                 </div>
-                <div id="lib_description" class="description">
-                    JavaScript (not to be confused with Java) is a dynamic, weakly-typed language used for client-side as well as server-side scripting. 
-                </div>
-            </div> 
+                <a class="tooltip__header__link" id="lib_url" href="https://github.com/" target="blank" title="link to Github">Github</a>
+                <div class="clearfix"></div>
+            </div>
+            <div id="lib_description" class="tooltip__lib_description">
+                JavaScript (not to be confused with Java) is a dynamic, weakly-typed language used for client-side as well as server-side scripting. 
+            </div>
         </div>
         <div class="content" id="geek_content">
             <div>
@@ -100,9 +95,7 @@
                         <div class="header-main-content">
                             <span id="cource_name">jQuery</span>
                         </div>
-                        <div class="sub-links cource"> 
-                            <a id="cource_url" href="http://pluralsight.com/" target="blank" title="link to PluralSight">PluralSight</a>
-                        </div>
+                        <a class="tooltip__header__link cource" id="cource_url" href="http://pluralsight.com/" target="blank" title="link to PluralSight">PluralSight</a>
                         <div class="clearfix"></div>
                     </span>
                 </div>
