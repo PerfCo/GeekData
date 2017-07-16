@@ -139,7 +139,7 @@ body {
     margin-bottom: 0;
 }
 
-.tooltip__header.cource {
+.tooltip__header_course {
     border-bottom: 0;
     padding-bottom: 0;
     margin-bottom: 0;
@@ -167,7 +167,7 @@ body {
     word-wrap: break-word;
 }
 
-.tooltip .cource .header-main-content {
+.tooltip__header__course-name {
     width: 145px; 
     float: left;
 }
@@ -245,6 +245,6 @@ body {
     text-decoration: none;
 }
 
-.tooltip__header__link.cource {
+.tooltip__header__link_course {
     width: 80px;
 }

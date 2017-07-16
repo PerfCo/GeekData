@@ -6,7 +6,7 @@ App.tooltip = (function($) {
     var $tooltip = $(tooltipSelector);
     var $libContent = $("#lib_content");
     var $geekContent = $("#geek_content");
-    var $courceContent = $("#cource_content");
+    var $courseContent = $("#course_content");
 
     var $geekName = $("#geek_name");
     var $geekProfileUrl = $("#geek_profile_url");
@@ -21,8 +21,8 @@ App.tooltip = (function($) {
     var $libDescription = $("#lib_description");
     var $libStarsCount = $("#lib_stars_count");
 
-    var $courceName = $("#cource_name");
-    var $courceUrl = $("#cource_url");
+    var $courseName = $("#course_name");
+    var $courseUrl = $("#course_url");
 
 
     var lastTimeShown = getNowTime();
@@ -47,7 +47,7 @@ App.tooltip = (function($) {
         starCount: "StargazersCountGithubRepository"
     };
 
-    var courceAttributeNames = {
+    var courseAttributeNames = {
         name: "NamePluralsightCourse",
         url: "UrlPluralsightCourse"
     };
@@ -60,7 +60,7 @@ App.tooltip = (function($) {
     var requiredAttribute = {
         lib: libAttributeNames.url,
         geek: geekAttributeNames.displayName,
-        cource: courceAttributeNames.name
+        course: courseAttributeNames.name
     };
 
     // show noAvatarPath if there is no avatar
@@ -87,8 +87,8 @@ App.tooltip = (function($) {
             return;
         }
 
-        if(tooltipData[requiredAttribute.cource]) {
-            initCourceContent(tooltipData);
+        if(tooltipData[requiredAttribute.course]) {
+            initCourseContent(tooltipData);
             return;
         }
     }
@@ -168,19 +168,19 @@ App.tooltip = (function($) {
         $libContent.show();
     }
 
-    function initCourceContent(tooltipData) {
+    function initCourseContent(tooltipData) {
         hideAllContent();
 
-        $courceName.html(tooltipData[courceAttributeNames.name]);
-        $courceUrl.attr("href", tooltipData[courceAttributeNames.url]);
+        $courseName.html(tooltipData[courseAttributeNames.name]);
+        $courseUrl.attr("href", tooltipData[courseAttributeNames.url]);
 
-        $courceContent.show();
+        $courseContent.show();
     }
 
     function hideAllContent() {
         $geekContent.hide();
         $libContent.hide();
-        $courceContent.hide();
+        $courseContent.hide();
     }
 
     function setPosition(nodeData){
