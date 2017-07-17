@@ -172,60 +172,59 @@ body {
     float: left;
 }
 
-.tooltip .gravatar {
+.tooltip__geek-avatar__link {
     float: left;
-    margin-right: .8em;
+    margin-right: 10px;
+    font-size: 0;
 }
 
-.tooltip .gravatar-wrapper {
-    padding: 0;
-    width: 64px;
-    height: 64px;
-    overflow: hidden;
-}
-
-.tooltip .gravatar-wrapper img {
+.tooltip__geek-avatar__image {
+    display: inline-block;
     width: 64px;
     height: 64px;
 }
 
-.tooltip .user-info {
+.tooltip__geek-info {
     font-size: 12px;
     color: #e3e3e3;
     text-align: left;
     height: 64px;
+    float: right;
+    width: 150px;
 }
 
-.tooltip .user-link {
+.tooltip__geek-info__name {
     font-size: 18px;
-    color: #e2e2e2!important;
-    text-decoration: none;
-    font-weight: bold;
+    color: #e2e2e2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-y: hidden;
 }
 
-.tooltip .user-badges {
-    font-weight: normal;
+.tooltip__geek-info__badges {
+    margin: 7px 0;
 }
 
-.tooltip .gold-badges {
+.tooltip__geek-info__badge_gold {
     color: #FFCC00;
 }
 
-.tooltip .silver-badges {
+.tooltip__geek-info__badge_silver {
     color: #C5C5C5;
 }
 
-.tooltip .bronze-badges {
+.tooltip__geek-info__badge_bronze {
     color: #CC9966;
 }
 
-.tooltip .user-info a {
+.tooltip__geek-info__link,
+.tooltip__geek-info__link:visited {
     color: #b4d4ec;
     text-decoration: none;
     font-weight: normal;
 }
 
-.tooltip .user-info a:hover {
+.tooltip__geek-info__link:hover {
     color: #dcecf7;
     text-decoration: none;
 }

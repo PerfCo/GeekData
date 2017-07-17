@@ -96,8 +96,7 @@ App.tooltip = (function($) {
     function initGeekContent(tooltipData) {
         hideAllContent();
         
-        $geekName.html(tooltipData[geekAttributeNames.displayName])
-            .attr("href", tooltipData[geekAttributeNames.profileUrl]);
+        $geekName.text(tooltipData[geekAttributeNames.displayName]);
 
         $geekProfileUrl.attr("href", tooltipData[geekAttributeNames.profileUrl]);
 
@@ -112,7 +111,7 @@ App.tooltip = (function($) {
         $geekSite.attr("href", tooltipData[geekAttributeNames.profileUrl]);
 
         var badgesCount = getBadgesCount(tooltipData);
-        var countSelector = ".badgecount";
+        var countSelector = ".tooltip__geek-info__badge-count";
 
         if(badgesCount.gold) {
             $goldBadge.show().find(countSelector).text(badgesCount.gold);
