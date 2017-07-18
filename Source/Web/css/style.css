@@ -35,9 +35,11 @@ body {
     text-decoration: none;
 }
 
-.header__logo:hover {
+.header__logo:hover,
+.header__logo:visited {
     color: #ffffff;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .header__slogan {
@@ -130,13 +132,6 @@ body {
     color: #FFFFFF;
     text-align: left;
     border-bottom: 1px solid #727272;
-}
-
-.tooltip__header.user {
-    border-bottom: 0;
-    height: 64px;
-    padding-bottom: 0;
-    margin-bottom: 0;
 }
 
 .tooltip__header_course {

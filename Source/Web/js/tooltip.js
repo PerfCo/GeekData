@@ -203,8 +203,9 @@ App.tooltip = (function($) {
         var tooltipHeight = $tooltip.outerHeight();
 
         var marginX = 10;
-        var marginY = 50;
-        var extraY = 30; // needed if tooltip overflows window height
+        var marginY = 60;
+        var extraX = 40; // needed if tooltip overflows window width
+        var extraY = 40; // needed if tooltip overflows window height
         
         var nodeX = nodeData[nodePositionAttributeNames.x];
         var nodeY = nodeData[nodePositionAttributeNames.y];
@@ -213,7 +214,7 @@ App.tooltip = (function($) {
         var isOverflowByY = nodeY + marginY + tooltipHeight >= winHeight;
 
         var x = isOverflowByX ? 
-            (winWidth - tooltipWidth - marginX) : 
+            (winWidth - tooltipWidth - extraX) : 
             nodeX;
 
         var y = isOverflowByY ? 
