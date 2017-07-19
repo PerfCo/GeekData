@@ -1,9 +1,9 @@
 body {
-    min-width: 1000px;
     position: relative;
-    background: #222;
-    padding-top: 51px;
     margin: 0;
+    min-width: 1000px;
+    padding-top: 51px;
+    background: #222;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -16,22 +16,22 @@ body {
     top: 0;
     width: 100%;
     height: 50px;
+    border-bottom: 1px solid #ffffff;
     text-align: center;
     background-color: #222222;
     color: #ffffff;
-    border-bottom: 1px solid #ffffff;
 }
 
 .header__logo {
     position: absolute;
     left: 0;
+    margin: 0;
+    box-sizing: border-box;
     padding: 15px;
     line-height: 20px;
-    box-sizing: border-box;
     color: #ffffff;
     font-size: 21px;
     font-weight: bold;
-    margin: 0;
     text-decoration: none;
 }
 
@@ -44,8 +44,8 @@ body {
 
 .header__slogan {
     display: inline-block;
-    font-size: 21px;
     margin-top: 12px;
+    font-size: 21px;
 }
 
 .header__slogan-highlight {
@@ -55,15 +55,15 @@ body {
 
 .header__team {
     position: absolute;
-    right: 0;
     top: 0;
+    right: 0;
     margin-right: 80px;
     padding-top: 10px;
 }
 
 .team-member__link {
-    text-decoration: none;
     margin-left: 15px;
+    text-decoration: none;
 }
 
 .team-member__link:hover {
@@ -77,27 +77,27 @@ body {
 }
 
 .data-visualisation {
-    height: 600px;
     position: relative;
+    height: 600px;
     background: #222;
 }
 
 .data-visualisation__loader {
-    position: absolute;
-    left: 30%;
-    top: 25%;
-    width: 40%;
-    color: #fff;
-    font-size: 2em;
     display: none;
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    width: 40%;
+    font-size: 2em;
+    color: #fff;
 }
 
 .data-visualisation__chart {
     position: absolute;
-    width: 100%;
-    height: 100%;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .tooltip {
@@ -106,38 +106,38 @@ body {
     position: absolute;
     width: 250px;
     font: 13px;
+    z-index: 1002;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #222426;
     overflow: hidden;
-    z-index: 1002;
 }
 
 .tooltip__content {
     position: relative;
-    font-size: 12px;
     padding: 10px;
-    background: #505050;
     border: 1px solid #1C1C1C;
+    font-size: 12px;
+    z-index: 320;
+    background: #505050;
     border-radius: 2px 2px 2px 2px;
     box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 3px 0px;
     color: #E3E3E3;
-    z-index: 320;
 }
 
 .tooltip__header {
     margin: 0px 0px 8px;
     padding: 0px 0px 8px;
+    border-bottom: 1px solid #727272;
     font-size: 12px;
     font-weight: bold;
     color: #FFFFFF;
     text-align: left;
-    border-bottom: 1px solid #727272;
 }
 
 .tooltip__header_course {
-    border-bottom: 0;
-    padding-bottom: 0;
     margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
 }
 
 .tooltip__header__lib-info {
@@ -163,8 +163,8 @@ body {
 }
 
 .tooltip__header__course-name {
-    width: 145px; 
     float: left;
+    width: 145px; 
 }
 
 .tooltip__geek-avatar__link {
@@ -180,20 +180,20 @@ body {
 }
 
 .tooltip__geek-info {
+    float: right;
+    width: 150px;
+    height: 64px;
     font-size: 12px;
     color: #e3e3e3;
     text-align: left;
-    height: 64px;
-    float: right;
-    width: 150px;
 }
 
 .tooltip__geek-info__name {
     font-size: 18px;
     color: #e2e2e2;
+    overflow-y: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow-y: hidden;
 }
 
 .tooltip__geek-info__badges {
